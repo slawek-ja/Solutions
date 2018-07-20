@@ -19,13 +19,13 @@ public class PascalTriangle
             System.out.println();
         }
     }
-    private static int factorial(int getFactFrom)
+    private static int factorial(int number)
     {
         int factorial = 1;
-        while(getFactFrom >= 1)
+        while(number >= 1)
         {
-            factorial *= getFactFrom;
-            getFactFrom--;
+            factorial *= number;
+            number--;
         }
         return factorial;
     }
