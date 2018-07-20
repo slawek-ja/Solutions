@@ -7,7 +7,6 @@ public class PascalTriangle
         int result;
         for(int i = 0; i < howManyRows; i++)
         {
-
             for(int j = i; j <= howManyRows; j++)
             {
                 System.out.print(String.format("%3s",""));
