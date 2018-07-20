@@ -9,51 +9,20 @@ public class MultiplicationTable
         System.out.print("  ");
         for (int i = 1; i <= size; i++)
         {
-            System.out.print(makeSpaces(i) + i);
+            System.out.print(String.format("%6s", i));
         }
-        System.out.println();
-        System.out.println();
+        System.out.print("\n\n");
         for (int i = 1; i <= size; i++)
         {
-            if (i >= 10)
-            {
-                System.out.print(i);
-            }
-            else
-            {
-                System.out.print(" " + i);
-            }
+            System.out.print(String.format("%2s", i));
             for (int j = 1; j <= size; j++)
             {
-                System.out.print(makeSpaces(row * column) + row * column);
+                System.out.print(String.format("%6s", row * column));
                 column++;
             }
             row++;
             column = 1;
-            System.out.println();
-            System.out.println();
+            System.out.print("\n\n");
         }
-    }
-
-    public static String makeSpaces(int number)
-    {
-        String spaces = " ";
-        int howManySpaces = 5;
-        if (number >= 10)
-        {
-            if (number >= 100)
-            {
-                howManySpaces -= 2;
-            }
-            else
-            {
-                howManySpaces -= 1;
-            }
-        }
-        for (int i = 1; i < howManySpaces; i++)
-        {
-            spaces += " ";
-        }
-        return spaces;
     }
 }
