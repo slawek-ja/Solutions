@@ -11,7 +11,6 @@ public class PascalTriangle
             {
                 System.out.print(String.format("%3s",""));
             }
-
             for(int k = 0; k <= i; k++)
             {
                 result = factorial(i) / (factorial(k) * factorial(i-k));
