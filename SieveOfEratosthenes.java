@@ -4,35 +4,55 @@ public class SieveOfEratosthenes
 {
     public static int[] sieve(int maximumNumber)
     {
-        int size = 0;
-        for (int i = 2; i < maximumNumber; i++)
+        if(maximumNumber <= 2) System.out.print(0);
+
+        int tab[] = new int[maximumNumber-2];
+        int next_num = 2;
+        int find_index = 1;
+
+        for (int i = 0; i < tab.length; i++)
         {
-            if (isPrime(i))
+            tab[i] = i+2;
+        }
+
+        while (next_num < maximumNumber)
+        {
+            for (int i = find_index+1; i < tab.length; i++)
             {
-                size++;
+                if(tab[i] % next_num == 0)
+                {
+                    tab[i] = 0;
+                }
+            }
+            next_num++;
+            for (int i = 0; i < tab.length; i++)
+            {
+                if (tab[i] >= next_num)
+                {
+                    next_num = tab[i];
+                    find_index = i;
+                    break;
+                }
             }
         }
-        int [] array = new int[size];
-        int array_index = 0;
-        for (int i = 2; i < maximumNumber; i++)
+        int newTableLenght = 0;
+        for (int i = 0; i < tab.length; i++)
         {
-            if (isPrime(i))
+            if (tab[i] != 0)
             {
-                array[array_index] = i;
-                array_index++;
+                newTableLenght++;
             }
         }
-        return array;
-    }
-    private static boolean isPrime(int num)
-    {
-        for (int i = 2; i < num; i++)
+        int resultTab[] = new int[newTableLenght];
+        find_index = 0;
+        for (int i = 0; i < tab.length; i++)
         {
-            if (num % i == 0)
+            if(tab[i] != 0)
             {
-                return false;
+                resultTab[find_index] = tab[i];
+                find_index++;
             }
         }
-        return true;
+        return resultTab;
     }
 }
