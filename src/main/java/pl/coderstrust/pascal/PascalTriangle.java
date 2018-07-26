@@ -7,12 +7,10 @@ public class PascalTriangle
         int result;
         for(int i = 0; i < howManyRows; i++)
         {
-
             for(int j = i; j <= howManyRows; j++)
             {
                 System.out.print(String.format("%3s",""));
             }
-
             for(int k = 0; k <= i; k++)
             {
                 result = factorial(i) / (factorial(k) * factorial(i-k));
@@ -21,13 +19,13 @@ public class PascalTriangle
             System.out.println();
         }
     }
-    private static int factorial(int getFactFrom)
+    private static int factorial(int number)
     {
         int factorial = 1;
-        while(getFactFrom >= 1)
+        while(number >= 1)
         {
-            factorial *= getFactFrom;
-            getFactFrom--;
+            factorial *= number;
+            number--;
         }
         return factorial;
     }

@@ -6,21 +6,21 @@ public class ChristmasTree
     {
         int spaces = size;
         int stars = 1;
-        for (int i=0;i<size;i++)
+        for (int i = 0; i < size; i++)
         {
-            for (int j=spaces;j>0;j--)
+            for (int j = spaces; j > 0; j--)
             {
                 System.out.print(" ");
             }
-            for (int j=0;j<stars;j++)
+            for (int j = 0; j < stars; j++)
             {
                 System.out.print("*");
             }
             System.out.println();
-            stars+=2;
-            spaces-=1;
+            stars += 2;
+            spaces -= 1;
         }
-        for (int i=0;i<size-1;i++)
+        for (int i = 0; i < size - 1; i++)
         {
             System.out.print(" ");
         }
