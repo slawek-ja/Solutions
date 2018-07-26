@@ -1,33 +1,23 @@
 package pl.coderstrust.sort;
 
-public class SelectionSort
-{
-    public static int[] sort(int[] array)
-    {
-        int tab [] = new int[array.length];
-        for (int i = 0; i < array.length; i++)
-        {
-            tab[i] = array[i];
-        }
-        int min_val = 0;
-        int last_index = 0;
+public class SelectionSort {
+    public static int[] sort(int[] array) {
+        int tab[] = java.util.Arrays.copyOf(array, array.length);
+        int minVal = 0;
+        int lastIndex = 0;
         int buffor = 0;
-        for (int i = 0; i < tab.length; i++)
-        {
-            min_val = tab[i];
-            for (int j = i; j < tab.length; j++)
-            {
-                if (tab[j] < min_val)
-                {
-                    min_val = tab[j];
-                    last_index = j;
+        for (int i = 0; i < tab.length; i++) {
+            minVal = tab[i];
+            for (int j = i; j < tab.length; j++) {
+                if (tab[j] < minVal) {
+                    minVal = tab[j];
+                    lastIndex = j;
                 }
             }
-            if(tab[i] != min_val)
-            {
+            if (tab[i] != minVal) {
                 buffor = tab[i];
-                tab[i] = min_val;
-                tab[last_index] = buffor;
+                tab[i] = minVal;
+                tab[lastIndex] = buffor;
             }
         }
         return tab;
