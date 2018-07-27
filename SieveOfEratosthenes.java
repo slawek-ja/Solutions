@@ -1,45 +1,48 @@
 package pl.coderstrust.sieve;
 
-public class SieveOfEratosthenes
-{
+public class SieveOfEratosthenes {
     public static int[] sieve(int maximumNumber) {
         if (maximumNumber <= 2) System.out.print(0);
-
-        int tab[] = new int[maximumNumber - 2];
-        int remainder = 2;
-        int findIndex = 1;
-
+        int tab[] = new int[maximumNumber];
         for (int i = 0; i < tab.length; i++) {
-            tab[i] = i + 2;
+            tab[i] = i + 1;
         }
-
-        while (remainder < maximumNumber) {
-            for (int i = findIndex + 1; i < tab.length; i++) {
-                if (tab[i] % remainder == 0) {
-                    tab[i] = 0;
-                }
-            }
-            remainder++;
-            for (int i = 0; i < tab.length; i++) {
-                if (tab[i] >= remainder) {
-                    remainder = tab[i];
-                    findIndex = i;
+        tab[0] = 0;
+        tab[tab.length - 1] = 0;
+        int index = 0;
+        int multiple = 0;
+        int lastPosIndex = 0;
+        while (lastPosIndex < tab.length) {
+            for (int i = lastPosIndex; i < tab.length; i++) {
+                if (tab[i] != 0) {
+                    multiple = tab[i];
+                    index++;
                     break;
                 }
+                index++;
             }
+            lastPosIndex = index;
+            index += multiple;
+            multiple += multiple;
+            for (int i = index; i <= tab.length; i += lastPosIndex, multiple += lastPosIndex) {
+                if (tab[i - 1] == multiple) {
+                    tab[i - 1] = 0;
+                }
+            }
+            index = lastPosIndex;
         }
-        int newTableLength = 0;
+        int howManyNum = 0;
         for (int i = 0; i < tab.length; i++) {
             if (tab[i] != 0) {
-                newTableLength++;
+                howManyNum++;
             }
         }
-        int result[] = new int[newTableLength];
-        findIndex = 0;
+        int result[] = new int[howManyNum];
+        index = 0;
         for (int i = 0; i < tab.length; i++) {
             if (tab[i] != 0) {
-                result[findIndex] = tab[i];
-                findIndex++;
+                result[index] = tab[i];
+                index++;
             }
         }
         return result;
