@@ -7,14 +7,14 @@ public class BubbleSort {
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab.length - 1; j++) {
                 if (tab[j] > tab[j + 1]) {
-                    swapElementInArray(tab, j, j + 1);
+                    swapElemntsInArray(tab, j, j + 1);
                 }
             }
         }
         return tab;
     }
 
-    private static int[] swapElementInArray(int arrayToSwap[], int indexOfFirstElement, int indexOfSecondElement) {
+    private static int[] swapElemntsInArray(int[] arrayToSwap, int indexOfFirstElement, int indexOfSecondElement) {
         int buff = 0;
         buff = arrayToSwap[indexOfFirstElement];
         arrayToSwap[indexOfFirstElement] = arrayToSwap[indexOfSecondElement];
