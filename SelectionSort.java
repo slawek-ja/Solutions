@@ -1,8 +1,9 @@
 package pl.coderstrust.sort;
+import java.util.Arrays;
 
 public class SelectionSort {
     public static int[] sort(int[] array) {
-        int tab[] = java.util.Arrays.copyOf(array, array.length);
+        int tab[] = Arrays.copyOf(array, array.length);
         int minVal = 0;
         int lastIndex = 0;
         int buffor = 0;
