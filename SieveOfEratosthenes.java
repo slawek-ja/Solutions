@@ -1,8 +1,10 @@
 package pl.coderstrust.sieve;
 
 public class SieveOfEratosthenes {
+
     private static int multipleMarker = 0;
     private static int markCurrentIndex = 0;
+
     public static int[] sieve(int maximumNumber) {
         if (maximumNumber <= 2){
             System.out.print(0);
@@ -21,19 +23,18 @@ public class SieveOfEratosthenes {
             lastPosIndex = markCurrentIndex;
             markCurrentIndex += multiple;
             multiple += multiple;
-            markAsMultiple(tab,multiple,lastPosIndex);
+            markAsMultiple(tab, multiple, lastPosIndex);
             markCurrentIndex = lastPosIndex;
         }
         //create new table and fill it with n != 0
-        int result[] = new int[calculateMultiplies(tab)];
-        collectResults(tab,result);
+        int[] result = collectResults(tab);
         return result;
     }
-    private static int findNextMultiple(int[] searchFrom ,int lastIndex){
+    private static int findNextMultiple(int[] numbers, int startIndex){
         int multiple = 0;
-        for (int i = lastIndex; i < searchFrom.length; i++) {
-            if (searchFrom[i] != 0) {
-                multiple = searchFrom[i];
+        for (int i = startIndex; i < numbers.length; i++) {
+            if (numbers[i] != 0) {
+                multiple = numbers[i];
                 markCurrentIndex++;
                 return multiple;
             }
@@ -41,14 +42,14 @@ public class SieveOfEratosthenes {
         }
         return multiple;
     }
-    private static void markAsMultiple(int[] numbers, int multiples, int lastPos){
-        for (int i = markCurrentIndex; i <= numbers.length; i += lastPos, multiples += lastPos) {
-            if (numbers[i - 1] == multiples) {
-                numbers[i - 1] = 0;
+    private static void markAsMultiple(int[] numbers, int multiple, int lastPos){
+        for (int i = markCurrentIndex; i <= numbers.length; i += lastPos, multiple += lastPos) {
+            if (numbers[i - 1] == multiple) {
+                numbers[i - 1] = multipleMarker;
             }
         }
     }
-    private static int calculateMultiplies(int[] numbers){
+    private static int countMultiples(int[] numbers){
         int howManyNum = 0;
         for (int i = 0; i < numbers.length; i++) {
             if (numbers[i] != multipleMarker) {
@@ -57,13 +58,15 @@ public class SieveOfEratosthenes {
         }
         return howManyNum;
     }
-    private static void collectResults(int[] pullFrom, int[] fill){
+    private static int[] collectResults(int[] numbers){
         int index = 0;
-        for (int i = 0; i < pullFrom.length; i++) {
-            if (pullFrom[i] != multipleMarker) {
-                fill[index] = pullFrom[i];
+        int[] fill = new int[countMultiples(numbers)];
+        for (int i = 0; i < numbers.length; i++) {
+            if (numbers[i] != multipleMarker) {
+                fill[index] = numbers[i];
                 index++;
             }
         }
+        return fill;
     }
 }
