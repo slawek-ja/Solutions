@@ -5,6 +5,6 @@ public class FibonacciRecursive {
         if (fibonacciNumberInOrder < 2){
             return fibonacciNumberInOrder;
         }
-        return (fibonacci (fibonacciNumberInOrder - 1) + fibonacci (fibonacciNumberInOrder - 2));
+        return (fibonacci(fibonacciNumberInOrder - 1) + fibonacci(fibonacciNumberInOrder - 2));
     }
 }
