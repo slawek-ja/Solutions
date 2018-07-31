@@ -2,6 +2,10 @@ package pl.coderstrust.sieve;
 
 public class SieveOfEratosthenes {
     public static int[] sieve(int maximumNumber){
+        if(maximumNumber <= 2){
+            System.out.print(0);
+            System.exit(0);
+        }
         int[] table = fillTable(maximumNumber);
         for (int i = 2; i*i < table.length; i++){
             if(table[i] != 1){
