@@ -3,10 +3,9 @@ package pl.coderstrust.sieve;
 public class SieveOfEratosthenes {
     public static int[] sieve(int maximumNumber){
         if(maximumNumber <= 2){
-            System.out.print(0);
-            System.exit(0);
+            return new int[0];
         }
-        int[] table = fillTable(maximumNumber);
+        int[] table = initNumbers(maximumNumber);
         for (int i = 2; i*i < table.length; i++){
             if(table[i] != 1){
                 for (int j = i*i; j < table.length; j+=i){
@@ -14,32 +13,32 @@ public class SieveOfEratosthenes {
                 }
             }
         }
-        int[] result = returnResult(table);
+        int[] result = collectResults(table);
         return result;
     }
-    private static int[] fillTable(int num){
-        int[] fillWithNumbers = new int[num];
-        for (int i = 0;i < fillWithNumbers.length; i++){
-            fillWithNumbers[i] = i;
+    private static int[] initNumbers(int num){
+        int[] result = new int[num];
+        for (int i = 0; i < result.length; i++){
+            result[i] = i;
         }
-        return fillWithNumbers;
+        return result;
     }
-    private static int[] returnResult(int[] from){
-        from[1] = 0;
-        int countNum = 0;
-        for (int i : from) {
+    private static int[] collectResults(int[] numbers){
+        numbers[1] = 0;
+        int numberOfPrimes = 0;
+        for (int i : numbers) {
             if(i != 0){
-                countNum++;
+                numberOfPrimes++;
             }
         }
-        int[] result = new int[countNum];
-        int index = 0;
-        for (int i = 0; i < from.length; i++){
-            if(from[i] != 0){
-                result[index] = from[i];
-                index++;
+        int[] result = new int[numberOfPrimes];
+        int j = 0;
+        for (int i = 0; i < numbers.length; i++){
+            if(numbers[i] != 0){
+                result[j] = numbers[i];
+                j++;
             }
         }
-            return result;
+        return result;
     }
 }
