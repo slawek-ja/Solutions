@@ -7,11 +7,9 @@ public class SieveOfEratosthenes {
         }
         int[] table = initNumbers(maximumNumber);
         for (int i = 2; i*i < table.length; i++){
-            if(table[i] != 1){
                 for (int j = i*i; j < table.length; j+=i){
                     table[j] = 0;
                 }
-            }
         }
         int[] result = collectResults(table);
         return result;
