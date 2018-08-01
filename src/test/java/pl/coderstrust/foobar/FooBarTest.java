@@ -56,4 +56,3 @@ public class FooBarTest {
         assertTrue(expected.equals(array));
     }
 }
-
