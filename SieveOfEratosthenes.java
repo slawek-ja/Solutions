@@ -1,18 +1,20 @@
 package pl.coderstrust.sieve;
 
 public class SieveOfEratosthenes {
+    
+    private static int multiplesMarker = 0;
+    
     public static int[] sieve(int maximumNumber) {
         if(maximumNumber <= 2) {
             return new int[0];
         }
         int[] table = initNumbers(maximumNumber);
         for (int i = 2; i*i < table.length; i++) {
-                for (int j = i*i; j < table.length; j+=i) {
-                    table[j] = 0;
-                }
+            for (int j = i*i; j < table.length; j+=i) {
+                table[j] = multiplesMarker;
+            }
         }
-        int[] result = collectResults(table);
-        return result;
+        return collectResults(table);
     }
     private static int[] initNumbers(int num) {
         int[] result = new int[num];
@@ -25,13 +27,13 @@ public class SieveOfEratosthenes {
         numbers[1] = 0;
         int numberOfPrimes = 0;
         for (int number : numbers) {
-            if(number != 0) {
+            if(number != multiplesMarker) {
                 numberOfPrimes++;
             }
         }
         int[] result = new int[numberOfPrimes];
         for (int i = 0, j = 0; i < numbers.length; i++) {
-            if(numbers[i] != 0) {
+            if(numbers[i] != multiplesMarker) {
                 result[j] = numbers[i];
                 j++;
             }
