@@ -1,9 +1,7 @@
 package pl.coderstrust.foobar;
 
 import org.junit.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.Assert.*;
 
 public class FooBarTest {
@@ -11,11 +9,11 @@ public class FooBarTest {
     public void testForNegative() {
         //given
         int size = -20;
-        ArrayList<String>expected = new ArrayList<String>();
+        ArrayList<String> expected = new ArrayList<String>();
         expected.add("Invalid Value");
 
         //when
-        ArrayList<String>array = new ArrayList<String>(FooBar.printFooBar(size));
+        ArrayList<String>array = new ArrayList<String>(FooBar.getFooBar(size));
 
         //then
         assertTrue(expected.equals(array));
@@ -25,11 +23,11 @@ public class FooBarTest {
     public void testForZero() {
         //given
         int size = 0;
-        ArrayList<String>expected = new ArrayList<String>();
+        ArrayList<String> expected = new ArrayList<String>();
         expected.add("0 FooBar");
 
         //when
-        ArrayList<String>array = new ArrayList<String>(FooBar.printFooBar(size));
+        ArrayList<String>array = new ArrayList<String>(FooBar.getFooBar(size));
 
         //then
         assertTrue(expected.equals(array));
@@ -39,7 +37,7 @@ public class FooBarTest {
     public void testForFirstTen() {
         //given
         int size = 9;
-        ArrayList<String>expected = new ArrayList<String>();
+        ArrayList<String> expected = new ArrayList<String>();
         expected.add("0 FooBar");
         expected.add("1 ");
         expected.add("2 ");
@@ -52,7 +50,7 @@ public class FooBarTest {
         expected.add("9 Foo");
 
         //when
-        ArrayList<String>array = new ArrayList<String>(FooBar.printFooBar(size));
+        ArrayList<String>array = new ArrayList<String>(FooBar.getFooBar(size));
 
         //then
         assertTrue(expected.equals(array));
