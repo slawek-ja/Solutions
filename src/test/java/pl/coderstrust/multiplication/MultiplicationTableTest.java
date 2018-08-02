@@ -1,7 +1,6 @@
 package pl.coderstrust.multiplication;
 
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 public class MultiplicationTableTest {
