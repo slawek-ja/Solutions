@@ -12,18 +12,16 @@ public class PascalTriangle {
         StringBuilder storage = new StringBuilder();
         ArrayList<String> result = new ArrayList<String>();
         for (int i = 0; i < howManyRows; i++) {
-            for(int j = i; j <= howManyRows; j++) {
-                storage.append(String.format("%3s",""));
-            }
             for (int k = 0; k <= i; k++) {
                 resultFactorial = factorial(i) / (factorial(k) * factorial(i-k));
-                storage.append(String.format("%6s",resultFactorial));
+                storage.append(resultFactorial + " ");
             }
             result.add(storage.toString());
             storage.delete(0, storage.length());
         }
         return result;
     }
+
     private static int factorial(int number) {
         int factorial = 1;
         while(number >= 1) {
