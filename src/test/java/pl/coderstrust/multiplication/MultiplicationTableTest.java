@@ -44,7 +44,7 @@ public class MultiplicationTableTest {
     }
 
     @Test
-    public void testFirstFour() {
+    public void testForFirstFour() {
         //given
         int size = 4;
         int[][] expected = {{1, 2, 3, 4},{2, 4, 6, 8},{3, 6, 9, 12}, {4, 8, 12, 16}};
