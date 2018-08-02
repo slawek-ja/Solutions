@@ -5,8 +5,13 @@ import java.util.Collections;
 
 public class PascalTriangle {
     public static ArrayList<String> getPascalTriangle(int howManyRows) {
-        if (howManyRows < 1) {
-            return new ArrayList<String>(Collections.singletonList("Invalid Value"));
+        if (howManyRows <= 1) {
+            if (howManyRows == 1) {
+                return new ArrayList<String>(Collections.singletonList("1"));
+            }
+            else {
+                return new ArrayList<String>(Collections.singletonList("Invalid Value"));
+            }
         }
         int resultFactorial;
         StringBuilder storage = new StringBuilder();
