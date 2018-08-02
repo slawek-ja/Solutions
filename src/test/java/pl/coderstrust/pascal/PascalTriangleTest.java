@@ -38,7 +38,7 @@ public class PascalTriangleTest {
         //given
         int size = 1;
         ArrayList<String> expected = new ArrayList<String>();
-        expected.add("           1");
+        expected.add("1 ");
 
         //when
         ArrayList<String> array = PascalTriangle.getPascalTriangle(size);
@@ -52,10 +52,10 @@ public class PascalTriangleTest {
         //given
         int size = 4;
         ArrayList<String> expected = new ArrayList<String>();
-        expected.add("                    1");
-        expected.add("                 1     1");
-        expected.add("              1     2     1");
-        expected.add("           1     3     3     1");
+        expected.add("1 ");
+        expected.add("1 1 ");
+        expected.add("1 2 1 ");
+        expected.add("1 3 3 1 ");
 
         //when
         ArrayList<String> array = PascalTriangle.getPascalTriangle(size);
