@@ -34,6 +34,24 @@ public class ChristmasTreeTest {
     }
 
     @Test
+    public void testForThree() {
+        //given
+        int size = 3;
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add("   *");
+        expected.add("  ***");
+        expected.add(" *****");
+        expected.add("  **");
+
+
+        //when
+        ArrayList<String> array = ChristmasTree.getChristmasTree(size);
+
+        //then
+        assertTrue(expected.equals(array));
+    }
+
+    @Test
     public void testForFirstFive() {
         //given
         int size = 5;
