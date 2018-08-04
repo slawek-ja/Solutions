@@ -43,7 +43,6 @@ public class ChristmasTreeTest {
         expected.add(" *****");
         expected.add("  **");
 
-
         //when
         ArrayList<String> array = ChristmasTree.getChristmasTree(size);
 
