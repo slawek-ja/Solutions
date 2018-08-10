@@ -7,7 +7,7 @@ public class CollectionSort implements SortingMethod {
     public int[] sort(int[] array) {
         ArrayList<Integer> storage = new ArrayList<Integer>();
         for (int i = 0; i < array.length; i++) {
-            storage.add(i, array[i]);
+            storage.add(array[i]);
         }
         Collections.sort(storage);
         int[] result = new int[storage.size()];
