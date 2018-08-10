@@ -5,15 +5,16 @@ import java.util.Arrays;
 public class ShellSort implements SortingMethod {
     public int[] sort(int array[]) {
         int[] result = Arrays.copyOf(array, array.length);
-        int n = result.length;
-        int a = 0;
-        for (int gap = n/2; gap > 0; gap /= 2) {
-            for (int i = gap; i < n; i += 1) {
-                int buff = result[i];
-                for (a = i; a >= gap && result[a - gap] > buff; a -= gap) {
-                    result[a] = result[a - gap];
+        int arrLength = result.length;
+        int index = 0;
+        int buff = 0;
+        for (int gap = arrLength / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < arrLength; i += 1) {
+                buff = result[i];
+                for (index = i; index >= gap && result[index - gap] > buff; index -= gap) {
+                    result[index] = result[index - gap];
                 }
-                result[a] = buff;
+                result[index] = buff;
             }
         }
         return result;
