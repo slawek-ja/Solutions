@@ -1,8 +1,8 @@
 package pl.coderstrust.sort;
 import java.util.Arrays;
 
-public class BubbleSort {
-    public static int[] sort(int[] array) {
+public class BubbleSort implements SortingMethod{
+    public int[] sort(int[] array) {
         int[] tab = Arrays.copyOf(array, array.length);
         for (int i = 0; i < tab.length; i++) {
             for (int j = 0; j < tab.length - 1; j++) {
