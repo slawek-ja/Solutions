@@ -5,12 +5,12 @@ public class Circle implements Figure {
 
     public Circle(double r) {
         this.radius = r;
+        if (this.radius <=0) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public double calculateArea() {
-        if (radius <= 0) {
-            return -1;
-        }
+    public double area() {
         return Math.PI * Math.pow(radius, 2);
     }
 }
