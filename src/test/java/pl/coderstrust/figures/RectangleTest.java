@@ -5,45 +5,28 @@ import static org.junit.Assert.*;
 
 public class RectangleTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForNegative() {
         //given
-        double expected = -1;
-        double result;
-        Rectangle test = new Rectangle(-3, 6);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Rectangle example = new Rectangle(-3, 6);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForZero() {
         //given
-        double expected = -1;
-        double result;
-        Rectangle test = new Rectangle(3, 0);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Rectangle example = new Rectangle(3, 0);
     }
 
     @Test
     public void testForPositive() {
         //given
         double expected = 20;
-        double result;
-        Rectangle test = new Rectangle(4, 5);
+        Rectangle example = new Rectangle(4, 5);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
