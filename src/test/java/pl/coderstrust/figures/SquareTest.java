@@ -5,45 +5,28 @@ import static org.junit.Assert.*;
 
 public class SquareTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForNegative() {
         //given
-        double expected = -1;
-        double result;
-        Square test = new Square(-12);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Square example = new Square(-12);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForZero() {
         //given
-        double expected = -1;
-        double result;
-        Square test = new Square(0);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Square example = new Square(0);
     }
 
     @Test
     public void testForPositiveNum() {
         //given
         double expected = 25;
-        double result;
-        Square test = new Square(5);
+        Square example = new Square(5);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
