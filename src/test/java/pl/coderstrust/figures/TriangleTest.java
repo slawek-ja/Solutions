@@ -5,45 +5,28 @@ import static org.junit.Assert.*;
 
 public class TriangleTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForNegative() {
         //given
-        double expected = -1;
-        double result;
-        Triangle test = new Triangle(-3, 2);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Triangle example = new Triangle(-3, 2);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForZero() {
         //given
-        double expected = -1;
-        double result;
-        Triangle test = new Triangle(2, 0);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Triangle example = new Triangle(2, 0);
     }
 
     @Test
     public void testForPositive() {
         //given
         double expected = 14;
-        double result;
-        Triangle test = new Triangle(4, 7);
+        Triangle example = new Triangle(4, 7);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
