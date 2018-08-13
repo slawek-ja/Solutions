@@ -1,16 +1,16 @@
 package pl.coderstrust.figures;
 
 public class Circle implements Figure {
-    private double r;
+    private double radius;
 
     public Circle(double r) {
-        this.r = r;
+        this.radius = r;
     }
 
     public double calculateArea() {
-        if (r <= 0) {
+        if (radius <= 0) {
             return -1;
         }
-        return Math.PI * Math.pow(r, 2);
+        return Math.PI * Math.pow(radius, 2);
     }
 }
