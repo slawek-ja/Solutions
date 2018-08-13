@@ -9,24 +9,22 @@ public class FigureTest {
     public void showPolymorphism() {
         //given
         double expected = 36;
-        double result;
-        //test is now Square object
-        Figure test = new Square(6);
+        Figure example = new Square(6);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
 
-        //given, test is now Rectangle object
+        //given
         expected = 21;
-        test = new Rectangle(3, 7);
+        example = new Rectangle(3, 7);
 
         //when
-        result = test.calculateArea();
+        result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
