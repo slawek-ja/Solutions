@@ -7,12 +7,12 @@ public class Triangle implements Figure {
     public Triangle(double a, double h) {
         this.a = a;
         this.h = h;
+        if (a <= 0 || h <= 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public double calculateArea() {
-        if (a <= 0 || h <= 0) {
-            return -1;
-        }
+    public double area() {
         return a / 2 * h;
     }
 }

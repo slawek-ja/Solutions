@@ -9,12 +9,12 @@ public class Trapezoid implements Figure {
         this.a = a;
         this.c = c;
         this.h = h;
+        if (a <= 0 || c <= 0 || h <= 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public double calculateArea() {
-        if (a <= 0 || c <= 0 || h <= 0) {
-            return -1;
-        }
+    public double area() {
         return (a + c) / 2 * h;
     }
 }

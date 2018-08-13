@@ -1,16 +1,14 @@
 package pl.coderstrust.figures;
 
-public class Square implements Figure {
-    protected double a;
-
+public class Square extends Rectangle implements Figure {
     public Square(double a) {
-        this.a = a;
+        super(a);
+        if (this.a <= 0) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public double calculateArea() {
-        if (a <= 0) {
-            return -1;
-        }
-        return a * a;
+    public double area() {
+        return this.a * this.a;
     }
 }

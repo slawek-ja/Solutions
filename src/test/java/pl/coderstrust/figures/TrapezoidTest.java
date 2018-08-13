@@ -5,45 +5,28 @@ import static org.junit.Assert.*;
 
 public class TrapezoidTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForNegative() {
         //given
-        double expected = -1;
-        double result;
-        Trapezoid test = new Trapezoid(-3, -5, 9);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Trapezoid example = new Trapezoid(-3, -5, 9);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForZero() {
         //given
-        double expected = -1;
-        double result;
-        Trapezoid test = new Trapezoid(3, 0, 9);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Trapezoid example = new Trapezoid(3, 0, 9);
     }
 
     @Test
     public void testForPositive() {
         //given
         double expected = 72;
-        double result;
-        Trapezoid test = new Trapezoid(5, 7, 12);
+        Trapezoid example = new Trapezoid(5, 7, 12);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
