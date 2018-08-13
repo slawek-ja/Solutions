@@ -5,45 +5,29 @@ import static org.junit.Assert.*;
 
 public class CircleTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForNegative() {
         //given
-        double expected = -1;
-        double result;
-        Circle test = new Circle(-6);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Circle example = new Circle(-6);
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testForZero() {
         //given
-        double expected = -1;
-        double result;
-        Circle test = new Circle(0);
-
-        //when
-        result = test.calculateArea();
-
-        //then
-        assertEquals(expected, result, 2);
+        Circle example = new Circle(0);
     }
 
     @Test
     public void testForPositiveNum() {
         //given
         double expected = 153.94D;
-        double result;
-        Circle test = new Circle(7);
+        Circle example = new Circle(7);
 
         //when
-        result = test.calculateArea();
+        double result = example.area();
+        result = Math.round(result *100.0D) / 100.0D;
 
         //then
-        assertEquals(expected, result, 2);
+        assertEquals(expected, result, 0.0001);
     }
 }
