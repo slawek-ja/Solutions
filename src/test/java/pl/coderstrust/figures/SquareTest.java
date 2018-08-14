@@ -28,7 +28,7 @@ public class SquareTest {
     }
 
     @Test
-    public void testForPositiveNum() {
+    public void testForPositiveArguments() {
         //given
         double expected = 25;
         Figure square = new Square(5);
