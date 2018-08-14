@@ -31,7 +31,7 @@ public class RectangleTest {
     public void testForZero() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure rectangle = new Rectangle(3, 0);
     }
 
