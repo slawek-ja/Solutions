@@ -28,7 +28,7 @@ public class CircleTest {
     }
 
     @Test
-    public void testForPositiveNum() {
+    public void testForPositiveArguments() {
         //given
         double expected = 153.94D;
         Figure circle = new Circle(7);
