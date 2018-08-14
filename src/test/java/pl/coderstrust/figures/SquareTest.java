@@ -15,7 +15,7 @@ public class SquareTest {
     public void testForNegative() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid value");
         Figure square = new Square(-12);
     }
 
@@ -23,7 +23,7 @@ public class SquareTest {
     public void testForZero() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid value");
         Figure square = new Square(0);
     }
 

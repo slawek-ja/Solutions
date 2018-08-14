@@ -7,13 +7,13 @@ public class Trapezoid implements Figure {
 
     public Trapezoid(double a, double c, double h) {
         if (a <= 0) {
-            throw new IllegalArgumentException("Invalid Value");
+            throw new IllegalArgumentException("Invalid first value");
         }
-        else if (c <= 0) {
-            throw new IllegalArgumentException("Invalid Value");
+        if (c <= 0) {
+            throw new IllegalArgumentException("Invalid second value");
         }
-        else if (h <= 0) {
-            throw new IllegalArgumentException("Invalid Value");
+        if (h <= 0) {
+            throw new IllegalArgumentException("Invalid third value");
         }
         this.a = a;
         this.c = c;

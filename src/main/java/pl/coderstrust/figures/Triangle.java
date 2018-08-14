@@ -6,10 +6,10 @@ public class Triangle implements Figure {
 
     public Triangle(double a, double h) {
         if (a <= 0) {
-            throw new IllegalArgumentException("Invalid Value");
+            throw new IllegalArgumentException("Invalid first value");
         }
-        else if (h <= 0) {
-            throw new IllegalArgumentException("Invalid Value");
+        if (h <= 0) {
+            throw new IllegalArgumentException("Invalid second value");
         }
         this.a = a;
         this.h = h;
