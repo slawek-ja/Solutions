@@ -36,7 +36,7 @@ public class TriangleTest {
     }
 
     @Test
-    public void testForPositive() {
+    public void testForPositiveArguments() {
         //given
         double expected = 14;
         Figure triangle = new Triangle(4, 7);
