@@ -5,7 +5,6 @@ public class Square extends Rectangle implements Figure {
         super(a, a);
     }
 
-    @Override
     public double area() {
         return super.area();
     }
