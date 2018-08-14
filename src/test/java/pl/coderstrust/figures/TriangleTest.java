@@ -12,18 +12,18 @@ public class TriangleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testForNegativeFirstArg() {
+    public void testForNegativeFirstArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid first value");
         Figure triangle = new Triangle(-3, 2);
     }
 
     @Test
-    public void testForNegativeSecondArg() {
+    public void testForNegativeSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure triangle = new Triangle(3, -2);
     }
 
@@ -31,7 +31,7 @@ public class TriangleTest {
     public void testForZero() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure triangle = new Triangle(2, 0);
     }
 

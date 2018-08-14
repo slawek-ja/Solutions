@@ -15,7 +15,7 @@ public class CircleTest {
     public void testForNegative() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid value");
         Figure circle = new Circle(-6);
     }
 
@@ -23,7 +23,7 @@ public class CircleTest {
     public void testForZero() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid value");
         Figure circle = new Circle(0);
     }
 

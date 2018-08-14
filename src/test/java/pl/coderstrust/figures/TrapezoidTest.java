@@ -12,26 +12,26 @@ public class TrapezoidTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testForNegativeFirsArg() {
+    public void testForNegativeFirsArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid first value");
         Figure trapezoid = new Trapezoid(-3, 5, 9);
     }
 
     @Test
-    public void testForNegativeSecondArg() {
+    public void testForNegativeSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure trapezoid = new Trapezoid(3, -5, 9);
     }
 
     @Test
-    public void testForNegativeThirdArg() {
+    public void testForNegativeThirdArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid third value");
         Figure trapezoid = new Trapezoid(3, 5, -9);
     }
 
@@ -39,7 +39,7 @@ public class TrapezoidTest {
     public void testForZero() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure trapezoid = new Trapezoid(3, 0, 9);
     }
 

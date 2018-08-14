@@ -12,18 +12,18 @@ public class RectangleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testForNegativeFirstArg() {
+    public void testForNegativeFirstArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid first value");
         Figure rectangle = new Rectangle(-3, 6);
     }
 
     @Test
-    public void testForNegativeSecondArg() {
+    public void testForNegativeSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid Value");
+        thrown.expectMessage("Invalid second value");
         Figure rectangle = new Rectangle(4, -2);
     }
 
