@@ -36,7 +36,7 @@ public class RectangleTest {
     }
 
     @Test
-    public void testForPositive() {
+    public void testForPositiveArguments() {
         //given
         double expected = 20;
         Figure rectangle = new Rectangle(4, 5);
