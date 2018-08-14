@@ -4,16 +4,15 @@ public class Rectangle implements Figure {
     protected double a;
     private double b;
 
-    protected Rectangle (double a) {
-        this.a = a;
-    }
-
     public Rectangle(double a, double b) {
+        if (a <= 0) {
+            throw new IllegalArgumentException("Invalid Value");
+        }
+        else if (b <= 0) {
+            throw new IllegalArgumentException("Invalid Value");
+        }
         this.a = a;
         this.b = b;
-        if (this.a <= 0 || this.b <= 0) {
-            throw new IllegalArgumentException();
-        }
     }
 
     public double area() {

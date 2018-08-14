@@ -5,11 +5,14 @@ public class Triangle implements Figure {
     private double h;
 
     public Triangle(double a, double h) {
+        if (a <= 0) {
+            throw new IllegalArgumentException("Invalid Value");
+        }
+        else if (h <= 0) {
+            throw new IllegalArgumentException("Invalid Value");
+        }
         this.a = a;
         this.h = h;
-        if (a <= 0 || h <= 0) {
-            throw new IllegalArgumentException();
-        }
     }
 
     public double area() {

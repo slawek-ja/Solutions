@@ -4,10 +4,10 @@ public class Circle implements Figure {
     private double radius;
 
     public Circle(double r) {
-        this.radius = r;
-        if (this.radius <=0) {
-            throw new IllegalArgumentException();
+        if (r <= 0) {
+            throw new IllegalArgumentException("Inavlid Value");
         }
+        this.radius = r;
     }
 
     public double area() {
