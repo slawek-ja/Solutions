@@ -44,7 +44,7 @@ public class TrapezoidTest {
     }
 
     @Test
-    public void testForPositive() {
+    public void testForPositiveArguments() {
         //given
         double expected = 72;
         Figure trapezoid = new Trapezoid(5, 7, 12);
