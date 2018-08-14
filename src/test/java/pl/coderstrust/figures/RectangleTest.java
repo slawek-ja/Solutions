@@ -28,7 +28,15 @@ public class RectangleTest {
     }
 
     @Test
-    public void testForZero() {
+    public void testForZeroFirstArgument() {
+        //given
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid first value");
+        Figure rectangle = new Rectangle(0, 3);
+    }
+
+    @Test
+    public void testForZeroSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Invalid second value");

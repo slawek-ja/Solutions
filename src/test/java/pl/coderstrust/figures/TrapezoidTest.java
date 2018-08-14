@@ -36,11 +36,27 @@ public class TrapezoidTest {
     }
 
     @Test
-    public void testForZero() {
+    public void testForZeroFirstArgument() {
+        //given
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid first value");
+        Figure trapezoid = new Trapezoid(0, 3, 9);
+    }
+
+    @Test
+    public void testForZeroSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Invalid second value");
         Figure trapezoid = new Trapezoid(3, 0, 9);
+    }
+
+    @Test
+    public void testForZeroThirdArgument() {
+        //given
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid third value");
+        Figure trapezoid = new Trapezoid(9, 3, 0);
     }
 
     @Test

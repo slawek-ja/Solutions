@@ -28,11 +28,19 @@ public class TriangleTest {
     }
 
     @Test
-    public void testForZero() {
+    public void testForZeroFirstArgument() {
+        //given
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid first value");
+        Figure triangle = new Triangle(0, 4);
+    }
+
+    @Test
+    public void testForZeroSecondArgument() {
         //given
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Invalid second value");
-        Figure triangle = new Triangle(2, 0);
+        Figure triangle = new Triangle(4, 0);
     }
 
     @Test
