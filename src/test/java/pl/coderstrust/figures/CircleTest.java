@@ -1,30 +1,40 @@
 package pl.coderstrust.figures;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.junit.Assert.*;
 
 public class CircleTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
     public void testForNegative() {
         //given
-        Circle example = new Circle(-6);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Value");
+        Figure circle = new Circle(-6);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testForZero() {
         //given
-        Circle example = new Circle(0);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Value");
+        Figure circle = new Circle(0);
     }
 
     @Test
     public void testForPositiveNum() {
         //given
         double expected = 153.94D;
-        Circle example = new Circle(7);
+        Figure circle = new Circle(7);
 
         //when
-        double result = example.area();
+        double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;
 
         //then

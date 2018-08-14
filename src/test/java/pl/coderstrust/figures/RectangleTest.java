@@ -1,30 +1,48 @@
 package pl.coderstrust.figures;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
 import static org.junit.Assert.*;
 
 public class RectangleTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testForNegative() {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testForNegativeFirstArg() {
         //given
-        Rectangle example = new Rectangle(-3, 6);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Value");
+        Figure rectangle = new Rectangle(-3, 6);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
+    public void testForNegativeSecondArg() {
+        //given
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Value");
+        Figure rectangle = new Rectangle(4, -2);
+    }
+
+    @Test
     public void testForZero() {
         //given
-        Rectangle example = new Rectangle(3, 0);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Invalid Value");
+        Figure rectangle = new Rectangle(3, 0);
     }
 
     @Test
     public void testForPositive() {
         //given
         double expected = 20;
-        Rectangle example = new Rectangle(4, 5);
+        Figure rectangle = new Rectangle(4, 5);
 
         //when
-        double result = example.area();
+        double result = rectangle.area();
 
         //then
         assertEquals(expected, result, 0.0001);
