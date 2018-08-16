@@ -17,11 +17,15 @@ public class CircleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    @Parameters({
-            "0"})
-    public void testForDefaultConstructor(double expected) {
+    public void testForDefaultConstructor() {
+        //given
+        double expectedArea = 0;
+
+        //when
         Figure circle = new Circle();
-        assertThat(circle.area(), is(expected));
+
+        //then
+        assertThat(circle.area(), is(expectedArea));
     }
 
     @Test
@@ -29,23 +33,31 @@ public class CircleTest {
             "4, 50.27",
             "2, 12.57",
             "7, 153.94"})
-    public void testForDefaultConstructorWithSetter(double a, double expected) {
+    public void testForDefaultConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
+        //given
         Circle circle = new Circle();
-        circle.setRadius(a);
+
+        //when
+        circle.setRadius(radius);
         double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
             "0",
             "-8"})
-    public void testForDefaultConstructorWithSetterInvalidArgument(double a) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid value");
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double radius) {
+        //given
         Circle circle = new Circle();
-        circle.setRadius(a);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Radius must be greater than 0");
+
+        //when
+        circle.setRadius(radius);
     }
 
     @Test
@@ -53,44 +65,60 @@ public class CircleTest {
             "12, 452.39",
             "4, 50.27",
             "6, 113.10" })
-    public void testForPositiveArgumentsNoSetter(double a, double expected) {
-        Figure circle = new Circle(a);
-        double result = circle.area();
-        result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
-    }
+    public void testForParameterizedConstructorWithValidArgument(double radius, double expectedArea) {
+        //given
+        Figure circle = new Circle(radius);
 
-    @Test
-    @Parameters({
-            "1, 201.06",
-            "2, 201.06",
-            "3, 201.06"})
-    public void testForPositiveArgumentsWithSetter(double a, double expected) {
-        Circle circle = new Circle();
-        circle.setRadius(8);
+        //when
         double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
             "0",
             "-3"})
-    public void testForInvalidArguments(double a) {
+    public void testForParameterizedConstructorWithInvalidArgument(double radius) {
+        //then
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid value");
-        new Circle(a);
+        thrown.expectMessage("Radius must be greater than 0");
+
+        //when
+        new Circle(radius);
     }
 
     @Test
     @Parameters({
             "0",
             "-9"})
-    public void testForInvalidArgumentsWithSetter(double a) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid value");
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double radius) {
+        //given
         Circle circle = new Circle(3);
-        circle.setRadius(a);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Radius must be greater than 0");
+
+        //when
+        circle.setRadius(radius);
+    }
+
+    @Test
+    @Parameters({
+            "6, 113.1",
+            "2, 12.57",
+            "6, 113.1"})
+    public void testForParameterizedConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
+        //given
+        Circle circle = new Circle(3);
+
+        //when
+        circle.setRadius(radius);
+        double result = circle.area();
+        result = Math.round(result *100.0D) / 100.0D;
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 }
