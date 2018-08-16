@@ -48,11 +48,11 @@ public class RectangleTest {
             "2, 0, Width must be greater than 0",
             "-8, 3, Height must be greater than 0",
             "7, -2, Width must be greater than 0"})
-    public void testForDefaultConstructorAndSetterWithInvalidArgument(double height , double width, String expectedArea) {
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double height , double width, String exceptionMessage) {
         //given
         Rectangle rectangle = new Rectangle();
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(expectedArea);
+        thrown.expectMessage(exceptionMessage);
 
         //when
         rectangle.setHeight(height);
@@ -97,9 +97,9 @@ public class RectangleTest {
             "3, 0, Width must be greater than 0",
             "-5, 8, Height must be greater than 0",
             "5, -8, Width must be greater than 0"})
-    public void testForParameterizedConstructorWithInvalidArgument(double height , double width, String message) {
+    public void testForParameterizedConstructorWithInvalidArgument(double height , double width, String exceptionMessage) {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
         new Rectangle(height, width);
     }
 
@@ -109,10 +109,10 @@ public class RectangleTest {
             "0, 6, Height must be greater than 0",
             "-1, 6, Height must be greater than 0",
             "6, -3, Width must be greater than 0"})
-    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double height, double width, String message) {
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double height, double width, String exceptionMessage) {
         //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
         Rectangle rectangle = new Rectangle(3, 6);
 
         //when

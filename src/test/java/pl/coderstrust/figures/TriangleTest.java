@@ -48,11 +48,11 @@ public class TriangleTest {
             "2, 0, Height must be greater than 0",
             "-3, 7, Base must be greater than 0",
             "3, -5, Height must be greater than 0"})
-    public void testForDefaultConstructorAndSetterWithInvalidArgument(double base, double height, String expectedArea) {
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double base, double height, String exceptionMessage) {
         //when
         Triangle triangle = new Triangle();
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(expectedArea);
+        thrown.expectMessage(exceptionMessage);
 
         //then
         triangle.setBase(base);
@@ -97,9 +97,9 @@ public class TriangleTest {
             "2, 0, Height must be greater than 0",
             "-6, 7, Base must be greater than 0",
             "2, -7, Height must be greater than 0"})
-    public void testForParameterizedConstructorWithInvalidArgument(double base, double height, String message) {
+    public void testForParameterizedConstructorWithInvalidArgument(double base, double height, String exceptionMessage) {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
         new Triangle(base, height);
     }
 
@@ -109,11 +109,11 @@ public class TriangleTest {
             "1, 0, Height must be greater than 0",
             "-6, 7, Base must be greater than 0",
             "4, -7, Height must be greater than 0"})
-    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double base, double height, String message) {
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double base, double height, String exceptionMessage) {
         //given
         Triangle triangle = new Triangle(1, 2);
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
 
         //when
         triangle.setBase(base);

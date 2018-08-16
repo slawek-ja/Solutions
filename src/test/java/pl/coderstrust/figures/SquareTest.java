@@ -46,7 +46,7 @@ public class SquareTest {
             "4",
             "0",
             "-7"})
-    public void testForDefaultConstructorAndSetterWithInvalidSetter(double width) {
+    public void testForDefaultConstructorAndInvalidSetter(double width) {
         //when
         Square square = new Square();
         thrown.expect(UnsupportedOperationException.class);
@@ -54,6 +54,21 @@ public class SquareTest {
 
         //then
         square.setWidth(width);
+    }
+
+    @Test
+    @Parameters({
+            "3",
+            "6",
+            "5"})
+    public void testForParameterizedConstructorAndInvalidSetter(double height) {
+        //when
+        Square square = new Square(height);
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Square can only be initialised by setHeight(height)");
+
+        //then
+        square.setWidth(3);
     }
 
     @Test

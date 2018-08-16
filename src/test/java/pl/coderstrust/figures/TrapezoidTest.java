@@ -51,11 +51,11 @@ public class TrapezoidTest {
             "-3, 4, 7, Base must be greater than 0",
             "2, -9, 3, Arm must be greater than 0",
             "8, 3, -5, Height must be greater than 0"})
-    public void testForDefaultConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String expectedArea) {
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String exceptionMessage) {
         //when
         Trapezoid trapezoid = new Trapezoid();
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(expectedArea);
+        thrown.expectMessage(exceptionMessage);
 
         //then
         trapezoid.setBase(base);
@@ -104,9 +104,9 @@ public class TrapezoidTest {
             "-6, 5, 7, Base must be greater than 0",
             "3, -2, 7, Arm must be greater than 0",
             "2, 5, -7, Height must be greater than 0"})
-    public void testForParameterizedConstructorWithInvalidArgument(double base, double arm, double height, String message) {
+    public void testForParameterizedConstructorWithInvalidArgument(double base, double arm, double height, String exceptionMessage) {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
         new Trapezoid(base, arm, height);
     }
 
@@ -118,11 +118,11 @@ public class TrapezoidTest {
             "-6, 5, 7, Base must be greater than 0",
             "3, -2, 7, Arm must be greater than 0",
             "2, 5, -7, Height must be greater than 0"})
-    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String message) {
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String exceptionMessage) {
         //given
         Trapezoid trapezoid = new Trapezoid(1,2,3);
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+        thrown.expectMessage(exceptionMessage);
 
         //when
         trapezoid.setBase(base);
