@@ -8,7 +8,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-
 @RunWith(JUnitParamsRunner.class)
 
 public class RectangleTest {
@@ -17,11 +16,13 @@ public class RectangleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    @Parameters({
-            "0"})
-    public void testForDefaultConstructor(double expected) {
+    public void testForDefaultConstructor() {
+        //when
+        double expectedArea = 0;
         Figure rectangle = new Rectangle();
-        assertThat(rectangle.area(), is(expected));
+
+        //then
+        assertThat(rectangle.area(), is(expectedArea));
     }
 
     @Test
@@ -29,27 +30,33 @@ public class RectangleTest {
             "2, 4, 8",
             "1, 7, 7",
             "3, 3, 9"})
-    public void testForDefaultConstructorWithSetter(double a , double b, double expected) {
+    public void testForDefaultConstructorAndSetterWithValidArgument(double height , double width, double expectedArea) {
+        //when
         Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(a);
-        rectangle.setWidth(b);
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
         double result = rectangle.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "0, 4, Invalid first value",
-            "2, 0, Invalid second value",
-            "-8, 3, Invalid first value",
-            "7, -2, Invalid second value"})
-    public void testForDefaultConstructorWithSetterInvalidArguments(double a , double b, String expected) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(expected);
+            "0, 4, Height must be greater than 0",
+            "2, 0, Width must be greater than 0",
+            "-8, 3, Height must be greater than 0",
+            "7, -2, Width must be greater than 0"})
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double height , double width, String expectedArea) {
+        //given
         Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(a);
-        rectangle.setWidth(b);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(expectedArea);
+
+        //when
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
     }
 
     @Test
@@ -57,52 +64,59 @@ public class RectangleTest {
             "2, 5, 10",
             "7, 3, 21",
             "3, 4, 12" })
-    public void testForPositiveArgumentsNoSetter(double a , double b, double expected) {
-        Figure rectangle = new Rectangle(a, b);
+    public void testForParameterizedConstructorWithValidArgument(double height , double width, double expectedArea) {
+        //when
+        Figure rectangle = new Rectangle(height, width);
         double result = rectangle.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "1, 1, 12",
-            "2, 2, 12",
-            "3, 3, 12"})
-    public void testForPositiveArgumentsWithSetter(double a , double b, double expected) {
-        Rectangle rectangle = new Rectangle(a, b);
-        rectangle.setHeight(4);
-        rectangle.setWidth(3);
+            "3, 7, 21",
+            "2, 4, 8",
+            "3, 8, 24"})
+    public void testForParameterizedConstructorAndSetterWithValidArgument(double height, double width, double expectedArea) {
+        //when
+        Rectangle rectangle = new Rectangle(3, 6);
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
         double result = rectangle.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "0, 5, Invalid first value",
-            "3, 0, Invalid second value",
-            "-5, 8, Invalid first value",
-            "5, -8, Invalid second value"
-    })
-    public void testForInvalidArguments(double a , double b, String message) {
+            "0, 5, Height must be greater than 0",
+            "3, 0, Width must be greater than 0",
+            "-5, 8, Height must be greater than 0",
+            "5, -8, Width must be greater than 0"})
+    public void testForParameterizedConstructorWithInvalidArgument(double height , double width, String message) {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(message);
-        new Rectangle(a, b);
+        new Rectangle(height, width);
     }
 
     @Test
     @Parameters({
-            "3, 0, Invalid second value",
-            "0, 6, Invalid first value",
-            "-1, 6, Invalid first value",
-            "6, -3, Invalid second value"
-    })
-    public void testForInvalidArgumentsWithSetter(double a , double b, String message) {
+            "3, 0, Width must be greater than 0",
+            "0, 6, Height must be greater than 0",
+            "-1, 6, Height must be greater than 0",
+            "6, -3, Width must be greater than 0"})
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double height, double width, String message) {
+        //given
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(message);
         Rectangle rectangle = new Rectangle(3, 6);
-        rectangle.setHeight(a);
-        rectangle.setWidth(b);
+
+        //when
+        rectangle.setHeight(height);
+        rectangle.setWidth(width);
     }
 }

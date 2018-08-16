@@ -8,7 +8,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-
 @RunWith(JUnitParamsRunner.class)
 
 public class TrapezoidTest {
@@ -17,11 +16,13 @@ public class TrapezoidTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    @Parameters({
-            "0"})
-    public void testForDefaultConstructor(double expected) {
+    public void testForDefaultConstructor() {
+        //when
+        double expectedArea = 0;
         Figure trapezoid = new Trapezoid();
-        assertThat(trapezoid.area(), is(expected));
+
+        //then
+        assertThat(trapezoid.area(), is(expectedArea));
     }
 
     @Test
@@ -29,31 +30,37 @@ public class TrapezoidTest {
             "2, 5, 7, 24.50",
             "1, 3, 5, 10",
             "9, 5, 2, 14"})
-    public void testForDefaultConstructorWithSetter(double a, double c, double h, double expected) {
+    public void testForDefaultConstructorAndSetterWithValidArgument(double base, double arm, double height, double expectedArea) {
+        //when
         Trapezoid trapezoid = new Trapezoid();
-        trapezoid.setBase(a);
-        trapezoid.setArm(c);
-        trapezoid.setHeight(h);
+        trapezoid.setBase(base);
+        trapezoid.setArm(arm);
+        trapezoid.setHeight(height);
         double result = trapezoid.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "0, 4, 7, Invalid first value",
-            "2, 0, 3, Invalid second value",
-            "8, 3, 0, Invalid third value",
-            "-3, 4, 7, Invalid first value",
-            "2, -9, 3, Invalid second value",
-            "8, 3, -5, Invalid third value"})
-    public void testForDefaultConstructorWithSetterInvalidArguments(double a, double c, double h, String expected) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(expected);
+            "0, 4, 7, Base must be greater than 0",
+            "2, 0, 3, Arm must be greater than 0",
+            "8, 3, 0, Height must be greater than 0",
+            "-3, 4, 7, Base must be greater than 0",
+            "2, -9, 3, Arm must be greater than 0",
+            "8, 3, -5, Height must be greater than 0"})
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String expectedArea) {
+        //when
         Trapezoid trapezoid = new Trapezoid();
-        trapezoid.setBase(a);
-        trapezoid.setArm(c);
-        trapezoid.setHeight(h);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(expectedArea);
+
+        //then
+        trapezoid.setBase(base);
+        trapezoid.setArm(arm);
+        trapezoid.setHeight(height);
     }
 
     @Test
@@ -61,56 +68,65 @@ public class TrapezoidTest {
             "3, 5, 3, 12",
             "2, 7, 5, 22.50",
             "7, 3, 1, 5" })
-    public void testForPositiveArgumentsNoSetter(double a, double c, double h, double expected) {
-        Figure trapezoid = new Trapezoid(a, c, h);
+    public void testForParameterizedConstructorWithValidArgument(double base, double arm, double height, double expectedArea) {
+        //when
+        Figure trapezoid = new Trapezoid(base, arm, height);
         double result = trapezoid.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "1, 1, 1, 31.50",
-            "2, 2, 2, 31.50",
-            "3, 3, 3, 31.50"})
-    public void testForPositiveArgumentsWithSetter(double a, double c, double h, double expected) {
-        Trapezoid trapezoid = new Trapezoid(a, c, h);
-        trapezoid.setBase(4);
-        trapezoid.setArm(5);
-        trapezoid.setHeight(7);
+            "4, 6, 3, 15",
+            "2, 5, 1, 3.5",
+            "8, 2, 10, 50"})
+    public void testForParameterizedConstructorAndSetterWithValidArgument(double base, double arm, double height, double expectedArea) {
+        //when
+        Trapezoid trapezoid = new Trapezoid(3, 7, 2);
+        trapezoid.setBase(base);
+        trapezoid.setArm(arm);
+        trapezoid.setHeight(height);
         double result = trapezoid.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "0, 5, 7, Invalid first value",
-            "3, 0, 3, Invalid second value",
-            "3, 6, 0, Invalid third value",
-            "-6, 5, 7, Invalid first value",
-            "3, -2, 7, Invalid second value",
-            "2, 5, -7, Invalid third value"})
-    public void testForInvalidArguments(double a , double c, double h, String message) {
+            "0, 5, 7, Base must be greater than 0",
+            "3, 0, 3, Arm must be greater than 0",
+            "3, 6, 0, Height must be greater than 0",
+            "-6, 5, 7, Base must be greater than 0",
+            "3, -2, 7, Arm must be greater than 0",
+            "2, 5, -7, Height must be greater than 0"})
+    public void testForParameterizedConstructorWithInvalidArgument(double base, double arm, double height, String message) {
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(message);
-        new Trapezoid(a, c, h);
+        new Trapezoid(base, arm, height);
     }
 
     @Test
     @Parameters({
-            "0, 5, 7, Invalid first value",
-            "3, 0, 3, Invalid second value",
-            "3, 6, 0, Invalid third value",
-            "-6, 5, 7, Invalid first value",
-            "3, -2, 7, Invalid second value",
-            "2, 5, -7, Invalid third value"})
-    public void testForInvalidArgumentsWithSetter(double a , double c, double h, String message) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(message);
+            "0, 5, 7, Base must be greater than 0",
+            "3, 0, 3, Arm must be greater than 0",
+            "3, 6, 0, Height must be greater than 0",
+            "-6, 5, 7, Base must be greater than 0",
+            "3, -2, 7, Arm must be greater than 0",
+            "2, 5, -7, Height must be greater than 0"})
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double base, double arm, double height, String message) {
+        //given
         Trapezoid trapezoid = new Trapezoid(1,2,3);
-        trapezoid.setBase(a);
-        trapezoid.setArm(c);
-        trapezoid.setHeight(h);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(message);
+
+        //when
+        trapezoid.setBase(base);
+        trapezoid.setArm(arm);
+        trapezoid.setHeight(height);
     }
 }

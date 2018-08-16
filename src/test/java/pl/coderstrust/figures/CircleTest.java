@@ -8,7 +8,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-
 @RunWith(JUnitParamsRunner.class)
 
 public class CircleTest {
@@ -18,10 +17,8 @@ public class CircleTest {
 
     @Test
     public void testForDefaultConstructor() {
-        //given
-        double expectedArea = 0;
-
         //when
+        double expectedArea = 0;
         Figure circle = new Circle();
 
         //then
@@ -34,10 +31,8 @@ public class CircleTest {
             "2, 12.57",
             "7, 153.94"})
     public void testForDefaultConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
-        //given
-        Circle circle = new Circle();
-
         //when
+        Circle circle = new Circle();
         circle.setRadius(radius);
         double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;
@@ -66,10 +61,8 @@ public class CircleTest {
             "4, 50.27",
             "6, 113.10" })
     public void testForParameterizedConstructorWithValidArgument(double radius, double expectedArea) {
-        //given
-        Figure circle = new Circle(radius);
-
         //when
+        Figure circle = new Circle(radius);
         double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;
 
@@ -82,11 +75,8 @@ public class CircleTest {
             "0",
             "-3"})
     public void testForParameterizedConstructorWithInvalidArgument(double radius) {
-        //then
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Radius must be greater than 0");
-
-        //when
         new Circle(radius);
     }
 
@@ -110,10 +100,8 @@ public class CircleTest {
             "2, 12.57",
             "6, 113.1"})
     public void testForParameterizedConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
-        //given
-        Circle circle = new Circle(3);
-
         //when
+        Circle circle = new Circle(3);
         circle.setRadius(radius);
         double result = circle.area();
         result = Math.round(result *100.0D) / 100.0D;

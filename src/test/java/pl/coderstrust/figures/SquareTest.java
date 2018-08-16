@@ -8,7 +8,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
-
 @RunWith(JUnitParamsRunner.class)
 
 public class SquareTest {
@@ -17,11 +16,13 @@ public class SquareTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    @Parameters({
-            "0"})
-    public void testForDefaultConstructor(double expected) {
+    public void testForDefaultConstructor() {
+        //when
+        double expectedArea = 0;
         Square square = new Square();
-        assertThat(square.area(), is(expected));
+
+        //then
+        assertThat(square.area(), is(expectedArea));
     }
 
     @Test
@@ -29,12 +30,15 @@ public class SquareTest {
             "4, 16",
             "2, 4",
             "7, 49"})
-    public void testForDefaultConstructorWithSetter(double a, double expected) {
+    public void testForDefaultConstructorAndSetterWithValidArgument(double height, double expectedArea) {
+        //when
         Square square = new Square();
-        square.setHeight(a);
+        square.setHeight(height);
         double result = square.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
@@ -42,22 +46,28 @@ public class SquareTest {
             "4",
             "0",
             "-7"})
-    public void testForDefaultConstructorWithSetterSetWidthIllegal(double a) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Square can only be initialised by setHeight(a)");
+    public void testForDefaultConstructorAndSetterWithInvalidSetter(double width) {
+        //when
         Square square = new Square();
-        square.setWidth(a);
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Square can only be initialised by setHeight(height)");
+
+        //then
+        square.setWidth(width);
     }
 
     @Test
     @Parameters({
             "0",
             "-8"})
-    public void testForDefaultConstructorWithSetterInvalidArgument(double a) {
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid first value");
+    public void testForDefaultConstructorAndSetterWithInvalidArgument(double height) {
+        //given
         Square square = new Square();
-        square.setHeight(a);
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Height must be greater than 0");
+
+        //when
+        square.setHeight(height);
     }
 
     @Test
@@ -65,44 +75,53 @@ public class SquareTest {
             "2, 4",
             "4, 16",
             "6, 36" })
-    public void testForPositiveArgumentsNoSetter(double a, double expected) {
-        Figure square = new Square(a);
+    public void testForParameterizedConstructorWithValidArgument(double height, double expectedArea) {
+        //when
+        Figure square = new Square(height);
         double result = square.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
-            "1, 25",
-            "2, 25",
-            "3, 25"})
-    public void testForPositiveArgumentsWithSetter(double a, double expected) {
-        Square square = new Square(a);
-        square.setHeight(5);
+            "4, 16",
+            "2, 4",
+            "3, 9"})
+    public void testForParameterizedConstructorAndSetterWithValidArgument(double height, double expectedArea) {
+        //when
+        Square square = new Square(4);
+        square.setHeight(height);
         double result = square.area();
         result = Math.round(result *100.0D) / 100.0D;
-        assertEquals(expected, result, 0.0001);
+
+        //then
+        assertEquals(expectedArea, result, 0.0001);
     }
 
     @Test
     @Parameters({
             "0",
             "-3"})
-    public void testForInvalidArguments(double a) {
+    public void testForParameterizedConstructorWithInvalidArgument(double height) {
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid first value");
-        new Square(a);
+        thrown.expectMessage("Height must be greater than 0");
+        new Square(height);
     }
 
     @Test
     @Parameters({
             "0",
             "-9"})
-    public void testForInvalidArgumentsWithSetter(double a) {
+    public void testForParameterizedConstructorAndSetterWithInvalidArgument(double height) {
+        //given
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid first value");
+        thrown.expectMessage("Height must be greater than 0");
         Square square = new Square(3);
-        square.setHeight(a);
+
+        //when
+        square.setHeight(height);
     }
 }
