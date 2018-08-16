@@ -6,18 +6,21 @@ public class Square extends Rectangle implements Figure {
         super();
     }
 
-    public Square(double a) {
-        super(a, a);
+    public Square(double height) {
+        super(height, height);
     }
 
     @Override
-    public void setHeight(double a) {
-        super.setHeight(a);
-        super.setWidth(a);
+    public void setHeight(double height) {
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
+        }
+        super.setHeight(height);
+        super.setWidth(height);
     }
 
     @Override
-    public void setWidth(double b) {
-        throw new IllegalArgumentException("Square can only be initialised by setHeight(a)");
+    public void setWidth(double width) {
+        throw new UnsupportedOperationException("Square can only be initialised by setHeight(height)");
     }
 }

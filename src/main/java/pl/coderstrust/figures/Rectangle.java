@@ -1,40 +1,40 @@
 package pl.coderstrust.figures;
 
 public class Rectangle implements Figure {
-    private double a;
-    private double b;
+    private double height;
+    private double width;
 
     public Rectangle() {
-        this.a = 0;
-        this.b = 0;
+        this.height = 0;
+        this.width = 0;
     }
 
-    public Rectangle(double a, double b) {
-            if (a <= 0) {
-                throw new IllegalArgumentException("Invalid first value");
+    public Rectangle(double height, double width) {
+            if (height <= 0) {
+                throw new IllegalArgumentException("Height must be greater than 0");
             }
-            if (b <= 0) {
-                throw new IllegalArgumentException("Invalid second value");
+            if (width <= 0) {
+                throw new IllegalArgumentException("Width must be greater than 0");
             }
-            this.a = a;
-            this.b = b;
+            this.height = height;
+            this.width = width;
     }
 
-    public void setHeight(double a) {
-        if (a <= 0) {
-            throw new IllegalArgumentException("Invalid first value");
+    public void setHeight(double height) {
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
         }
-        this.a = a;
+        this.height = height;
     }
 
-    public void setWidth(double b) {
-        if (b <= 0) {
-            throw new IllegalArgumentException("Invalid second value");
+    public void setWidth(double width) {
+        if (width <= 0) {
+            throw new IllegalArgumentException("Width must be greater than 0");
         }
-        this.b = b;
+        this.width = width;
     }
 
     public double area() {
-        return a * b;
+        return height * width;
     }
 }

@@ -1,53 +1,53 @@
 package pl.coderstrust.figures;
 
 public class Trapezoid implements Figure {
-    private double a;
-    private double c;
-    private double h;
+    private double base;
+    private double arm;
+    private double height;
 
     public Trapezoid() {
-        this.a = 0;
-        this.c = 0;
-        this.h = 0;
+        this.base = 0;
+        this.arm = 0;
+        this.height = 0;
     }
 
-    public Trapezoid(double a, double c, double h) {
-        if (a <= 0) {
-            throw new IllegalArgumentException("Invalid first value");
+    public Trapezoid(double base, double arm, double height) {
+        if (base <= 0) {
+            throw new IllegalArgumentException("Base must be greater than 0");
         }
-        if (c <= 0) {
-            throw new IllegalArgumentException("Invalid second value");
+        if (arm <= 0) {
+            throw new IllegalArgumentException("Arm must be greater than 0");
         }
-        if (h <= 0) {
-            throw new IllegalArgumentException("Invalid third value");
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
         }
-        this.a = a;
-        this.c = c;
-        this.h = h;
+        this.base = base;
+        this.arm = arm;
+        this.height = height;
     }
 
-    public void setBase(double a) {
-        if (a <= 0) {
-            throw new IllegalArgumentException("Invalid first value");
+    public void setBase(double base) {
+        if (base <= 0) {
+            throw new IllegalArgumentException("Base must be greater than 0");
         }
-        this.a = a;
+        this.base = base;
     }
 
-    public void setArm(double c) {
-        if (c <= 0) {
-            throw new IllegalArgumentException("Invalid second value");
+    public void setArm(double arm) {
+        if (arm <= 0) {
+            throw new IllegalArgumentException("Arm must be greater than 0");
         }
-        this.c = c;
+        this.arm = arm;
     }
 
-    public void setHeight(double h) {
-        if (h <= 0) {
-            throw new IllegalArgumentException("Invalid third value");
+    public void setHeight(double height) {
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
         }
-        this.h = h;
+        this.height = height;
     }
 
     public double area() {
-        return (a + c) / 2 * h;
+        return (base + arm) / 2 * height;
     }
 }

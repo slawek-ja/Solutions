@@ -7,16 +7,16 @@ public class Circle implements Figure {
         this.radius = 0;
     }
 
-    public Circle(double r) {
-        if (r <= 0) {
-            throw new IllegalArgumentException("Invalid value");
+    public Circle(double radius) {
+        if (radius <= 0) {
+            throw new IllegalArgumentException("Radius must be greater than 0");
         }
-        this.radius = r;
+        this.radius = radius;
     }
 
     public void setRadius(double radius) {
         if (radius <= 0) {
-            throw new IllegalArgumentException("Invalid value");
+            throw new IllegalArgumentException("Radius must be greater than 0");
         }
         this.radius = radius;
     }

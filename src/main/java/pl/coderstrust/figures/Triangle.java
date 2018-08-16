@@ -1,40 +1,40 @@
 package pl.coderstrust.figures;
 
 public class Triangle implements Figure {
-    private double a;
-    private double h;
+    private double base;
+    private double height;
 
     public Triangle() {
-        this.a = 0;
-        this.h = 0;
+        this.base = 0;
+        this.height = 0;
     }
 
-    public Triangle(double a, double h) {
-        if (a <= 0) {
-            throw new IllegalArgumentException("Invalid first value");
+    public Triangle(double base, double height) {
+        if (base <= 0) {
+            throw new IllegalArgumentException("Base must be greater than 0");
         }
-        if (h <= 0) {
-            throw new IllegalArgumentException("Invalid second value");
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
         }
-        this.a = a;
-        this.h = h;
+        this.base = base;
+        this.height = height;
     }
 
-    public void setBase(double a) {
-        if (a <= 0) {
-            throw new IllegalArgumentException("Invalid first value");
+    public void setBase(double base) {
+        if (base <= 0) {
+            throw new IllegalArgumentException("Base must be greater than 0");
         }
-        this.a = a;
+        this.base = base;
     }
 
-    public void setHeight(double h) {
-        if (h <= 0) {
-            throw new IllegalArgumentException("Invalid second value");
+    public void setHeight(double height) {
+        if (height <= 0) {
+            throw new IllegalArgumentException("Height must be greater than 0");
         }
-        this.h = h;
+        this.height = height;
     }
 
     public double area() {
-        return a / 2 * h;
+        return base / 2 * height;
     }
 }
