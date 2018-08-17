@@ -141,17 +141,18 @@ public class SquareTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetHeight() {
+    public void testForDefaultConstructorAndGetterOfHeight() {
         //when
         double expectedResult = 0;
         Square square = new Square();
+        double height = square.getHeight();
 
         //then
-        assertEquals(expectedResult, square.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
-    public void testForDefaultConstructorAndGetWidth() {
+    public void testForDefaultConstructorAndGetterOfWidth() {
         //given
         Square square = new Square();
         thrown.expect(UnsupportedOperationException.class);
@@ -166,13 +167,14 @@ public class SquareTest {
             "3",
             "7.2",
             "5"})
-    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double expectedResult) {
         //when
         Square square = new Square();
-        square.setHeight(height);
+        square.setHeight(expectedResult);
+        double height = square.getHeight();
 
         //then
-        assertEquals(height, square.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
@@ -180,11 +182,12 @@ public class SquareTest {
             "3",
             "7",
             "9"})
-    public void testForParameterizedConstructorAndGetHeight(double height) {
+    public void testForParameterizedConstructorAndGetterOfHeight(double expectedResult) {
         //when
-        Square square = new Square(height);
+        Square square = new Square(expectedResult);
+        double height = square.getHeight();
 
         //then
-        assertEquals(height, square.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 }

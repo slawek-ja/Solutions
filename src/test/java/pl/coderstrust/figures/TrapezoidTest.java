@@ -130,8 +130,8 @@ public class TrapezoidTest {
         trapezoid.setHeight(height);
     }
 
-    @Test
-    public void testForDefaultConstructorAndGetBase() {
+    @Test//tu zaczac
+    public void testForDefaultConstructorAndGetterOfBase() {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
@@ -141,7 +141,7 @@ public class TrapezoidTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetArm() {
+    public void testForDefaultConstructorAndGetterOfArm() {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
@@ -151,7 +151,7 @@ public class TrapezoidTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetHeight() {
+    public void testForDefaultConstructorAndGetterOfHeight() {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
@@ -165,7 +165,7 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetBase(double base) {
+    public void testForDefaultConstructorWithSetterAndGetterOfBase(double base) {
         //when
         Trapezoid trapezoid = new Trapezoid();
         trapezoid.setBase(base);
@@ -179,7 +179,7 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetArm(double arm) {
+    public void testForDefaultConstructorWithSetterAndGetterOfArm(double arm) {
         //when
         Trapezoid trapezoid = new Trapezoid();
         trapezoid.setArm(arm);
@@ -193,7 +193,7 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double height) {
         //when
         Trapezoid trapezoid = new Trapezoid();
         trapezoid.setHeight(height);
@@ -207,7 +207,7 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetBase(double base) {
+    public void testForParameterizedConstructorAndGetterOfBase(double base) {
         //when
         Trapezoid trapezoid = new Trapezoid(base, 2, 3);
 
@@ -220,7 +220,7 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetArm(double arm) {
+    public void testForParameterizedConstructorAndGetterOfArm(double arm) {
         //when
         Trapezoid trapezoid = new Trapezoid(1, arm, 3);
 
@@ -233,7 +233,7 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetHeight(double height) {
+    public void testForParameterizedConstructorAndGetterOfHeight(double height) {
         //when
         Trapezoid trapezoid = new Trapezoid(1, 2, height);
 

@@ -121,7 +121,7 @@ public class TriangleTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetBase() {
+    public void testForDefaultConstructorAndGetterOfBase() {
         //when
         double expectedResult = 0;
         Triangle triangle = new Triangle();
@@ -131,7 +131,7 @@ public class TriangleTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetHeight() {
+    public void testForDefaultConstructorAndGetterOfHeight() {
         //when
         double expectedResult = 0;
         Triangle triangle = new Triangle();
@@ -145,7 +145,7 @@ public class TriangleTest {
             "3.5",
             "7",
             "2"})
-    public void testForDefaultConstructorWithSetterAndGetBase(double base) {
+    public void testForDefaultConstructorWithSetterAndGetterOfBase(double base) {
         //when
         Triangle triangle = new Triangle();
         triangle.setBase(base);
@@ -159,7 +159,7 @@ public class TriangleTest {
             "3.5",
             "7",
             "2"})
-    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double height) {
         //when
         Triangle triangle = new Triangle();
         triangle.setHeight(height);
@@ -173,7 +173,7 @@ public class TriangleTest {
             "6",
             "7",
             "18"})
-    public void testForParameterizedConstructorAndGetBase(double base) {
+    public void testForParameterizedConstructorAndGetterOfBase(double base) {
         //when
         Triangle triangle = new Triangle(base, 3);
 
@@ -186,7 +186,7 @@ public class TriangleTest {
             "6",
             "7",
             "18"})
-    public void testForParameterizedConstructorAndGetHeight(double height) {
+    public void testForParameterizedConstructorAndGetterOfHeight(double height) {
         //when
         Triangle triangle = new Triangle(3, height);
 

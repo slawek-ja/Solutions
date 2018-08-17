@@ -125,23 +125,25 @@ public class RectangleTest {
     }
 
     @Test
-    public void testForDefaultConstructorAndGetHeight() {
+    public void testForDefaultConstructorAndGetterOfHeight() {
         //when
         double expectedResult = 0;
         Rectangle rectangle = new Rectangle();
+        double height = rectangle.getHeight();
 
         //then
-        assertEquals(expectedResult, rectangle.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
-    public void testForDefaultConstructorAndGetWidth() {
+    public void testForDefaultConstructorAndGetterOfWidth() {
         //when
         double expectedResult = 0;
         Rectangle rectangle = new Rectangle();
+        double width = rectangle.getWidth();
 
         //then
-        assertEquals(expectedResult, rectangle.getWidth(), 0.0001);
+        assertEquals(expectedResult, width, 0.0001);
     }
 
     @Test
@@ -149,13 +151,14 @@ public class RectangleTest {
             "3",
             "6",
             "8"})
-    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double expectedResult) {
         //when
         Rectangle rectangle = new Rectangle();
-        rectangle.setHeight(height);
+        rectangle.setHeight(expectedResult);
+        double height = rectangle.getHeight();
 
         //then
-        assertEquals(height, rectangle.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
@@ -163,13 +166,14 @@ public class RectangleTest {
             "3.7",
             "2",
             "4"})
-    public void testForDefaultConstructorWithSetterAndGetWidth(double width) {
+    public void testForDefaultConstructorWithSetterAndGetterOfWidth(double expectedResult) {
         //when
         Rectangle rectangle = new Rectangle();
-        rectangle.setWidth(width);
+        rectangle.setWidth(expectedResult);
+        double width = rectangle.getWidth();
 
         //then
-        assertEquals(width, rectangle.getWidth(), 0.0001);
+        assertEquals(expectedResult, width, 0.0001);
     }
 
     @Test
@@ -177,12 +181,13 @@ public class RectangleTest {
             "6",
             "7",
             "1.8"})
-    public void testForParameterizedConstructorAndGetHeight(double height) {
+    public void testForParameterizedConstructorAndGetterOfHeight(double expectedResult) {
         //when
-        Rectangle rectangle = new Rectangle(height, 3);
+        Rectangle rectangle = new Rectangle(expectedResult, 3);
+        double height = rectangle.getHeight();
 
         //then
-        assertEquals(height, rectangle.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
@@ -190,11 +195,12 @@ public class RectangleTest {
             "6",
             "7",
             "1.8"})
-    public void testForParameterizedConstructorAndGetWidth(double width) {
+    public void testForParameterizedConstructorAndGetterOfWidth(double expectedResult) {
         //when
-        Rectangle rectangle = new Rectangle(3, width);
+        Rectangle rectangle = new Rectangle(3, expectedResult);
+        double width = rectangle.getWidth();
 
         //then
-        assertEquals(width, rectangle.getWidth(), 0.0001);
+        assertEquals(expectedResult, width, 0.0001);
     }
 }

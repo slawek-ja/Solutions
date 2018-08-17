@@ -115,9 +115,10 @@ public class CircleTest {
         //when
         double expectedResult = 0;
         Circle circle = new Circle();
+        double radius = circle.getRadius();
 
         //then
-        assertEquals(expectedResult, circle.getRadius(), 0.0001);
+        assertEquals(expectedResult, radius, 0.0001);
     }
 
     @Test
@@ -125,13 +126,14 @@ public class CircleTest {
             "1.5",
             "2",
             "6"})
-    public void testForDefaultConstructorWithSetterAndGetter(double radius) {
+    public void testForDefaultConstructorWithSetterAndGetterOfRadius(double expectedResult) {
         //when
         Circle circle = new Circle();
-        circle.setRadius(radius);
+        circle.setRadius(expectedResult);
+        double radius = circle.getRadius();
 
         //then
-        assertEquals(radius, circle.getRadius(), 0.0001);
+        assertEquals(expectedResult, radius, 0.0001);
     }
 
     @Test
@@ -139,11 +141,12 @@ public class CircleTest {
             "6",
             "7",
             "18"})
-    public void testForParameterizedConstructorAndGetter(double radius) {
+    public void testForParameterizedConstructorAndGetterOfRadius(double expectedResult) {
         //when
-        Circle circle = new Circle(radius);
+        Circle circle = new Circle(expectedResult);
+        double radius = circle.getRadius();
 
         //then
-        assertEquals(radius, circle.getRadius(), 0.0001);
+        assertEquals(expectedResult, radius, 0.0001);
     }
 }
