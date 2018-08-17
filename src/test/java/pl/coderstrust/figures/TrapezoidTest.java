@@ -135,9 +135,10 @@ public class TrapezoidTest {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
+        double base = trapezoid.getBase();
 
         //then
-        assertEquals(expectedResult, trapezoid.getBase(), 0.0001);
+        assertEquals(expectedResult, base, 0.0001);
     }
 
     @Test
@@ -145,9 +146,10 @@ public class TrapezoidTest {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
+        double arm = trapezoid.getArm();
 
         //then
-        assertEquals(expectedResult, trapezoid.getArm(), 0.0001);
+        assertEquals(expectedResult, arm, 0.0001);
     }
 
     @Test
@@ -155,9 +157,10 @@ public class TrapezoidTest {
         //when
         double expectedResult = 0;
         Trapezoid trapezoid = new Trapezoid();
+        double height = trapezoid.getHeight();
 
         //then
-        assertEquals(expectedResult, trapezoid.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
@@ -165,13 +168,14 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetterOfBase(double base) {
+    public void testForDefaultConstructorWithSetterAndGetterOfBase(double expectedResult) {
         //when
         Trapezoid trapezoid = new Trapezoid();
-        trapezoid.setBase(base);
+        trapezoid.setBase(expectedResult);
+        double base = trapezoid.getBase();
 
         //then
-        assertEquals(base, trapezoid.getBase(), 0.0001);
+        assertEquals(expectedResult, base, 0.0001);
     }
 
     @Test
@@ -179,13 +183,14 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetterOfArm(double arm) {
+    public void testForDefaultConstructorWithSetterAndGetterOfArm(double expectedResult) {
         //when
         Trapezoid trapezoid = new Trapezoid();
-        trapezoid.setArm(arm);
+        trapezoid.setArm(expectedResult);
+        double arm = trapezoid.getArm();
 
         //then
-        assertEquals(arm, trapezoid.getArm(), 0.0001);
+        assertEquals(expectedResult, arm, 0.0001);
     }
 
     @Test
@@ -193,13 +198,14 @@ public class TrapezoidTest {
             "9.5",
             "7",
             "18"})
-    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double height) {
+    public void testForDefaultConstructorWithSetterAndGetterOfHeight(double expectedResult) {
         //when
         Trapezoid trapezoid = new Trapezoid();
-        trapezoid.setHeight(height);
+        trapezoid.setHeight(expectedResult);
+        double height = trapezoid.getHeight();
 
         //then
-        assertEquals(height, trapezoid.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 
     @Test
@@ -207,12 +213,13 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetterOfBase(double base) {
+    public void testForParameterizedConstructorAndGetterOfBase(double expectedResult) {
         //when
-        Trapezoid trapezoid = new Trapezoid(base, 2, 3);
+        Trapezoid trapezoid = new Trapezoid(expectedResult, 2, 3);
+        double base = trapezoid.getBase();
 
         //then
-        assertEquals(base, trapezoid.getBase(), 0.0001);
+        assertEquals(expectedResult, base, 0.0001);
     }
 
     @Test
@@ -220,12 +227,13 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetterOfArm(double arm) {
+    public void testForParameterizedConstructorAndGetterOfArm(double expectedResult) {
         //when
-        Trapezoid trapezoid = new Trapezoid(1, arm, 3);
+        Trapezoid trapezoid = new Trapezoid(1, expectedResult, 3);
+        double arm = trapezoid.getArm();
 
         //then
-        assertEquals(arm, trapezoid.getArm(), 0.0001);
+        assertEquals(expectedResult, arm, 0.0001);
     }
 
     @Test
@@ -233,11 +241,12 @@ public class TrapezoidTest {
             "4.8",
             "10",
             "16"})
-    public void testForParameterizedConstructorAndGetterOfHeight(double height) {
+    public void testForParameterizedConstructorAndGetterOfHeight(double expectedResult) {
         //when
-        Trapezoid trapezoid = new Trapezoid(1, 2, height);
+        Trapezoid trapezoid = new Trapezoid(1, 2, expectedResult);
+        double height= trapezoid.getHeight();
 
         //then
-        assertEquals(height, trapezoid.getHeight(), 0.0001);
+        assertEquals(expectedResult, height, 0.0001);
     }
 }
