@@ -30,7 +30,7 @@ public class TriangleTest {
             "2, 7, 7",
             "1, 3, 1.5",
             "9, 5, 22.5"})
-    public void testForDefaultConstructorAndSetterWithValidArgument(double base, double height, double expectedArea) {
+    public void testAreaBasedOnDefaultConstructorAndSetterWithValidArgument(double base, double height, double expectedArea) {
         //when
         Triangle triangle = new Triangle();
         triangle.setBase(base);
@@ -64,7 +64,7 @@ public class TriangleTest {
             "3, 5, 7.5",
             "2, 7, 7",
             "7, 3, 10.5" })
-    public void testForParameterizedConstructorWithValidArgument(double base, double height, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorWithValidArgument(double base, double height, double expectedArea) {
         //when
         Figure triangle = new Triangle(base, height);
         double result = triangle.area();
@@ -79,7 +79,7 @@ public class TriangleTest {
             "4, 12, 24",
             "3, 6, 9",
             "6, 8, 24"})
-    public void testForParameterizedConstructorAndSetterWithValidArgument(double base, double height, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorAndSetterWithValidArgument(double base, double height, double expectedArea) {
         //when
         Triangle triangle = new Triangle(4, 3);
         triangle.setBase(base);
