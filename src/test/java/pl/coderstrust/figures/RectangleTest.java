@@ -2,10 +2,14 @@ package pl.coderstrust.figures;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+
+import java.util.Random;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
@@ -16,7 +20,7 @@ public class RectangleTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testForDefaultConstructor() {
+    public void testAreaBasedOnDefaultConstructor() {
         //when
         double expectedArea = 0;
         Figure rectangle = new Rectangle();
@@ -30,7 +34,7 @@ public class RectangleTest {
             "2, 4, 8",
             "1, 7, 7",
             "3, 3, 9"})
-    public void testForDefaultConstructorAndSetterWithValidArgument(double height , double width, double expectedArea) {
+    public void testAreaBasedOnDefaultConstructorAndSetterWithValidArgument(double height , double width, double expectedArea) {
         //when
         Rectangle rectangle = new Rectangle();
         rectangle.setHeight(height);
@@ -64,7 +68,7 @@ public class RectangleTest {
             "2, 5, 10",
             "7, 3, 21",
             "3, 4, 12" })
-    public void testForParameterizedConstructorWithValidArgument(double height , double width, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorWithValidArgument(double height , double width, double expectedArea) {
         //when
         Figure rectangle = new Rectangle(height, width);
         double result = rectangle.area();
@@ -79,7 +83,7 @@ public class RectangleTest {
             "3, 7, 21",
             "2, 4, 8",
             "3, 8, 24"})
-    public void testForParameterizedConstructorAndSetterWithValidArgument(double height, double width, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorAndSetterWithValidArgument(double height, double width, double expectedArea) {
         //when
         Rectangle rectangle = new Rectangle(3, 6);
         rectangle.setHeight(height);
@@ -118,5 +122,79 @@ public class RectangleTest {
         //when
         rectangle.setHeight(height);
         rectangle.setWidth(width);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetHeight() {
+        //when
+        double expectedResult = 0;
+        Rectangle rectangle = new Rectangle();
+
+        //then
+        assertEquals(expectedResult, rectangle.getHeight(), 0.0001);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetWidth() {
+        //when
+        double expectedResult = 0;
+        Rectangle rectangle = new Rectangle();
+
+        //then
+        assertEquals(expectedResult, rectangle.getWidth(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "3",
+            "6",
+            "8"})
+    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+        //when
+        Rectangle rectangle = new Rectangle();
+        rectangle.setHeight(height);
+
+        //then
+        assertEquals(height, rectangle.getHeight(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "3.7",
+            "2",
+            "4"})
+    public void testForDefaultConstructorWithSetterAndGetWidth(double width) {
+        //when
+        Rectangle rectangle = new Rectangle();
+        rectangle.setWidth(width);
+
+        //then
+        assertEquals(width, rectangle.getWidth(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "6",
+            "7",
+            "1.8"})
+    public void testForParameterizedConstructorAndGetHeight(double height) {
+        //when
+        Rectangle rectangle = new Rectangle(height, 3);
+
+        //then
+        assertEquals(height, rectangle.getHeight(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "6",
+            "7",
+            "1.8"})
+    public void testForParameterizedConstructorAndGetWidth(double width) {
+        //when
+        Rectangle rectangle = new Rectangle(3, width);
+
+        //then
+        assertEquals(width, rectangle.getWidth(), 0.0001);
     }
 }

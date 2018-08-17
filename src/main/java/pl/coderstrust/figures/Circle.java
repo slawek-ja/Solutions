@@ -21,6 +21,10 @@ public class Circle implements Figure {
         this.radius = radius;
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
     public double area() {
         return Math.PI * Math.pow(radius, 2);
     }

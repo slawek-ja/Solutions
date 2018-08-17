@@ -34,6 +34,14 @@ public class Triangle implements Figure {
         this.height = height;
     }
 
+    public double getBase() {
+        return base;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
     public double area() {
         return base / 2 * height;
     }

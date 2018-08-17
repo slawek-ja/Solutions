@@ -119,4 +119,78 @@ public class TriangleTest {
         triangle.setBase(base);
         triangle.setHeight(height);
     }
+
+    @Test
+    public void testForDefaultConstructorAndGetBase() {
+        //when
+        double expectedResult = 0;
+        Triangle triangle = new Triangle();
+
+        //then
+        assertEquals(expectedResult, triangle.getBase(), 0.0001);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetHeight() {
+        //when
+        double expectedResult = 0;
+        Triangle triangle = new Triangle();
+
+        //then
+        assertEquals(expectedResult, triangle.getHeight(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "3.5",
+            "7",
+            "2"})
+    public void testForDefaultConstructorWithSetterAndGetBase(double base) {
+        //when
+        Triangle triangle = new Triangle();
+        triangle.setBase(base);
+
+        //then
+        assertEquals(base, triangle.getBase(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "3.5",
+            "7",
+            "2"})
+    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+        //when
+        Triangle triangle = new Triangle();
+        triangle.setHeight(height);
+
+        //then
+        assertEquals(height, triangle.getHeight(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "6",
+            "7",
+            "18"})
+    public void testForParameterizedConstructorAndGetBase(double base) {
+        //when
+        Triangle triangle = new Triangle(base, 3);
+
+        //then
+        assertEquals(base, triangle.getBase(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "6",
+            "7",
+            "18"})
+    public void testForParameterizedConstructorAndGetHeight(double height) {
+        //when
+        Triangle triangle = new Triangle(3, height);
+
+        //then
+        assertEquals(height, triangle.getHeight(), 0.0001);
+    }
 }

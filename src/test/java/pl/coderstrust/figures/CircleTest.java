@@ -30,7 +30,7 @@ public class CircleTest {
             "4, 50.27",
             "2, 12.57",
             "7, 153.94"})
-    public void testForDefaultConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
+    public void testAreaBasedOnDefaultConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
         //when
         Circle circle = new Circle();
         circle.setRadius(radius);
@@ -60,7 +60,7 @@ public class CircleTest {
             "12, 452.39",
             "4, 50.27",
             "6, 113.10" })
-    public void testForParameterizedConstructorWithValidArgument(double radius, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorWithValidArgument(double radius, double expectedArea) {
         //when
         Figure circle = new Circle(radius);
         double result = circle.area();
@@ -99,7 +99,7 @@ public class CircleTest {
             "6, 113.1",
             "2, 12.57",
             "6, 113.1"})
-    public void testForParameterizedConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorAndSetterWithValidArgument(double radius, double expectedArea) {
         //when
         Circle circle = new Circle(3);
         circle.setRadius(radius);
@@ -108,5 +108,42 @@ public class CircleTest {
 
         //then
         assertEquals(expectedArea, result, 0.0001);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetter() {
+        //when
+        double expectedResult = 0;
+        Circle circle = new Circle();
+
+        //then
+        assertEquals(expectedResult, circle.getRadius(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "1.5",
+            "2",
+            "6"})
+    public void testForDefaultConstructorWithSetterAndGetter(double radius) {
+        //when
+        Circle circle = new Circle();
+        circle.setRadius(radius);
+
+        //then
+        assertEquals(radius, circle.getRadius(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "6",
+            "7",
+            "18"})
+    public void testForParameterizedConstructorAndGetter(double radius) {
+        //when
+        Circle circle = new Circle(radius);
+
+        //then
+        assertEquals(radius, circle.getRadius(), 0.0001);
     }
 }

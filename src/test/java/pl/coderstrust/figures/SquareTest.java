@@ -16,7 +16,7 @@ public class SquareTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void testForDefaultConstructor() {
+    public void testAreaBasedOnDefaultConstructor() {
         //when
         double expectedArea = 0;
         Square square = new Square();
@@ -30,7 +30,7 @@ public class SquareTest {
             "4, 16",
             "2, 4",
             "7, 49"})
-    public void testForDefaultConstructorAndSetterWithValidArgument(double height, double expectedArea) {
+    public void testAreaBasedOnDefaultConstructorAndSetterWithValidArgument(double height, double expectedArea) {
         //when
         Square square = new Square();
         square.setHeight(height);
@@ -90,7 +90,7 @@ public class SquareTest {
             "2, 4",
             "4, 16",
             "6, 36" })
-    public void testForParameterizedConstructorWithValidArgument(double height, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorWithValidArgument(double height, double expectedArea) {
         //when
         Figure square = new Square(height);
         double result = square.area();
@@ -105,7 +105,7 @@ public class SquareTest {
             "4, 16",
             "2, 4",
             "3, 9"})
-    public void testForParameterizedConstructorAndSetterWithValidArgument(double height, double expectedArea) {
+    public void testAreaBasedOnParameterizedConstructorAndSetterWithValidArgument(double height, double expectedArea) {
         //when
         Square square = new Square(4);
         square.setHeight(height);
@@ -138,5 +138,53 @@ public class SquareTest {
 
         //when
         square.setHeight(height);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetHeight() {
+        //when
+        double expectedResult = 0;
+        Square square = new Square();
+
+        //then
+        assertEquals(expectedResult, square.getHeight(), 0.0001);
+    }
+
+    @Test
+    public void testForDefaultConstructorAndGetWidth() {
+        //given
+        Square square = new Square();
+        thrown.expect(UnsupportedOperationException.class);
+        thrown.expectMessage("Square parameters can only be accessed by getHeight()");
+
+        //when
+        square.getWidth();
+    }
+
+    @Test
+    @Parameters({
+            "3",
+            "7.2",
+            "5"})
+    public void testForDefaultConstructorWithSetterAndGetHeight(double height) {
+        //when
+        Square square = new Square();
+        square.setHeight(height);
+
+        //then
+        assertEquals(height, square.getHeight(), 0.0001);
+    }
+
+    @Test
+    @Parameters({
+            "3",
+            "7",
+            "9"})
+    public void testForParameterizedConstructorAndGetHeight(double height) {
+        //when
+        Square square = new Square(height);
+
+        //then
+        assertEquals(height, square.getHeight(), 0.0001);
     }
 }

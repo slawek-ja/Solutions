@@ -20,6 +20,11 @@ public class Square extends Rectangle implements Figure {
     }
 
     @Override
+    public double getWidth() {
+        throw new UnsupportedOperationException("Square parameters can only be accessed by getHeight()");
+    }
+
+    @Override
     public void setWidth(double width) {
         throw new UnsupportedOperationException("Square can only be initialised by setHeight(height)");
     }

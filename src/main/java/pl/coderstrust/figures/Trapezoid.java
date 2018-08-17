@@ -47,6 +47,18 @@ public class Trapezoid implements Figure {
         this.height = height;
     }
 
+    public double getBase() {
+        return base;
+    }
+
+    public double getArm() {
+        return arm;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
     public double area() {
         return (base + arm) / 2 * height;
     }
