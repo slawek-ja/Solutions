@@ -130,7 +130,7 @@ public class TrapezoidTest {
         trapezoid.setHeight(height);
     }
 
-    @Test//tu zaczac
+    @Test
     public void testForDefaultConstructorAndGetterOfBase() {
         //when
         double expectedResult = 0;
