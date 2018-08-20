@@ -1,10 +1,7 @@
 package pl.coderstrust.search;
 
-import java.util.Arrays;
-
-public class BinarySearch {
-    public static int search(int[] array, int element) {
-        Arrays.sort(array);
+public class BinarySearch implements SearchingMethod{
+    public int search(int[] array, int element) {
         int leftAnchor = 0;
         int rightAnchor = array.length-1;
         int pointer;

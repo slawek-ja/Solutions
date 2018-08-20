@@ -1,0 +1,69 @@
+package pl.coderstrust.search;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import static org.junit.Assert.*;
+@RunWith(JUnitParamsRunner.class)
+
+public abstract class SearchTestBase {
+
+    public abstract SearchingMethod getSearchingMethod();
+
+    private int[] getSortedArrayForTests() {
+        return new int[]{-98, -97, -95, -83, -81, -78, -77, -73, -71, -64, -61, -60, -55, -54,
+                -52, -51, -49, -46, -42, -41, -39, -38, -36, -34, -31, -26, -23, -21, -20, -19,
+                -3, 0, 2, 3, 6, 9, 19, 23, 25, 26, 27, 28, 29, 34, 37, 38, 39, 45, 47, 52, 54,
+                58, 58, 63, 66, 68, 69, 72, 76, 79, 83, 84, 88, 92, 93, 93, 95, 96, 99, 102, 105,
+                106, 108, 109, 114, 117, 120, 122, 123, 124, 125, 126, 131, 132, 133, 135, 138,
+                145, 148, 149, 150, 159, 164, 167, 171, 180, 182, 191, 198, 199};
+    }
+
+    @Test
+    @Parameters({"-98, 0",
+                 "-71, 8",
+                 "-19, 29",
+                 "0, 31",
+                 "37, 44",
+                 "400, -1",
+                 "1, -1",
+                 "199, 99"})
+    public void testForParametrisedTestWithGivenArguments(int value, int expectedIndex) {
+        //given
+        int[] array = getSortedArrayForTests();
+
+        //when
+        int result = getSearchingMethod().search(array, value);
+
+        //then
+        assertEquals(expectedIndex, result);
+    }
+
+    @Test
+    public void speedTest() {
+        //given
+        int[] array = getArrayForSpeedTest();
+        int expected = array.length-1;
+        int searchValue = 2;
+
+        //when
+        long startTime = System.nanoTime();
+        int result = getSearchingMethod().search(array, searchValue);
+        long endTime = System.nanoTime();
+
+        System.out.println(endTime - startTime);
+
+        //then
+        assertEquals(expected, result);
+    }
+
+    private int[] getArrayForSpeedTest() {
+        int[] array = new int[1000000];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = 1;
+        }
+        array[array.length-1] = 2;
+        return array;
+    }
+}
