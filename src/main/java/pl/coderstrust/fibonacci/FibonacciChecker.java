@@ -13,23 +13,24 @@ public class FibonacciChecker {
         if (storage.containsKey(number)) {
             return storage.get(number);
         }
-        boolean isNumberPerfectSquare = isPerfectSquare(number);
+        long formula1 = calculateFibonacciNumberFormula(number, false);
+        long formula2 = calculateFibonacciNumberFormula(number, true);
+        boolean isNumberPerfectSquare = isPerfectSquare(formula1) || isPerfectSquare(formula2);
         storage.put(number, isNumberPerfectSquare);
         return isNumberPerfectSquare;
     }
 
     private static boolean isPerfectSquare(long number) {
-        int value = checkValue(number);
-        long sqrt = (long) Math.sqrt(5 * number * number + value);
-        return (sqrt * sqrt == 5 * number * number + value);
+        int value = (int) Math.sqrt(number);
+        return value * value == number;
     }
 
-    private static int checkValue(long number) {
-        long sqrt = (long) Math.sqrt(5 * number * number + 4);
-        if (sqrt * sqrt == 5 * number * number + 4){
-            return 4;
-        } else {
-            return -4;
+    private static long calculateFibonacciNumberFormula(long number, boolean plus) {
+        long value = number * number * 5;
+        long offset = 4;
+        if (plus) {
+            return value + offset;
         }
+        return value - offset;
     }
 }

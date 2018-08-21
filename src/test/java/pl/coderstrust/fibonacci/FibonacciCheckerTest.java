@@ -19,7 +19,7 @@ public class FibonacciCheckerTest {
         //given
         long number = -29;
 
-        //when
+        //then
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Numbers below 0 are not allowed");
         boolean result = FibonacciChecker.isFibonacciNumber(number);
