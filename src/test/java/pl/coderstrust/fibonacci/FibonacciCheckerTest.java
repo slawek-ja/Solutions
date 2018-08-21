@@ -46,7 +46,7 @@ public class FibonacciCheckerTest {
                  "12, false",
                  "23, false",
                  "89, true",})
-    public void testForParametrisedTestWithPositiveArguments(long number, boolean expected) {
+    public void testForPositiveArguments(long number, boolean expected) {
         //when
         boolean result = FibonacciChecker.isFibonacciNumber(number);
 
