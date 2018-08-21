@@ -19,8 +19,17 @@ public class FibonacciChecker {
     }
 
     private static boolean isPerfectSquare(long number) {
-        long firstSqrt = (long) Math.sqrt(5 * number * number + 4);
-        long secondSqrt = (long) Math.sqrt(5 * number * number - 4);
-        return (firstSqrt * firstSqrt == 5 * number * number + 4 || secondSqrt * secondSqrt == 5 * number * number - 4);
+        int value = checkValue(number);
+        long sqrt = (long) Math.sqrt(5 * number * number + value);
+        return (sqrt * sqrt == 5 * number * number + value);
+    }
+
+    private static int checkValue(long number) {
+        long sqrt = (long) Math.sqrt(5 * number * number + 4);
+        if (sqrt * sqrt == 5 * number * number + 4){
+            return 4;
+        } else {
+            return -4;
+        }
     }
 }
