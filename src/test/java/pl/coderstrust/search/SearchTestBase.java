@@ -4,11 +4,16 @@ import static org.junit.Assert.*;
 
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
 public abstract class SearchTestBase {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     public abstract SearchingMethod getSearchingMethod();
 
@@ -23,14 +28,13 @@ public abstract class SearchTestBase {
 
     @Test
     @Parameters({"-98, 0",
-                 "-71, 8",
-                 "-19, 29",
-                 "0, 31",
-                 "37, 44",
-                 "400, -1",
-                 "1, -1",
-                 "199, 99",
-                 "3, 33"})
+            "-71, 8",
+            "-19, 29",
+            "0, 31",
+            "37, 44",
+            "400, -1",
+            "1, -1",
+            "199, 99"})
     public void testForSearchingIndexOfValue(int value, int expectedIndex) {
         //given
         int[] array = getSortedArrayForTests();
@@ -43,10 +47,48 @@ public abstract class SearchTestBase {
     }
 
     @Test
+    public void testForSearchingFirstAppearanceOfElement() {
+        //given
+        int[] array = new int[]{-1, 0, 1, 2, 3, 3, 3, 3, 3, 4, 5, 6};
+        int searchValue = 3;
+        int expectedIndex = 4;
+
+        //when
+        int result = getSearchingMethod().search(array, searchValue);
+
+        //then
+        assertEquals(expectedIndex, result);
+    }
+
+    @Test
+    public void testWhenPassedArrayIsEmpty() {
+        //given
+        int[] array = new int[0];
+        int searchValue = 3;
+
+        //then
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("Array is empty. Cannot use searching method");
+        int result = getSearchingMethod().search(array, searchValue);
+    }
+
+    @Test
+    public void testWhenPassedArrayIsNull() {
+        //given
+        int[] array = null;
+        int searchValue = 3;
+
+        //then
+        thrown.expect(IllegalStateException.class);
+        thrown.expectMessage("Array is empty. Cannot use searching method");
+        int result = getSearchingMethod().search(array, searchValue);
+    }
+
+    @Test
     public void testForSpeedOfSorting() {
         //given
         int[] array = getArrayForSpeedTest();
-        int expected = array.length-1;
+        int expected = array.length - 1;
         int searchValue = 2;
 
         //when
@@ -65,7 +107,7 @@ public abstract class SearchTestBase {
         for (int i = 0; i < array.length; i++) {
             array[i] = 1;
         }
-        array[array.length-1] = 2;
+        array[array.length - 1] = 2;
         return array;
     }
 }
