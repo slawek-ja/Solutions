@@ -61,7 +61,7 @@ public abstract class SearchTestBase {
     }
 
     @Test
-    public void testWhenPassedArrayIsEmpty() {
+    public void testForEmptyArray() {
         //given
         int[] array = new int[0];
         int searchValue = 3;
@@ -73,14 +73,13 @@ public abstract class SearchTestBase {
     }
 
     @Test
-    public void testWhenPassedArrayIsNull() {
+    public void testForNullAsArray() {
         //given
         int[] array = null;
         int searchValue = 3;
 
         //then
-        thrown.expect(IllegalStateException.class);
-        thrown.expectMessage("Array is empty. Cannot use searching method");
+        thrown.expect(NullPointerException.class);
         int result = getSearchingMethod().search(array, searchValue);
     }
 

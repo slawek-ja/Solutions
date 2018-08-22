@@ -2,8 +2,11 @@ package pl.coderstrust.search;
 
 public class BinarySearch implements SearchingMethod {
     public int search(int[] array, int element) {
-        if (array == null || array.length == 0) {
+        if (array.length == 0) {
             throw new IllegalStateException("Array is empty. Cannot use searching method");
+        }
+        if (array == null) {
+            throw new NullPointerException();
         }
         int leftAnchor = 0;
         int rightAnchor = array.length - 1;
