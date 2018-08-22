@@ -8,7 +8,7 @@ public class BinarySearch implements SearchingMethod {
         while (leftAnchor <= rightAnchor) {
             pointer = (leftAnchor + rightAnchor) / 2;
             if (array[pointer] == element) {
-                while (pointer != 0 && array[pointer] == array[pointer-1]){
+                while (pointer != 0 && array[pointer] == array[pointer-1]) {
                     pointer--;
                 }
                 return pointer;
