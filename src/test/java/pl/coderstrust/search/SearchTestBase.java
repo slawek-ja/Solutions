@@ -1,12 +1,13 @@
 package pl.coderstrust.search;
 
+import static org.junit.Assert.*;
+
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
-@RunWith(JUnitParamsRunner.class)
 
+@RunWith(JUnitParamsRunner.class)
 public abstract class SearchTestBase {
 
     public abstract SearchingMethod getSearchingMethod();
@@ -14,7 +15,7 @@ public abstract class SearchTestBase {
     private int[] getSortedArrayForTests() {
         return new int[]{-98, -97, -95, -83, -81, -78, -77, -73, -71, -64, -61, -60, -55, -54,
                 -52, -51, -49, -46, -42, -41, -39, -38, -36, -34, -31, -26, -23, -21, -20, -19,
-                -3, 0, 2, 3, 6, 9, 19, 23, 25, 26, 27, 28, 29, 34, 37, 38, 39, 45, 47, 52, 54,
+                -3, 0, 2, 3, 3, 3, 3, 3, 25, 26, 27, 28, 29, 34, 37, 38, 39, 45, 47, 52, 54,
                 58, 58, 63, 66, 68, 69, 72, 76, 79, 83, 84, 88, 92, 93, 93, 95, 96, 99, 102, 105,
                 106, 108, 109, 114, 117, 120, 122, 123, 124, 125, 126, 131, 132, 133, 135, 138,
                 145, 148, 149, 150, 159, 164, 167, 171, 180, 182, 191, 198, 199};
@@ -28,8 +29,9 @@ public abstract class SearchTestBase {
                  "37, 44",
                  "400, -1",
                  "1, -1",
-                 "199, 99"})
-    public void testForParametrisedTestWithGivenArguments(int value, int expectedIndex) {
+                 "199, 99",
+                 "3, 33"})
+    public void testForSearchingIndexOfValue(int value, int expectedIndex) {
         //given
         int[] array = getSortedArrayForTests();
 
@@ -41,7 +43,7 @@ public abstract class SearchTestBase {
     }
 
     @Test
-    public void speedTest() {
+    public void testForSpeedOfSorting() {
         //given
         int[] array = getArrayForSpeedTest();
         int expected = array.length-1;

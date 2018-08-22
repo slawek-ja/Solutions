@@ -1,6 +1,6 @@
 package pl.coderstrust.search;
 
-public class BinarySearch implements SearchingMethod{
+public class BinarySearch implements SearchingMethod {
     public int search(int[] array, int element) {
         int leftAnchor = 0;
         int rightAnchor = array.length-1;
@@ -8,12 +8,14 @@ public class BinarySearch implements SearchingMethod{
         while (leftAnchor <= rightAnchor) {
             pointer = (leftAnchor + rightAnchor) / 2;
             if (array[pointer] == element) {
+                while (pointer != 0 && array[pointer] == array[pointer-1]){
+                    pointer--;
+                }
                 return pointer;
             }
             if (array[pointer] < element) {
                 leftAnchor = pointer + 1;
-            }
-            else if (rightAnchor > element) {
+            } else {
                 rightAnchor = pointer - 1;
             }
         }
