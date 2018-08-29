@@ -5,13 +5,18 @@ import static org.junit.Assert.*;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
 public class NumbersProcessorTest {
 
     public NumbersProcessor numbersProcessorClassTest;
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void initialize() {
@@ -55,5 +60,16 @@ public class NumbersProcessorTest {
 
         //then
         assertEquals(expectedLine, result);
+    }
+
+    @Test
+    public void testWhenLineIsNull() {
+        //when
+        String givenLine = null;
+
+        //then
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Line cannot be null");
+        String result = numbersProcessorClassTest.processLine(givenLine);
     }
 }

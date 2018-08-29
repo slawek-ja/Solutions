@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 public class NumbersProcessor {
     public String processLine(String line) {
+        if (line == null) {
+            throw new IllegalArgumentException("Line cannot be null");
+        }
         if (!isLineValid(line)) {
             return "";
         }
