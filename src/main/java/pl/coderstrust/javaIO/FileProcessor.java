@@ -7,8 +7,7 @@ import java.util.List;
 public class FileProcessor {
     public List<String> readLinesFromFile(String filePatch) throws IOException {
         List<String> lines = new ArrayList<>();
-        FileReader fileReader = new FileReader(filePatch);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        BufferedReader bufferedReader  = new BufferedReader(new FileReader(filePatch));
         String currentLine;
         while ((currentLine = bufferedReader.readLine()) != null) {
             lines.add(currentLine);

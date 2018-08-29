@@ -20,6 +20,9 @@ public class NumbersProcessorTest {
 
     @Test
     @Parameters({
+            "1  2  3, 1+2+3=6",
+            " 2 3 5, 2+3+5=10",
+            "4 6 7 1 , 4+6+7+1=18",
             "-2 9 5, (2)+9+5=12",
             "7 -5 4, 7+(5)+4=6",
             "4 5 7 -3, 4+5+7+(3)=13",
@@ -28,7 +31,7 @@ public class NumbersProcessorTest {
             "0 0 0, 0+0+0=0",
             "3, 3=3",
             "6, 6=6"})
-    public void testForValidArguments(String givenLine, String expectedLine) throws Exception {
+    public void testForValidArguments(String givenLine, String expectedLine) {
         //when
         String result = numbersProcessorClassTest.processLine(givenLine);
 
@@ -43,7 +46,7 @@ public class NumbersProcessorTest {
             "';lsy ndg 87 64  jjjd  23",
             "1 2 - 5",
             ""})
-    public void testWithInvalidCharacter(String givenLine) throws Exception {
+    public void testWithInvalidCharacter(String givenLine) {
         //given
         String expectedLine = "";
 
