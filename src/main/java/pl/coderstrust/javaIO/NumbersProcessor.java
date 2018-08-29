@@ -15,7 +15,7 @@ public class NumbersProcessor {
             nextNumber = scanner.nextInt();
             sumOfNumbers += nextNumber;
             if (nextNumber < 0) {
-                result.append(String.format("%(d", nextNumber));
+                result.append(String.format("(%d)", nextNumber));
             } else {
                 result.append(nextNumber);
             }
@@ -27,17 +27,15 @@ public class NumbersProcessor {
     }
 
     private boolean isLineValid(String line) {
-        if (line.equals("") || !line.matches("[\\d+\\s-*]*")) {
+        if (line.trim().isEmpty()) {
             return false;
         }
         Scanner scanner = new Scanner(line);
-        boolean negativeNumbers;
         while (scanner.hasNext()) {
-            negativeNumbers = scanner.hasNextInt();
-            scanner.next();
-            if (!negativeNumbers) {
+            if (!scanner.hasNextInt()) {
                 return false;
             }
+            scanner.next();
         }
         return true;
     }

@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -26,13 +27,10 @@ public class ProcessorTest {
     @Test
     public void testForSimpleExample() throws IOException {
         //given
-        List<String> dummyInputArray = new ArrayList<>();
-        dummyInputArray.add("1 2 3 4");
-        dummyInputArray.add("5 6 7 8");
         List<String> dummyOutputArray = new ArrayList<>();
         dummyOutputArray.add("1+2+3+4=10");
         dummyOutputArray.add("5+6+7+8=26");
-        when(fileProcessor.readLinesFromFile("src\\test\\java\\resources\\test_input.txt")).thenReturn(dummyInputArray);
+        when(fileProcessor.readLinesFromFile("src\\test\\java\\resources\\test_input.txt")).thenReturn(Arrays.asList("1 2 3 4", "5 6 7 8"));
         when(numbersProcessor.processLine("1 2 3 4")).thenReturn("1+2+3+4=10");
         when(numbersProcessor.processLine("5 6 7 8")).thenReturn("5+6+7+8=26");
         doNothing().when(fileProcessor).writeLinesToFile(anyList(), anyString());
