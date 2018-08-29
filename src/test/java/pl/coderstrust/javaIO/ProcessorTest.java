@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class ProcessorTest {
     private Processor processor;
 
     @Test
-    public void testForSimpleExample() throws Exception {
+    public void testForSimpleExample() throws IOException {
         //given
         List<String> dummyInputArray = new ArrayList<>();
         dummyInputArray.add("1 2 3 4");
@@ -31,18 +32,18 @@ public class ProcessorTest {
         List<String> dummyOutputArray = new ArrayList<>();
         dummyOutputArray.add("1+2+3+4=10");
         dummyOutputArray.add("5+6+7+8=26");
-        when(fileProcessor.readLinesFromFile("")).thenReturn(dummyInputArray);
+        when(fileProcessor.readLinesFromFile("src\\test\\java\\resources\\test_input.txt")).thenReturn(dummyInputArray);
         when(numbersProcessor.processLine("1 2 3 4")).thenReturn("1+2+3+4=10");
         when(numbersProcessor.processLine("5 6 7 8")).thenReturn("5+6+7+8=26");
         doNothing().when(fileProcessor).writeLinesToFile(anyList(), anyString());
 
         //when
-        processor.process("", "");
+        processor.process("src\\test\\java\\resources\\test_input.txt", "src\\test\\java\\resources\\test_output.txt");
 
         //then
-        verify(fileProcessor, times(1)).readLinesFromFile(any(String.class));
-        verify(numbersProcessor, times(1)).processLine(dummyInputArray.get(0));
-        verify(numbersProcessor, times(1)).processLine(dummyInputArray.get(1));
-        verify(fileProcessor, times(1)).writeLinesToFile(dummyOutputArray, "");
+        verify(fileProcessor).readLinesFromFile("src\\test\\java\\resources\\test_input.txt");
+        verify(numbersProcessor, times(1)).processLine("1 2 3 4");
+        verify(numbersProcessor, times(1)).processLine("5 6 7 8");
+        verify(fileProcessor, times(1)).writeLinesToFile(dummyOutputArray, "src\\test\\java\\resources\\test_output.txt");
     }
 }
