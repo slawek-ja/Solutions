@@ -28,7 +28,7 @@ public class NumbersProcessorTest {
             "0 0 0, 0+0+0=0",
             "3, 3=3",
             "6, 6=6"})
-    public void testForValidArguments(String givenLine, String expectedLine) throws Exception {
+    public void testForValidParameters(String givenLine, String expectedLine) throws Exception {
         //when
         String result = numbersProcessorClassTest.processLine(givenLine);
 
@@ -43,7 +43,7 @@ public class NumbersProcessorTest {
             "';lsy ndg 87 64  jjjd  23",
             "1 2 - 5",
             ""})
-    public void testWithInvalidCharacter(String givenLine) throws Exception {
+    public void testForInvalidParameters(String givenLine) throws Exception {
         //given
         String expectedLine = "";
 
