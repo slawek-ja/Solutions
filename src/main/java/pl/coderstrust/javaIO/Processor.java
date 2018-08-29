@@ -1,5 +1,6 @@
 package pl.coderstrust.javaIO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Processor {
         this.fileProcessor = fileProcessor;
     }
 
-    public void process(String fileName, String resultFileName) throws Exception {
+    public void process(String fileName, String resultFileName) throws IOException {
         List<String> linesFromFile = fileProcessor.readLinesFromFile(fileName);
         List<String> resultLines = new ArrayList<>();
         for (String line : linesFromFile) {
