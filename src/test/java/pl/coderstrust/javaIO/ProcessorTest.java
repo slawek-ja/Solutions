@@ -1,101 +1,48 @@
 package pl.coderstrust.javaIO;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ProcessorTest {
 
-    public FileProcessor fileProcessorMock = mock(FileProcessor.class);
-    public Processor processorClassTest = new Processor(new NumbersProcessor(), fileProcessorMock);
+    @Mock
+    private NumbersProcessor numbersProcessor;
+
+    @Mock
+    private FileProcessor fileProcessor;
+
+    @InjectMocks
+    private Processor processor;
 
     @Test
     public void testForSimpleExample() throws Exception {
         //given
-        List<String> givenArray = new ArrayList<>();
-        givenArray.add("1 5 7 2");
-        givenArray.add("1 2 3 4");
-        List<String> expected = new ArrayList<>();
-        expected.add("1+5+7+2=15");
-        expected.add("1+2+3+4=10");
+        List<String> dummyInputArray = new ArrayList<>();
+        dummyInputArray.add("1 2 3 4");
+        dummyInputArray.add("5 6 7 8");
+        List<String> dummyOutputArray = new ArrayList<>();
+        dummyOutputArray.add("1+2+3+4=10");
+        dummyOutputArray.add("5+6+7+8=26");
+        when(fileProcessor.readLinesFromFile("")).thenReturn(dummyInputArray);
+        when(numbersProcessor.processLine("1 2 3 4")).thenReturn("1+2+3+4=10");
+        when(numbersProcessor.processLine("5 6 7 8")).thenReturn("5+6+7+8=26");
+        doNothing().when(fileProcessor).writeLinesToFile(anyList(), anyString());
 
         //when
-        when(fileProcessorMock.readLinesFromFile("")).thenReturn(givenArray);
-        ArgumentCaptor<List> resultCapture = ArgumentCaptor.forClass(List.class);
-        doNothing().when(fileProcessorMock).writeLinesToFile(resultCapture.capture(), any(String.class));
-        processorClassTest.process("", "");
+        processor.process("", "");
 
         //then
-        assertEquals(expected, resultCapture.getValue());
-    }
-
-    @Test
-    public void testForMoreThenOneEmptyLine() throws Exception {
-        //given
-        List<String> givenArray = new ArrayList<>();
-        givenArray.add("");
-        givenArray.add("");
-        List<String> expected = new ArrayList<>();
-        expected.add("");
-        expected.add("");
-
-        //when
-        when(fileProcessorMock.readLinesFromFile("")).thenReturn(givenArray);
-        ArgumentCaptor<List> resultCapture = ArgumentCaptor.forClass(List.class);
-        doNothing().when(fileProcessorMock).writeLinesToFile(resultCapture.capture(), any(String.class));
-        processorClassTest.process("", "");
-
-        //then
-        assertEquals(expected, resultCapture.getValue());
-    }
-
-    @Test
-    public void testForInvalidLines() throws Exception {
-        //given
-        List<String> givenArray = new ArrayList<>();
-        givenArray.add("1 2 5 5 p");
-        givenArray.add("ky& ;[] ' g");
-        givenArray.add("- 4 - 7");
-        List<String> expected = new ArrayList<>();
-        expected.add("1 2 5 5 p");
-        expected.add("ky& ;[] ' g");
-        expected.add("- 4 - 7");
-
-        //when
-        when(fileProcessorMock.readLinesFromFile("")).thenReturn(givenArray);
-        ArgumentCaptor<List> resultCapture = ArgumentCaptor.forClass(List.class);
-        doNothing().when(fileProcessorMock).writeLinesToFile(resultCapture.capture(), any(String.class));
-        processorClassTest.process("", "");
-
-        //then
-        assertEquals(expected, resultCapture.getValue());
-    }
-
-    @Test
-    public void testForMixedLines() throws Exception {
-        //given
-        List<String> givenArray = new ArrayList<>();
-        givenArray.add("1 2 3 4");
-        givenArray.add("! 9 8 5");
-        givenArray.add("-3 4 2 0");
-        givenArray.add("4 -9 -3");
-        List<String> expected = new ArrayList<>();
-        expected.add("1+2+3+4=10");
-        expected.add("! 9 8 5");
-        expected.add("(-3)+4+2+0=3");
-        expected.add("4+(-9)+(-3)=-8");
-
-        //when
-        when(fileProcessorMock.readLinesFromFile("")).thenReturn(givenArray);
-        ArgumentCaptor<List> resultCapture = ArgumentCaptor.forClass(List.class);
-        doNothing().when(fileProcessorMock).writeLinesToFile(resultCapture.capture(), any(String.class));
-        processorClassTest.process("", "");
-
-        //then
-        assertEquals(expected, resultCapture.getValue());
+        verify(fileProcessor, times(1)).readLinesFromFile(any(String.class));
+        verify(numbersProcessor, times(1)).processLine(dummyInputArray.get(0));
+        verify(numbersProcessor, times(1)).processLine(dummyInputArray.get(1));
+        verify(fileProcessor, times(1)).writeLinesToFile(dummyOutputArray, "");
     }
 }

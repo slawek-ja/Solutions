@@ -4,38 +4,40 @@ import java.util.Scanner;
 
 public class NumbersProcessor {
     public String processLine(String line) {
-        if (!lineValidationChecker(line)) {
-            return line;
+        if (!isLineValid(line)) {
+            return "";
         }
-        int sum = 0;
-        int buffor = 0;
-        Scanner lineProcess = new Scanner(line);
+        int sumOfNumbers = 0;
+        int nextNumber = 0;
+        Scanner scanner = new Scanner(line);
         StringBuilder result = new StringBuilder();
-        while (lineProcess.hasNextInt()) {
-            buffor = lineProcess.nextInt();
-            sum += buffor;
-            if (buffor < 0) {
-                result.append("(" + buffor + ")+");
-                continue;
+        while (scanner.hasNextInt()) {
+            nextNumber = scanner.nextInt();
+            sumOfNumbers += nextNumber;
+            if (nextNumber < 0) {
+                result.append(String.format("%(d", nextNumber));
+            } else {
+                result.append(nextNumber);
             }
-            result.append(buffor + "+");
+            if (scanner.hasNextInt()) {
+                result.append("+");
+            }
         }
-        result.deleteCharAt(result.length() - 1);
-        return result.toString() + "=" + sum;
+        return result.toString() + "=" + sumOfNumbers;
     }
 
-    private boolean lineValidationChecker(String line) {
-        Scanner lineChecker = new Scanner(line);
-        Scanner intChecker = new Scanner(line);
-        if (!lineChecker.hasNext()) {
-            return lineChecker.hasNext();
+    private boolean isLineValid(String line) {
+        if (line.equals("") || !line.matches("[\\d+\\s-*]*")) {
+            return false;
         }
-        while (lineChecker.hasNext()) {
-            if (!intChecker.hasNextInt() && lineChecker.hasNext()) {
-                return intChecker.hasNextInt();
+        Scanner scanner = new Scanner(line);
+        boolean negativeNumbers;
+        while (scanner.hasNext()) {
+            negativeNumbers = scanner.hasNextInt();
+            scanner.next();
+            if (!negativeNumbers) {
+                return false;
             }
-            lineChecker.next();
-            intChecker.next();
         }
         return true;
     }
