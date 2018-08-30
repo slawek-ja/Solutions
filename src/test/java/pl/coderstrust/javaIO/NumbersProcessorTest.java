@@ -13,14 +13,14 @@ import org.junit.runner.RunWith;
 @RunWith(JUnitParamsRunner.class)
 public class NumbersProcessorTest {
 
-    public NumbersProcessor numbersProcessorClassTest;
+    public NumbersProcessor numbersProcessor;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void initialize() {
-        numbersProcessorClassTest = new NumbersProcessor();
+        numbersProcessor = new NumbersProcessor();
     }
 
     @Test
@@ -35,10 +35,11 @@ public class NumbersProcessorTest {
             "2 6 -10, 2+6+(-10)=-2",
             "0 0 0, 0+0+0=0",
             "3, 3=3",
-            "6, 6=6"})
+            "6, 6=6",
+            "         ,"})
     public void testForValidArguments(String givenLine, String expectedLine) {
         //when
-        String result = numbersProcessorClassTest.processLine(givenLine);
+        String result = numbersProcessor.processLine(givenLine);
 
         //then
         assertEquals(expectedLine, result);
@@ -56,7 +57,7 @@ public class NumbersProcessorTest {
         String expectedLine = "";
 
         //when
-        String result = numbersProcessorClassTest.processLine(givenLine);
+        String result = numbersProcessor.processLine(givenLine);
 
         //then
         assertEquals(expectedLine, result);
@@ -70,6 +71,6 @@ public class NumbersProcessorTest {
         //then
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("Line cannot be null");
-        String result = numbersProcessorClassTest.processLine(givenLine);
+        String result = numbersProcessor.processLine(givenLine);
     }
 }

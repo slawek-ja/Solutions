@@ -15,8 +15,8 @@ public class FileProcessor {
         return lines;
     }
 
-    public void writeLinesToFile(List<String> lines, String resultFileName) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(resultFileName));
+    public void writeLinesToFile(List<String> lines, String filePath) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
         for (int i = 0; i < lines.size(); i++) {
             writer.write(lines.get(i));
             writer.newLine();

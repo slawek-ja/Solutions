@@ -13,11 +13,10 @@ import java.util.List;
 
 public class IntegrationTests {
 
-    private static final String inputFilePath = "src\\test\\java\\resources\\test_input.txt";
     private static final String outputFilePath = "src\\test\\java\\resources\\test_output.txt";
 
-    private List<String> readFile(String fileInputPath) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileInputPath));
+    private List<String> readFile(String fileInput) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileInput));
         String currentLine;
         List<String> result = new ArrayList<>();
         while ((currentLine = bufferedReader.readLine()) != null) {
@@ -27,9 +26,11 @@ public class IntegrationTests {
     }
 
     @Before
-    public void removeOutputFileBeforeTest() {
+    public void removeOutputFile() {
         File file = new File(outputFilePath);
-        file.delete();
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     @Test
@@ -39,9 +40,10 @@ public class IntegrationTests {
         FileProcessor fileProcessor = new FileProcessor();
         Processor processor = new Processor(numbersProcessor, fileProcessor);
         List<String> expected = readFile("src\\test\\java\\resources\\test_expected_output.txt");
+        String sampleInputFilePath = "src\\test\\java\\resources\\test_input.txt";
 
         //when
-        processor.process(inputFilePath, outputFilePath);
+        processor.process(sampleInputFilePath, outputFilePath);
         List<String> processorOutputFile = readFile(outputFilePath);
 
         //then

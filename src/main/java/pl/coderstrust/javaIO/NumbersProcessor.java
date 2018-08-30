@@ -4,9 +4,6 @@ import java.util.Scanner;
 
 public class NumbersProcessor {
     public String processLine(String line) {
-        if (line == null) {
-            throw new IllegalArgumentException("Line cannot be null");
-        }
         if (!isLineValid(line)) {
             return "";
         }
@@ -26,10 +23,13 @@ public class NumbersProcessor {
                 result.append("+");
             }
         }
-        return result.toString() + "=" + sumOfNumbers;
+        return result.append(String.format("=%s", sumOfNumbers)).toString();
     }
 
     private boolean isLineValid(String line) {
+        if (line == null) {
+            throw new IllegalArgumentException("Line cannot be null");
+        }
         if (line.trim().isEmpty()) {
             return false;
         }

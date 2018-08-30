@@ -25,23 +25,25 @@ public class ProcessorTest {
     private Processor processor;
 
     @Test
-    public void testForSimpleExample() throws IOException {
+    public void testForCorrectBehaviour() throws IOException {
         //given
+        String inputFilePath = "src\\test\\java\\resources\\test_input.txt";
+        String outputFilePath = "src\\test\\java\\resources\\test_output.txt";
         List<String> dummyOutputArray = new ArrayList<>();
         dummyOutputArray.add("1+2+3+4=10");
         dummyOutputArray.add("5+6+7+8=26");
-        when(fileProcessor.readLinesFromFile("src\\test\\java\\resources\\test_input.txt")).thenReturn(Arrays.asList("1 2 3 4", "5 6 7 8"));
+        when(fileProcessor.readLinesFromFile(inputFilePath)).thenReturn(Arrays.asList("1 2 3 4", "5 6 7 8"));
         when(numbersProcessor.processLine("1 2 3 4")).thenReturn("1+2+3+4=10");
         when(numbersProcessor.processLine("5 6 7 8")).thenReturn("5+6+7+8=26");
         doNothing().when(fileProcessor).writeLinesToFile(anyList(), anyString());
 
         //when
-        processor.process("src\\test\\java\\resources\\test_input.txt", "src\\test\\java\\resources\\test_output.txt");
+        processor.process(inputFilePath, outputFilePath);
 
         //then
-        verify(fileProcessor).readLinesFromFile("src\\test\\java\\resources\\test_input.txt");
-        verify(numbersProcessor, times(1)).processLine("1 2 3 4");
-        verify(numbersProcessor, times(1)).processLine("5 6 7 8");
-        verify(fileProcessor, times(1)).writeLinesToFile(dummyOutputArray, "src\\test\\java\\resources\\test_output.txt");
+        verify(fileProcessor).readLinesFromFile(inputFilePath);
+        verify(numbersProcessor).processLine("1 2 3 4");
+        verify(numbersProcessor).processLine("5 6 7 8");
+        verify(fileProcessor).writeLinesToFile(dummyOutputArray, outputFilePath);
     }
 }
