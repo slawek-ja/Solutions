@@ -23,7 +23,7 @@ public class NumbersProcessor {
                 result.append("+");
             }
         }
-        return result.append(String.format("=%s", sumOfNumbers)).toString();
+        return String.format("%s=%s", result.toString(), sumOfNumbers);
     }
 
     private boolean isLineValid(String line) {

@@ -15,8 +15,8 @@ public class IntegrationTests {
 
     private static final String outputFilePath = "src\\test\\java\\resources\\test_output.txt";
 
-    private List<String> readFile(String fileInput) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileInput));
+    private List<String> readFile(String filePath) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
         String currentLine;
         List<String> result = new ArrayList<>();
         while ((currentLine = bufferedReader.readLine()) != null) {

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileProcessor {
-    public List<String> readLinesFromFile(String filePatch) throws IOException {
+    public List<String> readLinesFromFile(String filePath) throws IOException {
         List<String> lines = new ArrayList<>();
-        BufferedReader bufferedReader  = new BufferedReader(new FileReader(filePatch));
+        BufferedReader bufferedReader  = new BufferedReader(new FileReader(filePath));
         String currentLine;
         while ((currentLine = bufferedReader.readLine()) != null) {
             lines.add(currentLine);

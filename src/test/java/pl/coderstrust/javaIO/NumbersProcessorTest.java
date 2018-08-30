@@ -52,7 +52,7 @@ public class NumbersProcessorTest {
             "';lsy ndg 87 64  jjjd  23",
             "1 2 - 5",
             ""})
-    public void testWithInvalidCharacter(String givenLine) {
+    public void testForInvalidArguments(String givenLine) {
         //given
         String expectedLine = "";
 
