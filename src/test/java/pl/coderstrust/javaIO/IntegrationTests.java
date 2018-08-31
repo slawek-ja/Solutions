@@ -13,7 +13,7 @@ import java.util.List;
 
 public class IntegrationTests {
 
-    private static final String outputFilePath = "src\\test\\java\\resources\\test_output.txt";
+    private static final String outputFilePath = "src\\test\\resources\\test_output.txt";
 
     private List<String> readFile(String filePath) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
@@ -39,8 +39,8 @@ public class IntegrationTests {
         NumbersProcessor numbersProcessor = new NumbersProcessor();
         FileProcessor fileProcessor = new FileProcessor();
         Processor processor = new Processor(numbersProcessor, fileProcessor);
-        List<String> expected = readFile("src\\test\\java\\resources\\test_expected_output.txt");
-        String sampleInputFilePath = "src\\test\\java\\resources\\test_input.txt";
+        List<String> expected = readFile("src\\test\\resources\\test_expected_output.txt");
+        String sampleInputFilePath = "src\\test\\resources\\test_input.txt";
 
         //when
         processor.process(sampleInputFilePath, outputFilePath);

@@ -27,8 +27,8 @@ public class ProcessorTest {
     @Test
     public void testForCorrectBehaviour() throws IOException {
         //given
-        String inputFilePath = "src\\test\\java\\resources\\test_input.txt";
-        String outputFilePath = "src\\test\\java\\resources\\test_output.txt";
+        String inputFilePath = "src\\test\\resources\\test_input.txt";
+        String outputFilePath = "src\\test\\resources\\test_output.txt";
         List<String> dummyOutputArray = new ArrayList<>();
         dummyOutputArray.add("1+2+3+4=10");
         dummyOutputArray.add("5+6+7+8=26");
