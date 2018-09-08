@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayListTest extends ArrayTestBase{
-    public List getArraysMethod() {
+    public List getArrayList() {
         return new ArrayList();
     }
 }

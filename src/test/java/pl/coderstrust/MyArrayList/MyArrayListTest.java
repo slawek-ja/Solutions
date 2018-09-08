@@ -4,7 +4,7 @@ import java.util.List;
 
 public class MyArrayListTest extends ArrayTestBase {
     @Override
-    public List getArraysMethod() {
+    public List getArrayList() {
         return new MyArrayList();
     }
 }
