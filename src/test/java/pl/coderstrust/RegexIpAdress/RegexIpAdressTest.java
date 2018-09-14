@@ -30,6 +30,7 @@ public class RegexIpAdressTest {
         return String.format("%d hours, %d min, %d sec, %d ms", hours, min, sec, ms);
     }
 
+    @Ignore
     @Test
     public void testForEveryPossibleCombination() {
         String ipAdress;
