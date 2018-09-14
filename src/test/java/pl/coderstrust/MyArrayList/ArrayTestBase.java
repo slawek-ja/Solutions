@@ -59,13 +59,13 @@ public abstract class ArrayTestBase {
     @Test
     public void testForAddMethod() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
         List<String> expectedString = Arrays.asList("example", null, "");
 
         //when
-        givenArrayString.add("example");
-        givenArrayString.add(null);
-        givenArrayString.add("");
+        givenList.add("example");
+        givenList.add(null);
+        givenList.add("");
 
         //then
         assertEquals(expectedString, expectedString);
@@ -82,28 +82,28 @@ public abstract class ArrayTestBase {
             "1 2 3, 1, null, 1 null 2 3"})
     public void testForAddMethodWithIndexAndValidArguments(String fillArray, int index, String element, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> expectedString = new ArrayList<>();
         split(expectedString, expected);
 
         //when
-        givenArrayString.add(index, checkArgument(element));
+        givenList.add(index, checkArgument(element));
 
         //then
-        assertEquals(expectedString, givenArrayString);
+        assertEquals(expectedString, givenList);
     }
 
     @Test
     public void testForAddMethodWithInvalidIndex() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 2, Size: 1");
-        givenArrayString.add(2, "2");
+        givenList.add(2, "2");
     }
 
     @Test
@@ -113,13 +113,13 @@ public abstract class ArrayTestBase {
             "2, 3"})
     public void testForGetMethod(int index, String expectedValue) {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
-        givenArrayString.add("2");
-        givenArrayString.add("3");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
+        givenList.add("2");
+        givenList.add("3");
 
         //when
-        String result = givenArrayString.get(index);
+        String result = givenList.get(index);
 
         //then
         assertEquals(expectedValue, result);
@@ -130,11 +130,11 @@ public abstract class ArrayTestBase {
         //given
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 2, Size: 1");
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
 
         //when
-        String result = givenArrayString.get(2);
+        String result = givenList.get(2);
     }
 
     @Test
@@ -146,11 +146,11 @@ public abstract class ArrayTestBase {
             ", 0"})
     public void testForSizeMethod(String arguments, int expectedSize) {
         //given
-        List<String> givenStringArray = getArrayList();
-        split(givenStringArray, checkArgument(arguments));
+        List<String> givenList = getArrayList();
+        split(givenList, checkArgument(arguments));
 
         //when
-        int result = givenStringArray.size();
+        int result = givenList.size();
 
         //then
         assertEquals(expectedSize, result);
@@ -165,11 +165,11 @@ public abstract class ArrayTestBase {
             ", true"})
     public void testForIsEmptyMethod(String arguments, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, checkArgument(arguments));
+        List<String> givenList = getArrayList();
+        split(givenList, checkArgument(arguments));
 
         //when
-        boolean result = givenArrayString.isEmpty();
+        boolean result = givenList.isEmpty();
 
         //then
         assertEquals(expected, result);
@@ -186,11 +186,11 @@ public abstract class ArrayTestBase {
             ", 2, false"})
     public void testForContainsMethod(String fillArray, String searched, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, checkArgument(fillArray));
+        List<String> givenList = getArrayList();
+        split(givenList, checkArgument(fillArray));
 
         //when
-        boolean result = givenArrayString.contains(checkArgument(searched));
+        boolean result = givenList.contains(checkArgument(searched));
 
         //then
         assertEquals(expected, result);
@@ -205,12 +205,12 @@ public abstract class ArrayTestBase {
             ","})
     public void testForToArrayMethod(String fillArray, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, checkArgument(fillArray));
+        List<String> givenList = getArrayList();
+        split(givenList, checkArgument(fillArray));
         Object[] expectedString = split(checkArgument(expected));
 
         //when
-        Object[] resultString = givenArrayString.toArray();
+        Object[] resultString = givenList.toArray();
 
         //then
         assertEquals(expectedString, resultString);
@@ -226,13 +226,13 @@ public abstract class ArrayTestBase {
             ","})
     public void testForToArrayMethodWithTArgument(String fillArray, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         Object[] expectedString = split(checkArgument(expected));
 
         //when
         String[] resultString = new String[0];
-        resultString = givenArrayString.toArray(resultString);
+        resultString = givenList.toArray(resultString);
 
         //then
         assertEquals(expectedString, resultString);
@@ -251,17 +251,17 @@ public abstract class ArrayTestBase {
             ", 2,, false"})
     public void testForRemoveMethodObjectArgument(String fillArray, String removeValue, String expectedArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> expectedString = new ArrayList<>();
         split(expectedString, expectedArray);
 
         //when
-        boolean result = givenArrayString.remove(checkArgument(removeValue));
+        boolean result = givenList.remove(checkArgument(removeValue));
 
         //then
         assertEquals(expected, result);
-        assertEquals(expectedString, givenArrayString);
+        assertEquals(expectedString, givenList);
     }
 
     @Test
@@ -277,13 +277,13 @@ public abstract class ArrayTestBase {
     })
     public void testForContainsAllMethod(String fillArray, String givenCollection, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         Vector<String> collection = new Vector<>();
         split(collection, givenCollection);
 
         //when
-        boolean result = givenArrayString.containsAll(collection);
+        boolean result = givenList.containsAll(collection);
 
         //then
         assertEquals(expected, result);
@@ -299,19 +299,19 @@ public abstract class ArrayTestBase {
             "null 1 2, 3 null, null 1 2 3 null, true"})
     public void testForAddAllMethod(String fillArray, String collection, String expectedArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> collectionArray = new ArrayList<>();
         split(collectionArray, collection);
         List<String> resultArray = new ArrayList<>();
         split(resultArray, expectedArray);
 
         //when
-        boolean result = givenArrayString.addAll(collectionArray);
+        boolean result = givenList.addAll(collectionArray);
 
         //then
         assertEquals(expected, result);
-        assertEquals(resultArray, givenArrayString);
+        assertEquals(resultArray, givenList);
     }
 
     @Test
@@ -323,32 +323,32 @@ public abstract class ArrayTestBase {
             "1 2 3, 4 5 6, 3, 1 2 3 4 5 6, true"})
     public void testForAddAllMethodWithIndex(String fillArray, String collection, int index, String expectedArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> collectionArray = new ArrayList<>();
         split(collectionArray, collection);
         List<String> resultArray = new ArrayList<>();
         split(resultArray, expectedArray);
 
         //when
-        boolean result = givenArrayString.addAll(index, collectionArray);
+        boolean result = givenList.addAll(index, collectionArray);
 
         //then
         assertEquals(expected, result);
-        assertEquals(resultArray, givenArrayString);
+        assertEquals(resultArray, givenList);
     }
 
     @Test
     public void testForAddAllMethodWithIndexWhenGivenIndexIsOutOfRange() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
         List<String> sampleArrayString = Arrays.asList("2");
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 5, Size: 1");
-        givenArrayString.addAll(5, sampleArrayString);
+        givenList.addAll(5, sampleArrayString);
     }
 
     @Test
@@ -364,19 +364,19 @@ public abstract class ArrayTestBase {
             "1 2 3, 1 2 3, , true"})
     public void testForRemoveAllMethod(String fillArray, String collection, String expectedArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> collectionArray = new ArrayList<>();
         split(collectionArray, collection);
         List<String> resultArray = new ArrayList<>();
         split(resultArray, expectedArray);
 
         //when
-        boolean result = givenArrayString.removeAll(collectionArray);
+        boolean result = givenList.removeAll(collectionArray);
 
         //then
         assertEquals(expected, result);
-        assertEquals(resultArray, givenArrayString);
+        assertEquals(resultArray, givenList);
     }
 
     @Test
@@ -390,19 +390,19 @@ public abstract class ArrayTestBase {
             "1 2 3, 1 2 3, 1 2 3, false"})
     public void testForRetainAllMethod(String fillArray, String collection, String expectedArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> collectionArray = new ArrayList<>();
         split(collectionArray, collection);
         List<String> resultArray = new ArrayList<>();
         split(resultArray, expectedArray);
 
         //when
-        boolean result = givenArrayString.retainAll(collectionArray);
+        boolean result = givenList.retainAll(collectionArray);
 
         //then
         assertEquals(expected, result);
-        assertEquals(resultArray, givenArrayString);
+        assertEquals(resultArray, givenList);
     }
 
     @Test
@@ -415,15 +415,15 @@ public abstract class ArrayTestBase {
             ""})
     public void testForClearMethod(String fillArray) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> expected = new ArrayList<>();
 
         //when
-        givenArrayString.clear();
+        givenList.clear();
 
         //then
-        assertEquals(expected, givenArrayString);
+        assertEquals(expected, givenList);
     }
 
     @Test
@@ -435,41 +435,41 @@ public abstract class ArrayTestBase {
             "1 2 4, 2, 1 2"})
     public void testForRemoveMethodIndex(String fillArray, int index, String expectedArray) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> expected = new ArrayList<>();
         split(expected, expectedArray);
 
         //when
-        givenArrayString.remove(index);
+        givenList.remove(index);
 
         //then
-        assertEquals(expected, givenArrayString);
+        assertEquals(expected, givenList);
     }
 
     @Test
     public void testForRemoveMethodIndexWhenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
         List<String> expectedString = Arrays.asList();
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 1, Size: 0");
-        givenArrayString.remove(1);
+        givenList.remove(1);
     }
 
     @Test
     public void testForRemoveMethodIndexWhenGivenIndexIsOutOfRange() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
-        givenArrayString.add("2");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
+        givenList.add("2");
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 4, Size: 2");
-        givenArrayString.remove(4);
+        givenList.remove(4);
     }
 
     @Test
@@ -484,11 +484,11 @@ public abstract class ArrayTestBase {
             ", 2, -1"})
     public void testForIndexOfObjectArgument(String fillArray, String givenArgument, int expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
 
         //when
-        int result = givenArrayString.indexOf(checkArgument(givenArgument));
+        int result = givenList.indexOf(checkArgument(givenArgument));
 
         //then
         assertEquals(expected, result);
@@ -505,11 +505,11 @@ public abstract class ArrayTestBase {
             ", 2, -1"})
     public void testForLastIndexOfObjectArgument(String fillArray, String givenArgument, int expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
 
         //when
-        int result = givenArrayString.lastIndexOf(checkArgument(givenArgument));
+        int result = givenList.lastIndexOf(checkArgument(givenArgument));
 
         //then
         assertEquals(expected, result);
@@ -524,13 +524,13 @@ public abstract class ArrayTestBase {
             "1 2 3, 1, 1,"})
     public void testForSubListMethod(String fillArray, int indexStart, int howManyValues, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         List<String> expectedArray = new ArrayList<>();
         split(expectedArray, expected);
 
         //when
-        List<String> result = givenArrayString.subList(indexStart, howManyValues);
+        List<String> result = givenList.subList(indexStart, howManyValues);
 
         //then
         assertEquals(expectedArray, result);
@@ -539,24 +539,24 @@ public abstract class ArrayTestBase {
     @Test
     public void testForSubListMethodWhenSecondArgumentIsOutOfRange() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("toIndex = 2");
-        List<String> resultString = givenArrayString.subList(0, 2);
+        List<String> resultString = givenList.subList(0, 2);
     }
 
     @Test
     public void testForSubListMethodWhenGivenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("toIndex = 2");
-        List<String> resultString = givenArrayString.subList(0, 2);
+        List<String> resultString = givenList.subList(0, 2);
     }
 
     //listIterator() Tests
@@ -570,12 +570,12 @@ public abstract class ArrayTestBase {
             ", false"})
     public void testForListIteratorHasNextMethod(String fillArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> iteratorString = null;
 
         //when
-        iteratorString = givenArrayString.listIterator();
+        iteratorString = givenList.listIterator();
         boolean result = iteratorString.hasNext();
 
         //then
@@ -590,12 +590,12 @@ public abstract class ArrayTestBase {
             "null null 3, null"})
     public void testForListIteratorNextMethod(String fillArray, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> listIterator = null;
 
         //when
-        listIterator = givenArrayString.listIterator();
+        listIterator = givenList.listIterator();
         listIterator.next();
         String result = listIterator.next();
 
@@ -606,13 +606,13 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorNextMethodWhenIteratorOutOfRange() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
         ListIterator<String> iteratorString = null;
 
         //when
         thrown.expect(NoSuchElementException.class);
-        iteratorString = givenArrayString.listIterator();
+        iteratorString = givenList.listIterator();
         iteratorString.next();
         iteratorString.next();
     }
@@ -620,13 +620,13 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorValidArgumentsHasPreviousMethod() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
-        givenArrayString.add("2");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
+        givenList.add("2");
         ListIterator<String> iteratorString = null;
 
         //when
-        iteratorString = givenArrayString.listIterator();
+        iteratorString = givenList.listIterator();
         iteratorString.next();
         iteratorString.next();
         boolean resultString = iteratorString.hasPrevious();
@@ -645,12 +645,12 @@ public abstract class ArrayTestBase {
             ", false"})
     public void testForListIteratorHasPreviousMethodWhenIteratorIsNotMovedAndArrayIsEmpty(String fillArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> listIterator = null;
 
         //when
-        listIterator = givenArrayString.listIterator();
+        listIterator = givenList.listIterator();
         boolean result = listIterator.hasPrevious();
 
         //then
@@ -660,14 +660,14 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorPreviousMethodWithValidArguments() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
-        givenArrayString.add("2");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
+        givenList.add("2");
         ListIterator<String> iteratorString = null;
         String expectedString = "1";
 
         //when
-        iteratorString = givenArrayString.listIterator();
+        iteratorString = givenList.listIterator();
         iteratorString.next();
         iteratorString.next();
         iteratorString.previous();
@@ -680,12 +680,12 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorPreviousMethodWhenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
         ListIterator<String> iteratorString = null;
 
         //when
         thrown.expect(NoSuchElementException.class);
-        iteratorString = givenArrayString.listIterator();
+        iteratorString = givenList.listIterator();
         iteratorString.previous();
     }
 
@@ -698,12 +698,12 @@ public abstract class ArrayTestBase {
             "null null, 0, true"})
     public void testForListIteratorHasNextMethodWithIndexArgumentAndValidArguments(String fillArray, int index, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> iteratorString = null;
 
         //when
-        iteratorString = givenArrayString.listIterator(index);
+        iteratorString = givenList.listIterator(index);
         boolean result = iteratorString.hasNext();
 
         //then
@@ -713,14 +713,14 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorHasNextMethodWithIndexArgumentWhenGivenIndexIsOutOfRange() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
         ListIterator<String> iteratorString = null;
 
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage("Index: 3");
-        iteratorString = givenArrayString.listIterator(3);
+        iteratorString = givenList.listIterator(3);
     }
 
     @Test
@@ -731,12 +731,12 @@ public abstract class ArrayTestBase {
             "null 1 null, 2, null"})
     public void testForListIteratorNextMethodWithIndexArgumentValidArguments(String fillArray, int index, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> listIterator = null;
 
         //when
-        listIterator = givenArrayString.listIterator(index);
+        listIterator = givenList.listIterator(index);
         String result = listIterator.next();
 
         //then
@@ -746,12 +746,12 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorNextMethodWithIndexArgumentWhenGivenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
         ListIterator<String> iteratorString = null;
 
         //when
         thrown.expect(NoSuchElementException.class);
-        iteratorString = givenArrayString.listIterator(0);
+        iteratorString = givenList.listIterator(0);
         iteratorString.next();
     }
 
@@ -765,12 +765,12 @@ public abstract class ArrayTestBase {
             ", 0, false"})
     public void testForListIteratorHasPreviousMethodWithIndexArgumentValidArguments(String fillArray, int index, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> listIterator = null;
 
         //when
-        listIterator = givenArrayString.listIterator(index);
+        listIterator = givenList.listIterator(index);
         boolean result = listIterator.hasPrevious();
 
         //then
@@ -785,12 +785,12 @@ public abstract class ArrayTestBase {
             "null 1 null 2, 3, null"})
     public void testForListIteratorPreviousMethodWithIndexArgumentAndValidArguments(String fillArray, int index, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
         ListIterator<String> listIterator = null;
 
         //when
-        listIterator = givenArrayString.listIterator(index);
+        listIterator = givenList.listIterator(index);
         String result = listIterator.previous();
 
         //then
@@ -800,25 +800,25 @@ public abstract class ArrayTestBase {
     @Test
     public void testForListIteratorPreviousMethodWithIndexArgumentWithoutMovingIterator() {
         //given
-        List<String> givenArrayString = getArrayList();
-        givenArrayString.add("1");
+        List<String> givenList = getArrayList();
+        givenList.add("1");
         ListIterator<String> listIterator = null;
 
         //when
         thrown.expect(NoSuchElementException.class);
-        listIterator = givenArrayString.listIterator(0);
+        listIterator = givenList.listIterator(0);
         listIterator.previous();
     }
 
     @Test
     public void testForListIteratorPreviousMethodWithIndexArgumentWhenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
+        List<String> givenList = getArrayList();
         ListIterator<String> iteratorString = null;
 
         //when
         thrown.expect(NoSuchElementException.class);
-        iteratorString = givenArrayString.listIterator(0);
+        iteratorString = givenList.listIterator(0);
         iteratorString.previous();
     }
 
@@ -831,9 +831,9 @@ public abstract class ArrayTestBase {
             ", false"})
     public void testForIteratorHasNextMethodWithValidArguments(String fillArray, boolean expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
-        Iterator<String> iterator = givenArrayString.iterator();
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
+        Iterator<String> iterator = givenList.iterator();
 
         //when
         boolean result = iterator.hasNext();
@@ -850,12 +850,12 @@ public abstract class ArrayTestBase {
             "null 1, null"})
     public void testForIteratorNextMethodWithValidArguments(String fillArray, String expected) {
         //given
-        List<String> givenArrayString = getArrayList();
-        split(givenArrayString, fillArray);
-        Iterator<String> iterator = givenArrayString.iterator();
+        List<String> givenList = getArrayList();
+        split(givenList, fillArray);
+        Iterator<String> iterator = givenList.iterator();
 
         //when
-        iterator = givenArrayString.iterator();
+        iterator = givenList.iterator();
         String result = iterator.next();
 
         //then
@@ -865,12 +865,12 @@ public abstract class ArrayTestBase {
     @Test
     public void testForIteratorNextMethodWhenArrayIsEmpty() {
         //given
-        List<String> givenArrayString = getArrayList();
-        Iterator<String> iterator = givenArrayString.iterator();
+        List<String> givenList = getArrayList();
+        Iterator<String> iterator = givenList.iterator();
 
         //when
         thrown.expect(NoSuchElementException.class);
-        iterator = givenArrayString.iterator();
+        iterator = givenList.iterator();
         iterator.next();
     }
 }
