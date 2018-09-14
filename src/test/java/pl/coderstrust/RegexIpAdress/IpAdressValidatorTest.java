@@ -1,6 +1,6 @@
 package pl.coderstrust.RegexIpAdress;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import junitparams.JUnitParamsRunner;
@@ -11,31 +11,30 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitParamsRunner.class)
-public class RegexIpAdressTest {
+public class IpAdressValidatorTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    public long calculateExecutionTime (long startTime, long endTime) {
+    private long calculateExecutionTime (long startTime, long endTime) {
         return endTime - startTime;
     }
 
-    public String printResultTime (long calculatedTime) {
+    private void printExecutionTime(long calculatedTime) {
         long hours = calculatedTime / 3_600_000;
         long hourRest = calculatedTime % 3_600_000;
         long min = hourRest / 60_000;
         long minutesRest = hourRest % 60_000;
         long sec = minutesRest / 1000;
         long ms = minutesRest % 1000;
-        return String.format("%d hours, %d min, %d sec, %d ms", hours, min, sec, ms);
+        System.out.println(String.format("%d hours, %d min, %d sec, %d ms", hours, min, sec, ms));
     }
 
     @Test
-    public void testForEveryPossibleCombination() {
+    public void testForEveryIpAddress() {
         String ipAdress;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 256; i++) {
-            System.out.println(i);
             for (int j = 0; j < 256; j++) {
                 for (int k = 0; k < 256; k++) {
                     for (int l = 0; l < 256; l++) {
@@ -46,52 +45,52 @@ public class RegexIpAdressTest {
             }
         }
         long endTime = System.currentTimeMillis();
-        System.out.println(printResultTime(calculateExecutionTime(startTime, endTime)));
+        long calculatedExecutionTime = calculateExecutionTime(startTime, endTime);
+        printExecutionTime(calculatedExecutionTime);
     }
 
     @Test
     @Parameters({
-            "127.0.0.1, true",
-            "0.0.0.0, true",
-            "255.255.255.255, true",
-            "1.1.1.1, true",
-            "192.168.0.1, true",
-            "256.1.1.1, false",
-            "3.400.1.53, false"})
-    public void testForValidArguments(String ipAdress, boolean expected) {
+            "127.0.0.1",
+            "0.0.0.0",
+            "255.255.255.255",
+            "1.1.1.1",
+            "192.168.0.1"})
+    public void testForValidIpAddresses(String ipAdress) {
         //when
         boolean result = IpAdressValidator.isIpAddress(ipAdress);
 
         //then
-        assertEquals(expected, result);
+        assertTrue(result);
     }
 
     @Test
     @Parameters({
-            ", false",
-            "0.0.0.-1, false",
-            "!d21.44.1.2, false",
-            "eps..2, false",
-            "...., false",
-            "@.!.2.//, false",
-            "][.2.1.rty, false"})
-    public void testForInvalidCharacters(String givenString, boolean expected) {
+            "",
+            " . . . ",
+            " ",
+            "0.0.0.-1",
+            "!d21.44.1.2",
+            "eps..2",
+            "....",
+            "@.!.2.//",
+            "][.2.1.rty",
+            "256.1.1.1",
+            "3.400.1.53"})
+    public void testForInvalidIpAddresses(String givenString) {
         //when
         boolean result = IpAdressValidator.isIpAddress(givenString);
 
         //then
-        assertEquals(expected, result);
+        assertFalse(result);
     }
 
     @Test
     public void testForGivenStringAsNull() {
-        //when
-        String example = null;
-
         //then
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage("String cannot be null");
-        boolean result = IpAdressValidator.isIpAddress(example);
+        boolean result = IpAdressValidator.isIpAddress(null);
     }
 
     @Test
@@ -100,13 +99,10 @@ public class RegexIpAdressTest {
             "1.%d.1.1",
             "1.1.%d.1",
             "1.1.1.%d"})
-    public void smartTest(String ipAddressTemplate) {
-        //when
-        String ipAdress;
-
+    public void smartTestForValidIpAddresses(String ipAddressTemplate) {
         //then
         for (int i = 0; i< 256; i++) {
-            ipAdress = String.format(ipAddressTemplate, i);
+            String ipAdress = String.format(ipAddressTemplate, i);
             assertTrue(IpAdressValidator.isIpAddress(ipAdress));
         }
     }
