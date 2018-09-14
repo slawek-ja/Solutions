@@ -462,6 +462,25 @@ public class MyArrayList<T> implements List<T> {
         return result;
     }
 
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+        List<T> storage = new ArrayList<>();
+        copyObjectsToCollections(array, this.size, storage);
+        Iterator i = storage.iterator();
+        while (i.hasNext()) {
+            Object obj = i.next();
+            hashCode = 31*hashCode + (obj==null ? 0 : obj.hashCode());
+        }
+        return hashCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        Object[] mirror = Arrays.copyOf(array, this.size);
+        return Arrays.hashCode(mirror) == o.hashCode();
+    }
+
     //support Class Methods
 
     private boolean areEqual(Object argA, Object argB) {
