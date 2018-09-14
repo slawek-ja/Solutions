@@ -30,6 +30,7 @@ public class IpAdressValidatorTest {
         System.out.println(String.format("%d hours, %d min, %d sec, %d ms", hours, min, sec, ms));
     }
 
+    @Ignore
     @Test
     public void testForEveryIpAddress() {
         String ipAdress;
