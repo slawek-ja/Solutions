@@ -1,4 +1,4 @@
-package pl.coderstrust.RegexIpAdress;
+package pl.coderstrust.ipadrress;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,37 +11,45 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.TimeUnit;
+
 @RunWith(JUnitParamsRunner.class)
-public class IpAdressValidatorTest {
+public class IpAddressValidatorTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private long calculateExecutionTime (long startTime, long endTime) {
+    private long calculateExecutionTime(long startTime, long endTime) {
         return endTime - startTime;
     }
 
-    private void printExecutionTime(long calculatedTime) {
-        long hours = calculatedTime / 3_600_000;
-        long hourRest = calculatedTime % 3_600_000;
-        long min = hourRest / 60_000;
-        long minutesRest = hourRest % 60_000;
-        long sec = minutesRest / 1000;
-        long ms = minutesRest % 1000;
-        System.out.println(String.format("%d hours, %d min, %d sec, %d ms", hours, min, sec, ms));
+    private void printExecutionTime(long executionTime) {
+        long hours = TimeUnit.MILLISECONDS.toHours(executionTime);
+        executionTime -= TimeUnit.HOURS.toMillis(hours);
+        long min = TimeUnit.MILLISECONDS.toMinutes(executionTime);
+        executionTime -= TimeUnit.MINUTES.toMillis(min);
+        long sec = TimeUnit.MILLISECONDS.toSeconds(executionTime);
+        executionTime -= TimeUnit.SECONDS.toMillis(sec);
+        long ms = executionTime;
+        System.out.printf("%02d hours, %02d min, %02d sec, %02d ms", hours, min, sec, ms);
+    }
+
+    @Test
+    public void test() {
+        printExecutionTime(3600000);
     }
 
     @Ignore
     @Test
     public void testForEveryIpAddress() {
-        String ipAdress;
+        String ipAddress;
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 256; i++) {
             for (int j = 0; j < 256; j++) {
                 for (int k = 0; k < 256; k++) {
                     for (int l = 0; l < 256; l++) {
-                        ipAdress = String.format("%d.%d.%d.%d", i, j, k, l);
-                        assertTrue(IpAdressValidator.isIpAddress(ipAdress));
+                        ipAddress = String.format("%d.%d.%d.%d", i, j, k, l);
+                        assertTrue(IpAddressValidator.isIpAddress(ipAddress));
                     }
                 }
             }
@@ -58,9 +66,9 @@ public class IpAdressValidatorTest {
             "255.255.255.255",
             "1.1.1.1",
             "192.168.0.1"})
-    public void testForValidIpAddresses(String ipAdress) {
+    public void testForValidIpAddresses(String ipAddress) {
         //when
-        boolean result = IpAdressValidator.isIpAddress(ipAdress);
+        boolean result = IpAddressValidator.isIpAddress(ipAddress);
 
         //then
         assertTrue(result);
@@ -81,18 +89,18 @@ public class IpAdressValidatorTest {
             "3.400.1.53"})
     public void testForInvalidIpAddresses(String givenString) {
         //when
-        boolean result = IpAdressValidator.isIpAddress(givenString);
+        boolean result = IpAddressValidator.isIpAddress(givenString);
 
         //then
         assertFalse(result);
     }
 
     @Test
-    public void testForGivenStringAsNull() {
+    public void testForNullIpAddress() {
         //then
         thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("String cannot be null");
-        boolean result = IpAdressValidator.isIpAddress(null);
+        thrown.expectMessage("Passed ip address cannot be null");
+        IpAddressValidator.isIpAddress(null);
     }
 
     @Test
@@ -103,9 +111,9 @@ public class IpAdressValidatorTest {
             "1.1.1.%d"})
     public void smartTestForValidIpAddresses(String ipAddressTemplate) {
         //then
-        for (int i = 0; i< 256; i++) {
-            String ipAdress = String.format(ipAddressTemplate, i);
-            assertTrue(IpAdressValidator.isIpAddress(ipAdress));
+        for (int i = 0; i < 256; i++) {
+            String ipAddress = String.format(ipAddressTemplate, i);
+            assertTrue(IpAddressValidator.isIpAddress(ipAddress));
         }
     }
 }
