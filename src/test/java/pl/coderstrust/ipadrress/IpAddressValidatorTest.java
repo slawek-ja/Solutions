@@ -10,7 +10,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-
 import java.util.concurrent.TimeUnit;
 
 @RunWith(JUnitParamsRunner.class)
