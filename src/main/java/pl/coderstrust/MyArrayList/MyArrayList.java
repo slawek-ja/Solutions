@@ -155,8 +155,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (index > size) {
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+        }
+        if (c.isEmpty()){
+            return false;
         }
         Object[] givenContainer = c.toArray();
         Object[] storage = Arrays.copyOf(array, size);
@@ -256,7 +259,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T get(int index) {
-        if (index > size) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
         }
         return (T) array[index];
@@ -273,8 +276,8 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index > size) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException(String.format("Index: %d, Size: %d", index, this.size));
         }
         Object[] storage = Arrays.copyOf(array, size);
         size += 1;
@@ -293,7 +296,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        if (index > size) {
+        if (index > size || index < 0 || isEmpty()) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
         }
         Object[] storage = Arrays.copyOf(array, size);
@@ -451,8 +454,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        if (toIndex > size) {
-            throw new IndexOutOfBoundsException("toIndex = " + toIndex);
+        if (toIndex > size || fromIndex < 0 || fromIndex > toIndex) {
+            if (fromIndex < 0 || toIndex > this.size) {
+                throw new IndexOutOfBoundsException((fromIndex < 0) ? String.format("fromIndex = %d", fromIndex) : String.format("toIndex = %d", toIndex));
+            }
+            throw new IllegalArgumentException(String.format("fromIndex(%d) > toIndex(%d)", fromIndex, toIndex));
         }
         Object[] storage = Arrays.copyOfRange(array, fromIndex, toIndex);
         List<T> result = new ArrayList<>();
