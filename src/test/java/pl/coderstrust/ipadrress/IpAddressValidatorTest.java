@@ -33,11 +33,6 @@ public class IpAddressValidatorTest {
         System.out.printf("%02d hours, %02d min, %02d sec, %02d ms", hours, min, sec, ms);
     }
 
-    @Test
-    public void test() {
-        printExecutionTime(3600000);
-    }
-
     @Ignore
     @Test
     public void testForEveryIpAddress() {
