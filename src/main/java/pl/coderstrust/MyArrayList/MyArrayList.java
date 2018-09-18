@@ -216,37 +216,32 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        Object[] compare = c.toArray();
-        Object[] arrayMirror = Arrays.copyOfRange(array, 0, this.size);
-        if (Arrays.equals(arrayMirror, compare)) {
+        if (isEmpty()) {
+            return false;
+        }
+        if (c.isEmpty()) {
+            size = 0;
+            realSize = size;
+            array = new Object[increaseArrayRealSize()];
+            return true;
+        }
+        Object[] arrayMirror = Arrays.copyOf(array, this.size);
+        if (Arrays.equals(c.toArray(), arrayMirror)) {
             return false;
         }
         LinkedHashSet<T> copyC = returnSet(c);
+        List<T> result = new ArrayList<>();
+        copyObjectsToCollections(array, this.size, result);
         List<T> storage = new ArrayList<>();
-        copyObjectsToCollections(array, this.size, storage);
-        Iterator<T> iterator = copyC.iterator();
-        T actualArgument;
-        boolean equal;
-        int howManyToRemove = 0;
-        while (iterator.hasNext()) {
-            actualArgument = iterator.next();
-            for (int i = 0; i < storage.size() - howManyToRemove; i++) {
-                equal = areEqual(actualArgument, storage.get(i));
-                if (!equal) {
-                    for (int j = i; j < storage.size() - 1; j++) {
-                        Collections.swap(storage, j, j + 1);
-                    }
-                    howManyToRemove++;
-                }
+        result.forEach(e-> {
+            if (copyC.contains(e)){
+                storage.add(e);
             }
-        }
-        if (howManyToRemove == 0) {
-            return false;
-        }
-        size -= howManyToRemove;
+        });
+        size = storage.size();
         realSize = size;
         array = new Object[increaseArrayRealSize()];
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i<this.size; i++){
             array[i] = storage.get(i);
         }
         return true;
@@ -501,6 +496,9 @@ public class MyArrayList<T> implements List<T> {
     }
 
     private int increaseArrayRealSize() {
+        if (realSize == 0) {
+            return realSize = 10;
+        }
         return realSize += realSize / 2;
     }
 

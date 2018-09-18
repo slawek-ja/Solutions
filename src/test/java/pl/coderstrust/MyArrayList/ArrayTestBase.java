@@ -472,6 +472,7 @@ public abstract class ArrayTestBase {
                 new Object[]{getArrayWithValues(Arrays.asList("1","2","3")), Collections.emptyList(), new Object[0], true},
                 new Object[]{getArrayWithValues(Collections.emptyList()), Collections.singletonList("1"), new Object[0], false},
                 new Object[]{getArrayWithValues(Arrays.asList("1","2")),Arrays.asList("3","4"), new Object[0], true},
+                new Object[]{getArrayWithValues(Arrays.asList("1","2")),Arrays.asList("1","2"), new Object[]{"1","2"}, false},
                 new Object[]{getArrayWithValues(Arrays.asList("1","2")),Arrays.asList(1, 2), new Object[0], true}
         };
     }
