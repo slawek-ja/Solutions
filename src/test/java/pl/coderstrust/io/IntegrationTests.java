@@ -1,4 +1,4 @@
-package pl.coderstrust.javaIO;
+package pl.coderstrust.io;
 
 import static org.junit.Assert.assertEquals;
 
