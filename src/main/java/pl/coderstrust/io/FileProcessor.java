@@ -1,4 +1,4 @@
-package pl.coderstrust.javaIO;
+package pl.coderstrust.io;
 
 import java.io.*;
 import java.util.ArrayList;
