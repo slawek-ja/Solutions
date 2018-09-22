@@ -8,6 +8,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.internal.matchers.Null;
+
 import java.util.*;
 
 @RunWith(JUnitParamsRunner.class)
@@ -103,7 +105,7 @@ public abstract class ArrayTestBase {
     }
 
     @Test
-    public void testForAddAllMethodWithGenericsWhenGivenArrayIsNull(){
+    public void testForAddAllMethodWithGenericsWhenGivenCollectionIsNull(){
         //given
         List<String> givenList = getArrayList();
         List<String> collectionToAdd = null;
@@ -140,6 +142,17 @@ public abstract class ArrayTestBase {
     }
 
     @Test
+    public void testForAddAllMethodWithIndexWhenCollectionToAddIsNull() {
+        //given
+        List<String> givenList = getArrayList();
+        List<String> collectionToAdd = null;
+
+        //when
+        thrown.expect(NullPointerException.class);
+        givenList.addAll(collectionToAdd);
+    }
+
+    @Test
     @Parameters(method = "argumentsForAddAllMethodWithInvalidIndex")
     public void testForAddAllMethodWithInvalidIndex(List<String> givenList, int index) {
         //when
@@ -159,12 +172,11 @@ public abstract class ArrayTestBase {
     public void testForAddAllMethodWhenAddedCollectionIsNull() {
         //given
         List<String> givenList = getArrayList();
-        givenList.addAll(Arrays.asList("1","2","3"));
         List<String> collectionToAdd = null;
 
         //when
         thrown.expect(NullPointerException.class);
-        givenList.addAll(2, collectionToAdd);
+        givenList.addAll(0, collectionToAdd);
     }
 
     @Test
@@ -239,6 +251,17 @@ public abstract class ArrayTestBase {
     }
 
     @Test
+    public void testForContainsAllMethodWhenContainsCollectionIsNull(){
+        //given
+        List<String> givenList = getArrayList();
+        List<String> containsCollection = null;
+
+        //when
+        thrown.expect(NullPointerException.class);
+        givenList.containsAll(containsCollection);
+    }
+
+    @Test
     @Parameters(method = "argumentsForEqualsMethod")
     public void testForEqualsMethod(List<String> givenList, Object objectToCompare, boolean expected) {
         //when
@@ -257,7 +280,8 @@ public abstract class ArrayTestBase {
             new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), true},
             new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1", "2"), false},
             new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Collections.emptyList(), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList(1, 2), false}
+            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList(1, 2), false},
+            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), null, false}
         };
     }
 
@@ -328,7 +352,7 @@ public abstract class ArrayTestBase {
 
     @Test
     @Parameters(method = "argumentsForIndexOfMethod")
-    public void testForIndexOfMethod(List<String> givenList, String elementToFind, int expectedIndex) {
+    public void testForIndexOfMethod(List<String> givenList, Object elementToFind, int expectedIndex) {
         //when
         int result = givenList.indexOf(elementToFind);
 
@@ -344,7 +368,8 @@ public abstract class ArrayTestBase {
             new Object[]{createArrayListWithValues(Arrays.asList("1","2","2")), "2", 1},
             new Object[]{createArrayListWithValues(Arrays.asList("1", null,"2")), null, 1},
             new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "4", -1},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1}
+            new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1},
+            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 2, -1}
         };
     }
 
@@ -370,7 +395,7 @@ public abstract class ArrayTestBase {
 
     @Test
     @Parameters(method = "argumentsForLastIndexOfMethod")
-    public void testForLastIndexOfMethod(List<String> givenList, String elementToFind, int expectedIndex) {
+    public void testForLastIndexOfMethod(List<String> givenList, Object elementToFind, int expectedIndex) {
         //when
         int result = givenList.lastIndexOf(elementToFind);
 
@@ -386,7 +411,8 @@ public abstract class ArrayTestBase {
                 new Object[]{createArrayListWithValues(Arrays.asList("2","2","2")), "2", 2},
                 new Object[]{createArrayListWithValues(Arrays.asList("1", null,null)), null, 2},
                 new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "4", -1},
-                new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1}
+                new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1},
+                new Object[]{createArrayListWithValues(Arrays.asList("2","2","2")), 2, -1}
         };
     }
 
@@ -413,7 +439,7 @@ public abstract class ArrayTestBase {
 
     @Test
     @Parameters(method = "argumentsForRemoveMethodWithInvalidIndex")
-    public void testForRemoveMethodWithInvalidIndex(List<String> givenList, int index, Class expectedException, String exceptionMessage) {
+    public void testForRemoveMethodWithInvalidIndex(List<String> givenList, int index, String exceptionMessage) {
         //when
         thrown.expect(IndexOutOfBoundsException.class);
         thrown.expectMessage(exceptionMessage);
@@ -422,14 +448,14 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForRemoveMethodWithInvalidIndex() {
         return new Object[] {
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 4, IndexOutOfBoundsException.class, "Index: 4, Size: 3"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -4, IndexOutOfBoundsException.class, "-4"},
-                new Object[]{createArrayListWithValues(Collections.emptyList()), 0, IndexOutOfBoundsException.class, ""}
+                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 4,  "Index: 4, Size: 3"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -4,  "-4"},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), 0,  ""}
         };
     }
 
     @Test
-    @Parameters(method = "argumetnsForRemoveMethodWithObject")
+    @Parameters(method = "argumentsForRemoveMethodWithObject")
     public void testForRemoveMethodWithObject(List<String> givenList, String elementToRemove, Object[] expectedArray, boolean expectedResult) {
         //when
         boolean resultBoolean = givenList.remove(elementToRemove);
@@ -440,7 +466,7 @@ public abstract class ArrayTestBase {
         assertEquals(expectedResult, resultBoolean);
     }
 
-    private Object[] argumetnsForRemoveMethodWithObject() {
+    private Object[] argumentsForRemoveMethodWithObject() {
         return new Object[] {
                 new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "2", new Object[]{"1","3"}, true},
                 new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), "-3", new Object[]{"-1","-2"}, true},
@@ -454,7 +480,7 @@ public abstract class ArrayTestBase {
 
     @Test
     @Parameters(method = "argumentsForRemoveAllMethod")
-    public void testForRemoveAllMethod(List<String> givenList, Collection<String> collectionToRemove, Object[] expectedArray, boolean expectedResult) {
+    public void testForRemoveAllMethod(List<String> givenList, Collection<Object> collectionToRemove, Object[] expectedArray, boolean expectedResult) {
         //when
         boolean resultBoolean = givenList.removeAll(collectionToRemove);
         Object[] resultArray = givenList.toArray();
@@ -479,8 +505,19 @@ public abstract class ArrayTestBase {
     }
 
     @Test
+    public void testForRemoveAllMethodWhenCollectionToRemoveIsNull(){
+        //given
+        List<String> givenList = getArrayList();
+        List<String> collectionToRemove = null;
+
+        //when
+        thrown.expect(NullPointerException.class);
+        givenList.removeAll(collectionToRemove);
+    }
+
+    @Test
     @Parameters(method = "argumentsForRetainAllMethod")
-    public void testForRetainAllMethod(List<String> givenList, Collection<String> collectionToRetain, Object[] expectedArray, boolean expectedResult) {
+    public void testForRetainAllMethod(List<String> givenList, Collection<Object> collectionToRetain, Object[] expectedArray, boolean expectedResult) {
         //when
         boolean resultBoolean = givenList.retainAll(collectionToRetain);
         Object[] resultArray = givenList.toArray();
@@ -502,6 +539,17 @@ public abstract class ArrayTestBase {
                 new Object[]{createArrayListWithValues(Arrays.asList("1","2")),Arrays.asList("1","2"), new Object[]{"1","2"}, false},
                 new Object[]{createArrayListWithValues(Arrays.asList("1","2")),Arrays.asList(1, 2), new Object[0], true}
         };
+    }
+
+    @Test
+    public void testForRetainAllMethodWhenCollectionToRetainIsNull(){
+        //given
+        List<String> givenList = getArrayList();
+        List<String> collectionToRetain = null;
+
+        //when
+        thrown.expect(NullPointerException.class);
+        givenList.retainAll(collectionToRetain);
     }
 
     @Test
@@ -625,12 +673,12 @@ public abstract class ArrayTestBase {
 
     @Test
     @Parameters(method = "argumentsForToArrayMethodWithGenerics")
-    public void testForToArrayMethodWithGenerics(List<String> givenList, String[] expected) {
+    public void testForToArrayMethodWithGenerics(List<String> givenList, String[] expectedArray) {
         //when
-        String[] result = givenList.toArray(expected);
+        String[] result = new String[0];
 
         //then
-        assertArrayEquals(expected, result);
+        assertArrayEquals(expectedArray, givenList.toArray(result));
     }
 
     private Object[] argumentsForToArrayMethodWithGenerics() {
@@ -639,21 +687,18 @@ public abstract class ArrayTestBase {
                 new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), new String[]{"-1","-2","-3"}},
                 new Object[]{createArrayListWithValues(Arrays.asList("0","0","0")), new String[]{"0","0","0"}},
                 new Object[]{createArrayListWithValues(Arrays.asList(null, null)), new String[]{null, null}},
-                new Object[]{createArrayListWithValues(Collections.emptyList()), new String[0]}
+                new Object[]{createArrayListWithValues(Collections.emptyList()), new String[0]},
         };
     }
 
     @Test
-    @Parameters(method = "argumentsForToArrayMethodWithInvalidGenerics")
-    public void testForToArrayMethodWithInvalidGenerics(List<String> givenList, Object[] destinationArray ,Class expectedExceptionType) {
-        //when
-        thrown.expect(expectedExceptionType);
-        destinationArray = givenList.toArray(destinationArray);
-    }
+    public void testForToArrayMethodWithInvalidGenerics() {
+        //given
+        List<String> givenList = getArrayList();
+        Object[] destinationArray = null;
 
-    private Object[] argumentsForToArrayMethodWithInvalidGenerics() {
-        return new Object[] {
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), null, NullPointerException.class}
-        };
+        //when
+        thrown.expect(NullPointerException.class);
+        givenList.toArray(destinationArray);
     }
 }
