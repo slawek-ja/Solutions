@@ -8,8 +8,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.internal.matchers.Null;
-
 import java.util.*;
 
 @RunWith(JUnitParamsRunner.class)
@@ -20,7 +18,7 @@ public abstract class ArrayTestBase {
 
     public abstract List<String> getArrayList();
 
-    private List<String> createArrayListWithValues(List<String> values){
+    private List<String> createArrayListWithValues(List<String> values) {
         List<String> result = getArrayList();
         result.addAll(values);
         return result;
@@ -55,12 +53,12 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForAddMethodWithIndex() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","3","4")), 1, "2", new Object[]{"1","2","3","4"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-3","-4")), 1, "-2", new Object[]{"-1","-2","-3","-4"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","1")), 1, "0", new Object[]{"-1","0","1"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("2","3")), 0, "1", new Object[]{"1","2","3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), 2, "3", new Object[]{"1","2","3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","1")), 1, null, new Object[]{"-1",null,"1"}}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3", "4")), 1, "2", new Object[]{"1", "2", "3", "4"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-3", "-4")), 1, "-2", new Object[]{"-1", "-2", "-3", "-4"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "1")), 1, "0", new Object[]{"-1", "0", "1"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("2", "3")), 0, "1", new Object[]{"1", "2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), 2, "3", new Object[]{"1", "2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "1")), 1, null, new Object[]{"-1", null, "1"}}
         };
     }
 
@@ -74,9 +72,9 @@ public abstract class ArrayTestBase {
     }
 
     private Object[] argumentsForAddMethodWithInvalidIndex() {
-        return new Object[] {
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 5},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -1}
+        return new Object[]{
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 5},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -1}
         };
     }
 
@@ -93,19 +91,19 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForAddAllMethodWithGenerics() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList("3","4"), new Object[]{"1","2","3","4"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2")), Arrays.asList("-3","-4"), new Object[]{"-1","-2","-3","-4"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("0","0")), Collections.singletonList("0"), new Object[]{"0","0","0"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList("1","2"), new Object[]{"1","2","1","2"}, true},
-            new Object[]{createArrayListWithValues(Collections.singletonList(null)), Collections.singletonList(null), new Object[]{null, null}, true},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1","2"), new Object[]{"1","2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Collections.emptyList(), new Object[]{"1","2"}, false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList(1, 2), new Object[]{"1","2", 1, 2}, true}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("3", "4"), new Object[]{"1", "2", "3", "4"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2")), Arrays.asList("-3", "-4"), new Object[]{"-1", "-2", "-3", "-4"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0")), Collections.singletonList("0"), new Object[]{"0", "0", "0"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("1", "2"), new Object[]{"1", "2", "1", "2"}, true},
+                new Object[]{createArrayListWithValues(Collections.singletonList(null)), Collections.singletonList(null), new Object[]{null, null}, true},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1", "2"), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Collections.emptyList(), new Object[]{"1", "2"}, false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList(1, 2), new Object[]{"1", "2", 1, 2}, true}
         };
     }
 
     @Test
-    public void testForAddAllMethodWithGenericsWhenGivenCollectionIsNull(){
+    public void testForAddAllMethodWithGenericsWhenGivenCollectionIsNull() {
         //given
         List<String> givenList = getArrayList();
         List<String> collectionToAdd = null;
@@ -129,15 +127,15 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForAddAllMethodWithIndex() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("3","4"), 2, new Object[]{"1","2","3","4"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2")), Arrays.asList("-3","-4"), 2, new Object[]{"-1","-2","-3","-4"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("0", "0")), Collections.singletonList("0"), 1, new Object[]{"0","0","0"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Collections.singletonList(null), 1, new Object[]{null, null, null}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("2","3")), Collections.singletonList("1"), 0, new Object[]{"1","2","3"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","3")), Collections.singletonList("2"), 1, new Object[]{"1","2","3"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Collections.emptyList(), 0, new Object[]{"1","2"}, false},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1","2"), 0, new Object[]{"1","2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","4")), Arrays.asList(2,3), 1, new Object[]{"1",2,3,"4"}, true}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("3", "4"), 2, new Object[]{"1", "2", "3", "4"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2")), Arrays.asList("-3", "-4"), 2, new Object[]{"-1", "-2", "-3", "-4"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0")), Collections.singletonList("0"), 1, new Object[]{"0", "0", "0"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Collections.singletonList(null), 1, new Object[]{null, null, null}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("2", "3")), Collections.singletonList("1"), 0, new Object[]{"1", "2", "3"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3")), Collections.singletonList("2"), 1, new Object[]{"1", "2", "3"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Collections.emptyList(), 0, new Object[]{"1", "2"}, false},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1", "2"), 0, new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "4")), Arrays.asList(2, 3), 1, new Object[]{"1", 2, 3, "4"}, true}
         };
     }
 
@@ -161,10 +159,10 @@ public abstract class ArrayTestBase {
         givenList.addAll(index, new ArrayList<>());
     }
 
-    private Object[] argumentsForAddAllMethodWithInvalidIndex(){
+    private Object[] argumentsForAddAllMethodWithInvalidIndex() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 5},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -5}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 5},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -5}
         };
     }
 
@@ -193,13 +191,13 @@ public abstract class ArrayTestBase {
         assertArrayEquals(expectedArray, resultArray);
     }
 
-    private Object[] argumentsForClearMethod(){
+    private Object[] argumentsForClearMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2"))},
-            new Object[]{createArrayListWithValues(Collections.singletonList("1"))},
-            new Object[]{createArrayListWithValues(Collections.singletonList("0"))},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null))},
-            new Object[]{createArrayListWithValues(Collections.emptyList())}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2"))},
+                new Object[]{createArrayListWithValues(Collections.singletonList("1"))},
+                new Object[]{createArrayListWithValues(Collections.singletonList("0"))},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null))},
+                new Object[]{createArrayListWithValues(Collections.emptyList())}
         };
     }
 
@@ -215,15 +213,25 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForContainsMethod() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "2", true},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), "-2", true},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","0","1")), "0", true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "2", true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), "-2", true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), "0", true},
                 new Object[]{createArrayListWithValues(Arrays.asList(null, null, null)), null, true},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), "1", false},
                 new Object[]{createArrayListWithValues(Collections.singletonList("1")), "0", false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "4", false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 3, false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "4", false}
         };
+    }
+
+    @Test
+    public void testForContainsMethodWhenGivenArgumentIsDifferentTypeThanArray() {
+        //given
+        List<String> myArray = new MyArrayList<>();
+        myArray.add("2");
+
+        //when
+        thrown.expect(ClassCastException.class);
+        myArray.contains(2);
     }
 
     @Test
@@ -238,20 +246,20 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForContainsAllMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList("2","3"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), Arrays.asList("-2","-3"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Collections.singletonList("2"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1",null,"3")), Collections.singletonList(null), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","0","1")), Arrays.asList("0", "-1"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","0","1")), Collections.singletonList("5"), false},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("3"), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Collections.emptyList(), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList(1, 2, 3), false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList("2", "3"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), Arrays.asList("-2", "-3"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Collections.singletonList("2"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", null, "3")), Collections.singletonList(null), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), Arrays.asList("0", "-1"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), Collections.singletonList("5"), false},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("3"), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Collections.emptyList(), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList(1, 2, 3), false}
         };
     }
 
     @Test
-    public void testForContainsAllMethodWhenContainsCollectionIsNull(){
+    public void testForContainsAllMethodWhenContainsCollectionIsNull() {
         //given
         List<String> givenList = getArrayList();
         List<String> containsCollection = null;
@@ -271,17 +279,17 @@ public abstract class ArrayTestBase {
         assertEquals(expected, result);
     }
 
-    private Object[] argumentsForEqualsMethod(){
+    private Object[] argumentsForEqualsMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList("1","2","3"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), Arrays.asList("-1","-2","-3"), true},
-            new Object[]{createArrayListWithValues(Collections.singletonList("0")), Collections.singletonList("0"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Arrays.asList(null, null), true},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), true},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1", "2"), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Collections.emptyList(), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList(1, 2), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), null, false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList("1", "2", "3"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), Arrays.asList("-1", "-2", "-3"), true},
+                new Object[]{createArrayListWithValues(Collections.singletonList("0")), Collections.singletonList("0"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Arrays.asList(null, null), true},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), true},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Arrays.asList("1", "2"), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Collections.emptyList(), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList(1, 2), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), null, false}
         };
     }
 
@@ -297,9 +305,9 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForGetMethod() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 1, "2"},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), 0, "-1"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 2, "3"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 1, "2"},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), 0, "-1"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 2, "3"},
                 new Object[]{createArrayListWithValues(Arrays.asList(null, null, null)), 1, null}
         };
     }
@@ -313,11 +321,11 @@ public abstract class ArrayTestBase {
         String result = givenList.get(index);
     }
 
-    private Object[] argumentsForGetMethodWithInvalidIndex(){
+    private Object[] argumentsForGetMethodWithInvalidIndex() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 5, "Index: 5, Size: 3"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 3, "Index: 3, Size: 3"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -5, "-5"}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 5, "Index: 5, Size: 3"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 3, "Index: 3, Size: 3"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -5, "-5"}
         };
     }
 
@@ -333,20 +341,20 @@ public abstract class ArrayTestBase {
         assertEquals(equal, result);
     }
 
-    private Object[] argumentsForHashCodeMethod(){
+    private Object[] argumentsForHashCodeMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList("1","2","3"), true},
-            new Object[]{createArrayListWithValues(Collections.singletonList("-1")), Collections.singletonList("-1"), true},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Arrays.asList(null, null), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("0","0")), Arrays.asList("0","0"), true},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList("1","2"), false},
-            new Object[]{createArrayListWithValues(Collections.singletonList("-1")), Arrays.asList("-1","-2"), false},
-            new Object[]{createArrayListWithValues(Collections.singletonList(null)), Arrays.asList(null, null), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("0","0")), Arrays.asList("0","0","0"), false},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("1"), false},
-            new Object[]{createArrayListWithValues(Collections.singletonList("1")), Collections.emptyList(), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Arrays.asList(1,2,3), false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList("1", "2", "3"), true},
+                new Object[]{createArrayListWithValues(Collections.singletonList("-1")), Collections.singletonList("-1"), true},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null)), Arrays.asList(null, null), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0")), Arrays.asList("0", "0"), true},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList("1", "2"), false},
+                new Object[]{createArrayListWithValues(Collections.singletonList("-1")), Arrays.asList("-1", "-2"), false},
+                new Object[]{createArrayListWithValues(Collections.singletonList(null)), Arrays.asList(null, null), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0")), Arrays.asList("0", "0", "0"), false},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("1"), false},
+                new Object[]{createArrayListWithValues(Collections.singletonList("1")), Collections.emptyList(), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList(1, 2, 3), false}
         };
     }
 
@@ -360,16 +368,16 @@ public abstract class ArrayTestBase {
         assertEquals(expectedIndex, result);
     }
 
-    private Object[] argumentsForIndexOfMethod(){
+    private Object[] argumentsForIndexOfMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "2", 1},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), "-1", 0},
-            new Object[]{Collections.singletonList("0"), "0", 0},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","2")), "2", 1},
-            new Object[]{createArrayListWithValues(Arrays.asList("1", null,"2")), null, 1},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "4", -1},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 2, -1}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "2", 1},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), "-1", 0},
+                new Object[]{Collections.singletonList("0"), "0", 0},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "2")), "2", 1},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", null, "2")), null, 1},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "4", -1},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 2, -1}
         };
     }
 
@@ -385,11 +393,11 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForIsEmptyMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Collections.emptyList()), true},
-            new Object[]{createArrayListWithValues(Collections.singletonList("1")), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), false},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","2","-3")), false},
-            new Object[]{createArrayListWithValues(Collections.singletonList(null)), false}
+                new Object[]{createArrayListWithValues(Collections.emptyList()), true},
+                new Object[]{createArrayListWithValues(Collections.singletonList("1")), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), false},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "2", "-3")), false},
+                new Object[]{createArrayListWithValues(Collections.singletonList(null)), false}
         };
     }
 
@@ -403,16 +411,16 @@ public abstract class ArrayTestBase {
         assertEquals(expectedIndex, result);
     }
 
-    private Object[] argumentsForLastIndexOfMethod(){
+    private Object[] argumentsForLastIndexOfMethod() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","2")), "2", 2},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","-1","-3")), "-1", 1},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "2")), "2", 2},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-1", "-3")), "-1", 1},
                 new Object[]{Collections.singletonList("0"), "0", 0},
-                new Object[]{createArrayListWithValues(Arrays.asList("2","2","2")), "2", 2},
-                new Object[]{createArrayListWithValues(Arrays.asList("1", null,null)), null, 2},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "4", -1},
+                new Object[]{createArrayListWithValues(Arrays.asList("2", "2", "2")), "2", 2},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", null, null)), null, 2},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "4", -1},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), "2", -1},
-                new Object[]{createArrayListWithValues(Arrays.asList("2","2","2")), 2, -1}
+                new Object[]{createArrayListWithValues(Arrays.asList("2", "2", "2")), 2, -1}
         };
     }
 
@@ -427,13 +435,13 @@ public abstract class ArrayTestBase {
         assertArrayEquals(expectedArray, resultArray);
     }
 
-    private Object[] argumentsForRemoveMethodWithIndex(){
+    private Object[] argumentsForRemoveMethodWithIndex() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","3","2")), 1, new Object[]{"1","2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-2")), 1, new Object[]{"-1","-2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("0","1","2")), 0, new Object[]{"1","2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null, null)), 2, new Object[]{null, null}},
-            new Object[]{createArrayListWithValues(Collections.singletonList("1")), 0, new Object[0]}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3", "2")), 1, new Object[]{"1", "2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-2")), 1, new Object[]{"-1", "-2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "1", "2")), 0, new Object[]{"1", "2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null, null)), 2, new Object[]{null, null}},
+                new Object[]{createArrayListWithValues(Collections.singletonList("1")), 0, new Object[0]}
         };
     }
 
@@ -447,10 +455,10 @@ public abstract class ArrayTestBase {
     }
 
     private Object[] argumentsForRemoveMethodWithInvalidIndex() {
-        return new Object[] {
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 4,  "Index: 4, Size: 3"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -4,  "-4"},
-                new Object[]{createArrayListWithValues(Collections.emptyList()), 0,  ""}
+        return new Object[]{
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 4, "Index: 4, Size: 3"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -4, "-4"},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), 0, ""}
         };
     }
 
@@ -467,14 +475,14 @@ public abstract class ArrayTestBase {
     }
 
     private Object[] argumentsForRemoveMethodWithObject() {
-        return new Object[] {
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "2", new Object[]{"1","3"}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), "-3", new Object[]{"-1","-2"}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("0","1","2")), "0", new Object[]{"1","2"}, true},
+        return new Object[]{
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "2", new Object[]{"1", "3"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), "-3", new Object[]{"-1", "-2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "1", "2")), "0", new Object[]{"1", "2"}, true},
                 new Object[]{createArrayListWithValues(Collections.singletonList(null)), null, new Object[0], true},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), "1", new Object[0], false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), "4", new Object[]{"1","2","3"}, false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3","1","5","1")), "1", new Object[]{"2","3","1","5","1"}, true}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), "4", new Object[]{"1", "2", "3"}, false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3", "1", "5", "1")), "1", new Object[]{"2", "3", "1", "5", "1"}, true}
         };
     }
 
@@ -490,22 +498,22 @@ public abstract class ArrayTestBase {
         assertArrayEquals(expectedArray, resultArray);
     }
 
-    private Object[] argumentsForRemoveAllMethod(){
+    private Object[] argumentsForRemoveAllMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","3","4","2")), Arrays.asList("3","4"), new Object[]{"1","2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-3","-4","-2")), Arrays.asList("-3","-4"), new Object[]{"-1","-2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","0","2")), Collections.singletonList("0"), new Object[]{"1","2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2", null)), Collections.singletonList(null), new Object[]{"1","2"}, true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList("1","2"), new Object[0], true},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Collections.emptyList(), new Object[]{"1","2"}, false},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), new Object[0], false},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("1"), new Object[0], false},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2")), Arrays.asList(1,2), new Object[]{"1","2"}, false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3", "4", "2")), Arrays.asList("3", "4"), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-3", "-4", "-2")), Arrays.asList("-3", "-4"), new Object[]{"-1", "-2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "0", "2")), Collections.singletonList("0"), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", null)), Collections.singletonList(null), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("1", "2"), new Object[0], true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Collections.emptyList(), new Object[]{"1", "2"}, false},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.emptyList(), new Object[0], false},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("1"), new Object[0], false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList(1, 2), new Object[]{"1", "2"}, false}
         };
     }
 
     @Test
-    public void testForRemoveAllMethodWhenCollectionToRemoveIsNull(){
+    public void testForRemoveAllMethodWhenCollectionToRemoveIsNull() {
         //given
         List<String> givenList = getArrayList();
         List<String> collectionToRemove = null;
@@ -529,20 +537,20 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForRetainAllMethod() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","3","4","2")), Arrays.asList("1","2"), new Object[]{"1","2"}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","-3","2")), Arrays.asList("1","2"), new Object[]{"1","2"}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1",null,"2")), Collections.singletonList(null), new Object[]{null}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","0","2")), Collections.singletonList("0"), new Object[]{"0"}, true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), Collections.emptyList(), new Object[0], true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3", "4", "2")), Arrays.asList("1", "2"), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "-3", "2")), Arrays.asList("1", "2"), new Object[]{"1", "2"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", null, "2")), Collections.singletonList(null), new Object[]{null}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "0", "2")), Collections.singletonList("0"), new Object[]{"0"}, true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Collections.emptyList(), new Object[0], true},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("1"), new Object[0], false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")),Arrays.asList("3","4"), new Object[0], true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")),Arrays.asList("1","2"), new Object[]{"1","2"}, false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")),Arrays.asList(1, 2), new Object[0], true}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("3", "4"), new Object[0], true},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList("1", "2"), new Object[]{"1", "2"}, false},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), Arrays.asList(1, 2), new Object[0], true}
         };
     }
 
     @Test
-    public void testForRetainAllMethodWhenCollectionToRetainIsNull(){
+    public void testForRetainAllMethodWhenCollectionToRetainIsNull() {
         //given
         List<String> givenList = getArrayList();
         List<String> collectionToRetain = null;
@@ -563,13 +571,13 @@ public abstract class ArrayTestBase {
         assertArrayEquals(expectedArray, resultArray);
     }
 
-    private Object[] argumentsForSetMethod(){
+    private Object[] argumentsForSetMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","3")), 1, "2", new Object[]{"1","2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-5","-2")), 0, "-1", new Object[]{"-1","-2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","3","1")), 1, "0", new Object[]{"-1","0","1"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","-3")), 1, null, new Object[]{"1", null}},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","-3")), 1, 1, new Object[]{"1", "1"}}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "3")), 1, "2", new Object[]{"1", "2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-5", "-2")), 0, "-1", new Object[]{"-1", "-2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "3", "1")), 1, "0", new Object[]{"-1", "0", "1"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "-3")), 1, null, new Object[]{"1", null}},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "-3")), 1, 1, new Object[]{"1", "1"}}
         };
     }
 
@@ -582,11 +590,11 @@ public abstract class ArrayTestBase {
         givenList.set(index, element);
     }
 
-    private Object[] argumentsForSetMethodWithInvalidArguments(){
+    private Object[] argumentsForSetMethodWithInvalidArguments() {
         return new Object[]{
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")), -7, "3", ArrayIndexOutOfBoundsException.class, "-7"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")), 7, "3", IndexOutOfBoundsException.class, "Index: 7, Size: 2"},
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2")), 2, "3", IndexOutOfBoundsException.class, "Index: 2, Size: 2"}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), -7, "3", ArrayIndexOutOfBoundsException.class, "-7"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), 7, "3", IndexOutOfBoundsException.class, "Index: 7, Size: 2"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2")), 2, "3", IndexOutOfBoundsException.class, "Index: 2, Size: 2"}
         };
     }
 
@@ -602,11 +610,11 @@ public abstract class ArrayTestBase {
 
     private Object[] argumentsForSizeMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 3},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","0","1")), 3},
-            new Object[]{createArrayListWithValues(Collections.singletonList("0")), 1},
-            new Object[]{createArrayListWithValues(Arrays.asList(null, null)), 2},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), 0}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 3},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), 3},
+                new Object[]{createArrayListWithValues(Collections.singletonList("0")), 1},
+                new Object[]{createArrayListWithValues(Arrays.asList(null, null)), 2},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), 0}
         };
     }
 
@@ -621,15 +629,15 @@ public abstract class ArrayTestBase {
         assertArrayEquals(expectedArray, resultArray);
     }
 
-    private Object[] argumentsForSubListMethod(){
+    private Object[] argumentsForSubListMethod() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 1, 3, new Object[]{"2","3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), 1, 2, new Object[]{"-2"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 0, 3, new Object[]{"1","2","3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("0","0","0")), 0, 3, new Object[]{"0","0","0"}},
-            new Object[]{createArrayListWithValues(Collections.singletonList(null)), 0, 1, new Object[]{null}},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 1, 1, new Object[0]},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), 0, 0, new Object[0]}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 1, 3, new Object[]{"2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), 1, 2, new Object[]{"-2"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 0, 3, new Object[]{"1", "2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0", "0")), 0, 3, new Object[]{"0", "0", "0"}},
+                new Object[]{createArrayListWithValues(Collections.singletonList(null)), 0, 1, new Object[]{null}},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 1, 1, new Object[0]},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), 0, 0, new Object[0]}
         };
     }
 
@@ -642,12 +650,12 @@ public abstract class ArrayTestBase {
         List<String> resultString = givenList.subList(fromIndex, toIndex);
     }
 
-    private Object[] argumentsForSubListMethodWithInvalidIndexes(){
+    private Object[] argumentsForSubListMethodWithInvalidIndexes() {
         return new Object[]{
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -1, 2, IndexOutOfBoundsException.class, "fromIndex = -1"},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 0, 5, IndexOutOfBoundsException.class, "toIndex = 5"},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), 5, 2, IllegalArgumentException.class, "fromIndex(5) > toIndex(2)"},
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), -7, 5, IndexOutOfBoundsException.class, "fromIndex = -7"}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -1, 2, IndexOutOfBoundsException.class, "fromIndex = -1"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 0, 5, IndexOutOfBoundsException.class, "toIndex = 5"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), 5, 2, IllegalArgumentException.class, "fromIndex(5) > toIndex(2)"},
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), -7, 5, IndexOutOfBoundsException.class, "fromIndex = -7"}
         };
     }
 
@@ -662,12 +670,12 @@ public abstract class ArrayTestBase {
     }
 
     private Object[] argumentsForToArrayMethod() {
-        return new Object[] {
-            new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), new Object[]{"1","2","3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), new Object[]{"-1","-2","-3"}},
-            new Object[]{createArrayListWithValues(Arrays.asList("-1","0","1")), new Object[]{"-1","0","1"}},
-            new Object[]{createArrayListWithValues(Collections.singletonList(null)), new Object[]{null}},
-            new Object[]{createArrayListWithValues(Collections.emptyList()), new Object[0]}
+        return new Object[]{
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), new Object[]{"1", "2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), new Object[]{"-1", "-2", "-3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), new Object[]{"-1", "0", "1"}},
+                new Object[]{createArrayListWithValues(Collections.singletonList(null)), new Object[]{null}},
+                new Object[]{createArrayListWithValues(Collections.emptyList()), new Object[0]}
         };
     }
 
@@ -682,10 +690,10 @@ public abstract class ArrayTestBase {
     }
 
     private Object[] argumentsForToArrayMethodWithGenerics() {
-        return new Object[] {
-                new Object[]{createArrayListWithValues(Arrays.asList("1","2","3")), new String[]{"1","2","3"}},
-                new Object[]{createArrayListWithValues(Arrays.asList("-1","-2","-3")), new String[]{"-1","-2","-3"}},
-                new Object[]{createArrayListWithValues(Arrays.asList("0","0","0")), new String[]{"0","0","0"}},
+        return new Object[]{
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), new String[]{"1", "2", "3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("-1", "-2", "-3")), new String[]{"-1", "-2", "-3"}},
+                new Object[]{createArrayListWithValues(Arrays.asList("0", "0", "0")), new String[]{"0", "0", "0"}},
                 new Object[]{createArrayListWithValues(Arrays.asList(null, null)), new String[]{null, null}},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), new String[0]},
         };
