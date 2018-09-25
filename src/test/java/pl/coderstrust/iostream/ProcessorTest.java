@@ -10,7 +10,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import pl.coderstrust.supporttestclasses.ReadFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
