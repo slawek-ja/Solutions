@@ -1,39 +1,42 @@
 package pl.coderstrust.iostream;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
 public class Processor {
+
+    private FileProcessor fileProcessor;
+
+    public Processor(FileProcessor fileProcessor) {
+        this.fileProcessor = fileProcessor;
+    }
+
     public void process(String fileName, String resultFileName) throws IOException {
+        if (!isPathValid(fileName, resultFileName)) {
+            throw new IllegalArgumentException("Invalid file path");
+        }
         List<String> resultToWrite = new ArrayList<>();
-        Stream<String> linesFromFile = readLinesFromFile(fileName);
+        Stream<String> linesFromFile = fileProcessor.readLinesFromFile(fileName);
         linesFromFile
-                .filter(w -> w.matches("^[1-9\\s]+"))
+                .filter(w -> w.matches("^[1-9\\s]+") && !w.isEmpty())
                 .map(String::trim)
-                .filter(w -> !w.isEmpty())
                 .map(w -> w.split("[\\s]+"))
                 .forEach(arrayNumbers -> {
                     String numbers = processLine(arrayNumbers);
                     long sum = calculateSum(arrayNumbers);
                     resultToWrite.add(String.format("%s=%s", numbers, sum));
                 });
-        try {
-            writeLinesToFile(resultToWrite, resultFileName);
-        } catch (Exception exception) {
-            exception.getCause();
-        }
-
+        fileProcessor.writeLinesToFile(resultToWrite, resultFileName);
     }
 
-    private Stream<String> readLinesFromFile(String filePath) throws IOException {
-        return Files.lines(Paths.get(filePath));
+    private boolean isPathValid(String fileName, String resultFileName) {
+        if (fileName == null || resultFileName == null || fileName.isEmpty() || resultFileName.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     private String processLine(String[] arrayOfStrings) {
@@ -44,19 +47,7 @@ public class Processor {
 
     private long calculateSum(String[] arrayOfStrings) {
         return Arrays.stream(arrayOfStrings)
-                .mapToLong(Long::parseLong).sum();
-    }
-
-    private void writeLinesToFile(List<String> givenLines, String outputFilePath) throws Exception {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath));
-        givenLines.forEach(lines -> {
-            try {
-                writer.write(lines);
-                writer.newLine();
-            } catch (IOException exception) {
-                exception.getCause();
-            }
-        });
-        writer.close();
+                .mapToLong(Long::parseLong)
+                .sum();
     }
 }
