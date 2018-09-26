@@ -253,9 +253,21 @@ public abstract class ArrayTestBase {
                 new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), Arrays.asList("0", "-1"), true},
                 new Object[]{createArrayListWithValues(Arrays.asList("-1", "0", "1")), Collections.singletonList("5"), false},
                 new Object[]{createArrayListWithValues(Collections.emptyList()), Collections.singletonList("3"), false},
-                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Collections.emptyList(), true},
-                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Arrays.asList(1, 2, 3), false}
+                new Object[]{createArrayListWithValues(Arrays.asList("1", "2", "3")), Collections.emptyList(), true}
         };
+    }
+
+    @Test
+    public void testForContainsAllMethodWhenGivenCollectionIsDifferentTypeThenArray() {
+        //given
+        List<String> givenList = new MyArrayList<>();
+        givenList.add("1");
+        List<Integer> containsCollection = new ArrayList<>();
+        containsCollection.add(1);
+
+        //when
+        thrown.expect(ClassCastException.class);
+        givenList.containsAll(containsCollection);
     }
 
     @Test

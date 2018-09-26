@@ -5,18 +5,18 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public class MyArrayList<T> implements List<T> {
 
-    private int realArraySize = 10;
-    private int usedSize = 0;
+    private int allocatedSize = 10;
+    private int numberOfElements = 0;
     private Object[] array = new Object[]{};
 
     @Override
     public int size() {
-        return this.usedSize;
+        return this.numberOfElements;
     }
 
     @Override
     public boolean isEmpty() {
-        return this.usedSize == 0;
+        return this.numberOfElements == 0;
     }
 
     @Override
@@ -42,12 +42,12 @@ public class MyArrayList<T> implements List<T> {
 
             @Override
             public boolean hasNext() {
-                return cursor + 2 <= usedSize;
+                return cursor + 2 <= numberOfElements;
             }
 
             @Override
             public T next() {
-                if (cursor + 1 >= usedSize) {
+                if (cursor + 1 >= numberOfElements) {
                     throw new NoSuchElementException();
                 }
                 return (T) array[++cursor];
@@ -57,13 +57,13 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public Object[] toArray() {
-        return Arrays.copyOf(array, usedSize);
+        return Arrays.copyOf(array, numberOfElements);
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        T[] result = Arrays.copyOf(a, usedSize);
-        for (int i = 0; i < usedSize; i++) {
+        T[] result = Arrays.copyOf(a, numberOfElements);
+        for (int i = 0; i < numberOfElements; i++) {
             result[i] = (T) array[i];
         }
         return result;
@@ -74,11 +74,11 @@ public class MyArrayList<T> implements List<T> {
         if (isEmpty()) {
             extendArray();
         }
-        usedSize++;
+        numberOfElements++;
         if (isArrayFull()) {
             reSizeArray();
         }
-        array[usedSize - 1] = e;
+        array[numberOfElements - 1] = e;
         return true;
     }
 
@@ -89,7 +89,7 @@ public class MyArrayList<T> implements List<T> {
         }
         int indexFound;
         boolean isFound = false;
-        for (indexFound = 0; indexFound < usedSize; indexFound++) {
+        for (indexFound = 0; indexFound < numberOfElements; indexFound++) {
             if (areEqual(array[indexFound], o)) {
                 isFound = true;
                 break;
@@ -98,12 +98,12 @@ public class MyArrayList<T> implements List<T> {
         if (!isFound) {
             return isFound;
         }
-        Object[] storage = Arrays.copyOf(array, usedSize);
-        usedSize -= 1;
-        realArraySize = usedSize;
+        Object[] storage = Arrays.copyOf(array, numberOfElements);
+        numberOfElements -= 1;
+        allocatedSize = numberOfElements;
         extendArray();
         int skipIndex = 0;
-        for (int i = 0; i < usedSize; i++) {
+        for (int i = 0; i < numberOfElements; i++) {
             if (i == indexFound) {
                 skipIndex = 1;
             }
@@ -114,19 +114,11 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        boolean numbersMatched;
         Iterator<?> iterator = c.iterator();
         T searchedNumber;
         while (iterator.hasNext()) {
-            numbersMatched = false;
             searchedNumber = (T) iterator.next();
-            for (int i = 0; i < usedSize; i++) {
-                if (areEqual(searchedNumber, array[i])) {
-                    numbersMatched = true;
-                    break;
-                }
-            }
-            if (!numbersMatched) {
+            if (!contains(searchedNumber)) {
                 return false;
             }
         }
@@ -141,30 +133,30 @@ public class MyArrayList<T> implements List<T> {
         if (isEmpty()) {
             extendArray();
         }
-        if (c.size() + usedSize < realArraySize) {
+        if (c.size() + numberOfElements < allocatedSize) {
             Iterator<?> iterator = c.iterator();
-            int index = usedSize;
-            usedSize += c.size();
+            int index = numberOfElements;
+            numberOfElements += c.size();
             while (iterator.hasNext()) {
                 array[index] = iterator.next();
                 index++;
             }
             return true;
         }
-        Object[] storage = Arrays.copyOf(array, usedSize);
+        Object[] storage = Arrays.copyOf(array, numberOfElements);
         Object[] givenContainer = c.toArray();
-        usedSize += c.size();
-        realArraySize = usedSize;
+        numberOfElements += c.size();
+        allocatedSize = numberOfElements;
         extendArray();
         System.arraycopy(storage, 0, array, 0, storage.length);
-        System.arraycopy(givenContainer, 0, array, storage.length, usedSize);
+        System.arraycopy(givenContainer, 0, array, storage.length, numberOfElements);
         return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (index > usedSize || index < 0) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.usedSize);
+        if (index > numberOfElements || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.numberOfElements);
         }
         if (c.isEmpty()) {
             return false;
@@ -172,10 +164,10 @@ public class MyArrayList<T> implements List<T> {
         if (isEmpty()) {
             extendArray();
         }
-        if (c.size() + usedSize < realArraySize) {
-            Object[] storage = Arrays.copyOfRange(array, index, usedSize);
+        if (c.size() + numberOfElements < allocatedSize) {
+            Object[] storage = Arrays.copyOfRange(array, index, numberOfElements);
             Iterator<?> iterator = c.iterator();
-            usedSize += c.size();
+            numberOfElements += c.size();
             while (iterator.hasNext()) {
                 array[index++] = iterator.next();
             }
@@ -183,20 +175,20 @@ public class MyArrayList<T> implements List<T> {
             return true;
         }
         Object[] givenContainer = c.toArray();
-        Object[] storage = Arrays.copyOf(array, usedSize);
+        Object[] storage = Arrays.copyOf(array, numberOfElements);
         int arrayIndex = 0;
-        usedSize += c.size();
-        realArraySize = usedSize;
+        numberOfElements += c.size();
+        allocatedSize = numberOfElements;
         extendArray();
         boolean added = false;
-        for (int i = 0; i < usedSize; i++, arrayIndex++) {
+        for (int i = 0; i < numberOfElements; i++, arrayIndex++) {
             if (!added && index == i) {
                 for (int j = 0; j < givenContainer.length; j++) {
                     array[i++] = givenContainer[j];
                 }
                 added = true;
             }
-            if (i >= usedSize) {
+            if (i >= numberOfElements) {
                 return added;
             }
             array[i] = storage[arrayIndex];
@@ -220,7 +212,7 @@ public class MyArrayList<T> implements List<T> {
             searchingValue = (T) iterator.next();
             for (int i = 0; i < sizeToCheck; i++) {
                 if (areEqual(searchingValue, array[i])) {
-                    for (int j = i; j < usedSize - 1; j++) {
+                    for (int j = i; j < numberOfElements - 1; j++) {
                         swap(array, j, j + 1);
                     }
                     sizeToCheck--;
@@ -231,7 +223,7 @@ public class MyArrayList<T> implements List<T> {
         if (howManyToRemove == 0) {
             return false;
         }
-        usedSize -= howManyToRemove;
+        numberOfElements -= howManyToRemove;
         return true;
     }
 
@@ -244,12 +236,12 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         if (c.isEmpty()) {
-            usedSize = 0;
-            realArraySize = usedSize;
+            numberOfElements = 0;
+            allocatedSize = numberOfElements;
             extendArray();
             return true;
         }
-        Object[] arrayMirror = Arrays.copyOf(array, this.usedSize);
+        Object[] arrayMirror = Arrays.copyOf(array, this.numberOfElements);
         if (Arrays.equals(c.toArray(), arrayMirror)) {
             return false;
         }
@@ -259,7 +251,7 @@ public class MyArrayList<T> implements List<T> {
         T buffer;
         while (iterator.hasNext()) {
             searchedValue = (T) iterator.next();
-            for (int i = 0; i < usedSize; i++) {
+            for (int i = 0; i < numberOfElements; i++) {
                 if (areEqual(array[i], searchedValue)) {
                     buffer = (T) array[anchor];
                     array[anchor] = searchedValue;
@@ -269,34 +261,34 @@ public class MyArrayList<T> implements List<T> {
             }
         }
         if (anchor == 0) {
-            usedSize = 0;
-            realArraySize = usedSize;
+            numberOfElements = 0;
+            allocatedSize = numberOfElements;
             extendArray();
             return true;
         }
-        usedSize = anchor;
+        numberOfElements = anchor;
         return true;
     }
 
     @Override
     public void clear() {
-        usedSize = 0;
-        realArraySize = usedSize;
+        numberOfElements = 0;
+        allocatedSize = numberOfElements;
         extendArray();
     }
 
     @Override
     public T get(int index) {
-        if (index >= usedSize || index < 0) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.usedSize);
+        if (index >= numberOfElements || index < 0) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.numberOfElements);
         }
         return (T) array[index];
     }
 
     @Override
     public T set(int index, T element) {
-        if (index >= usedSize) {
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.usedSize);
+        if (index >= numberOfElements) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.numberOfElements);
         }
         array[index] = element;
         return (T) array;
@@ -304,15 +296,15 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public void add(int index, T element) {
-        if (index > usedSize || index < 0) {
-            throw new IndexOutOfBoundsException(String.format("Index: %d, Size: %d", index, this.usedSize));
+        if (index > numberOfElements || index < 0) {
+            throw new IndexOutOfBoundsException(String.format("Index: %d, Size: %d", index, this.numberOfElements));
         }
-        Object[] storage = Arrays.copyOf(array, usedSize);
-        usedSize += 1;
-        realArraySize = usedSize;
+        Object[] storage = Arrays.copyOf(array, numberOfElements);
+        numberOfElements += 1;
+        allocatedSize = numberOfElements;
         extendArray();
         int arrayIndex = 0;
-        for (int i = 0; i < usedSize; i++) {
+        for (int i = 0; i < numberOfElements; i++) {
             if (i == index) {
                 array[i] = element;
                 continue;
@@ -324,18 +316,18 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public T remove(int index) {
-        if (index > usedSize || index < 0 || isEmpty()) {
+        if (index > numberOfElements || index < 0 || isEmpty()) {
             if (index < 0) {
                 throw new IndexOutOfBoundsException(Integer.toString(index));
             }
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.usedSize);
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.numberOfElements);
         }
-        Object[] storage = Arrays.copyOf(array, usedSize);
-        usedSize -= 1;
-        realArraySize = usedSize;
+        Object[] storage = Arrays.copyOf(array, numberOfElements);
+        numberOfElements -= 1;
+        allocatedSize = numberOfElements;
         extendArray();
         int skipIndex = 0;
-        for (int i = 0; i < usedSize; i++) {
+        for (int i = 0; i < numberOfElements; i++) {
             if (i == index) {
                 skipIndex = 1;
             }
@@ -346,7 +338,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int indexOf(Object o) {
-        for (int i = 0; i < usedSize; i++) {
+        for (int i = 0; i < numberOfElements; i++) {
             if (areEqual(array[i], o)) {
                 return i;
             }
@@ -356,7 +348,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = usedSize - 1; i >= 0; i--) {
+        for (int i = numberOfElements - 1; i >= 0; i--) {
             if (areEqual(array[i], o)) {
                 return i;
             }
@@ -371,12 +363,12 @@ public class MyArrayList<T> implements List<T> {
 
             @Override
             public boolean hasNext() {
-                return cursor + 2 <= usedSize;
+                return cursor + 2 <= numberOfElements;
             }
 
             @Override
             public T next() {
-                if (cursor + 1 >= usedSize) {
+                if (cursor + 1 >= numberOfElements) {
                     throw new NoSuchElementException();
                 }
                 return (T) array[++cursor];
@@ -424,7 +416,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public ListIterator<T> listIterator(int index) {
-        if (index > usedSize || index < 0) {
+        if (index > numberOfElements || index < 0) {
             throw new IndexOutOfBoundsException("Index: " + index);
         }
         return new ListIterator<T>() {
@@ -432,12 +424,12 @@ public class MyArrayList<T> implements List<T> {
 
             @Override
             public boolean hasNext() {
-                return cursor + 2 <= usedSize;
+                return cursor + 2 <= numberOfElements;
             }
 
             @Override
             public T next() {
-                if (cursor + 1 > usedSize || isEmpty()) {
+                if (cursor + 1 > numberOfElements || isEmpty()) {
                     throw new NoSuchElementException();
                 }
                 return (T) array[++cursor];
@@ -485,8 +477,8 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
-        if (toIndex > usedSize || fromIndex < 0 || fromIndex > toIndex) {
-            if (fromIndex < 0 || toIndex > this.usedSize) {
+        if (toIndex > numberOfElements || fromIndex < 0 || fromIndex > toIndex) {
+            if (fromIndex < 0 || toIndex > this.numberOfElements) {
                 throw new IndexOutOfBoundsException((fromIndex < 0) ? String.format("fromIndex = %d", fromIndex) : String.format("toIndex = %d", toIndex));
             }
             throw new IllegalArgumentException(String.format("fromIndex(%d) > toIndex(%d)", fromIndex, toIndex));
@@ -503,7 +495,7 @@ public class MyArrayList<T> implements List<T> {
     public int hashCode() {
         int hashCode = 1;
         List<T> storage = new MyArrayList<>();
-        copyObjectsToCollections(array, this.usedSize, storage);
+        copyObjectsToCollections(array, this.numberOfElements, storage);
         Iterator i = storage.iterator();
         while (i.hasNext()) {
             Object obj = i.next();
@@ -517,22 +509,22 @@ public class MyArrayList<T> implements List<T> {
         if (o == null) {
             return false;
         }
-        Object[] mirror = Arrays.copyOf(array, this.usedSize);
+        Object[] mirror = Arrays.copyOf(array, this.numberOfElements);
         return Arrays.hashCode(mirror) == o.hashCode();
     }
 
     private void extendArray() {
-        if (realArraySize == 0) {
-            realArraySize = 10;
+        if (allocatedSize == 0) {
+            allocatedSize = 10;
         }
-        realArraySize += realArraySize / 2;
-        array = new Object[realArraySize];
+        allocatedSize += allocatedSize / 2;
+        array = new Object[allocatedSize];
     }
 
     private void reSizeArray() {
-        Object[] storage = Arrays.copyOf(array, usedSize - 1);
+        Object[] storage = Arrays.copyOf(array, numberOfElements - 1);
         extendArray();
-        System.arraycopy(storage, 0, array, 0, usedSize);
+        System.arraycopy(storage, 0, array, 0, numberOfElements);
     }
 
     private void swap(Object[] src, int idxA, int idxB) {
@@ -550,7 +542,7 @@ public class MyArrayList<T> implements List<T> {
     }
 
     private boolean isArrayFull() {
-        return usedSize >= realArraySize;
+        return numberOfElements >= allocatedSize;
     }
 
     private void copyObjectsToCollections(Object[] source, int sourceSize, Collection<T> dest) {
