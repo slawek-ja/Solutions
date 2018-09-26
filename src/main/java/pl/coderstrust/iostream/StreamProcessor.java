@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Processor {
+public class StreamProcessor {
 
     private List<Integer> collectEmptyLines = new ArrayList<>();
     private int emptyLineNumber = 0;
@@ -26,16 +26,17 @@ public class Processor {
                 .forEach(arrayNumbers -> {
                     String numbers = Arrays.stream(arrayNumbers)
                             .reduce((num1, num2) -> {
-                                if (num1.matches("-[\\d]+")){
+                                if (num1.matches("-[\\d]+")) {
                                     return String.format("(%s)+%s", num1, num2);
                                 }
-                                if (num2.matches("-[\\d]+")){
+                                if (num2.matches("-[\\d]+")) {
                                     return String.format("%s+(%s)", num1, num2);
                                 }
-                                if (num1.matches("-[\\d]+") && num2.matches("-[\\d]+")){
+                                if (num1.matches("-[\\d]+") && num2.matches("-[\\d]+")) {
                                     return String.format("(%s)+(%s)", num1, num2);
                                 }
-                                return String.format("%s+%s", num1, num2);})
+                                return String.format("%s+%s", num1, num2);
+                            })
                             .get();
                     long sum = Arrays.stream(arrayNumbers)
                             .mapToLong(Long::parseLong)
@@ -46,8 +47,8 @@ public class Processor {
         writeLinesToFile(resultToWrite, resultFileName);
     }
 
-    private boolean isLineValid(String line){
-        emptyLineNumber ++;
+    private boolean isLineValid(String line) {
+        emptyLineNumber++;
         if (!line.matches("^(-[\\d]+|[\\d\\s]+)+") || line.trim().isEmpty()) {
             collectEmptyLines.add(emptyLineNumber);
             return false;
@@ -85,6 +86,6 @@ public class Processor {
     }
 
     private void addEmptyLines(List<String> addTo, List<Integer> from) {
-        from.forEach(x-> addTo.add(x-1, ""));
+        from.forEach(x -> addTo.add(x - 1, ""));
     }
 }
