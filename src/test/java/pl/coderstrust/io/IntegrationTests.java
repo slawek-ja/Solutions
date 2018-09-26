@@ -4,8 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-import pl.coderstrust.supporttestclasses.ReadFile;
-import java.io.File;
+import pl.coderstrust.utils.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,7 +14,7 @@ public class IntegrationTests {
 
     @Before
     public void removeOutputFile() {
-        File file = new File(outputFilePath);
+        java.io.File file = new java.io.File(outputFilePath);
         if (file.exists()) {
             file.delete();
         }
@@ -24,16 +23,15 @@ public class IntegrationTests {
     @Test
     public void testForCorrectBehaviour() throws IOException {
         //given
-        ReadFile readFile = new ReadFile();
+        File readFile = new File();
         NumbersProcessor numbersProcessor = new NumbersProcessor();
         FileProcessor fileProcessor = new FileProcessor();
         Processor processor = new Processor(numbersProcessor, fileProcessor);
-        List<String> expected = readFile.readFile("src\\test\\resources\\test_expected_output.txt");
+        List<String> expected = readFile.read("src\\test\\resources\\test_expected_output.txt");
         String sampleInputFilePath = "src\\test\\resources\\test_input.txt";
-
         //when
         processor.process(sampleInputFilePath, outputFilePath);
-        List<String> processorOutputFile = readFile.readFile(outputFilePath);
+        List<String> processorOutputFile = readFile.read(outputFilePath);
 
         //then
         assertEquals(expected, processorOutputFile);

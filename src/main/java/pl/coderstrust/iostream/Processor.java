@@ -1,6 +1,10 @@
 package pl.coderstrust.iostream;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,46 +12,65 @@ import java.util.stream.Stream;
 
 public class Processor {
 
-    private FileProcessor fileProcessor;
-
-    public Processor(FileProcessor fileProcessor) {
-        this.fileProcessor = fileProcessor;
-    }
+    private List<Integer> collectEmptyLines = new ArrayList<>();
+    private int emptyLineNumber = 0;
 
     public void process(String fileName, String resultFileName) throws IOException {
-        if (!isPathValid(fileName, resultFileName)) {
-            throw new IllegalArgumentException("Invalid file path");
-        }
+        isInputPathValid(fileName);
+        isOutputPathValid(resultFileName);
         List<String> resultToWrite = new ArrayList<>();
-        Stream<String> linesFromFile = fileProcessor.readLinesFromFile(fileName);
+        Stream<String> linesFromFile = Files.lines(Paths.get(fileName));
         linesFromFile
-                .filter(w -> w.matches("^[1-9\\s]+") && !w.isEmpty())
-                .map(String::trim)
-                .map(w -> w.split("[\\s]+"))
+                .filter(w -> !lineIsEmpty(w) && w.matches("^[\\d\\s]+"))
+                .map(w -> w.trim().split("[\\s]+"))
                 .forEach(arrayNumbers -> {
-                    String numbers = processLine(arrayNumbers);
-                    long sum = calculateSum(arrayNumbers);
+                    String numbers = Arrays.stream(arrayNumbers)
+                            .reduce((num1, num2) -> String.format("%s+%s", num1, num2))
+                            .get();
+                    long sum = Arrays.stream(arrayNumbers)
+                            .mapToLong(Long::parseLong)
+                            .sum();
                     resultToWrite.add(String.format("%s=%s", numbers, sum));
                 });
-        fileProcessor.writeLinesToFile(resultToWrite, resultFileName);
+        writeLinesToFile(resultToWrite, resultFileName);
     }
 
-    private boolean isPathValid(String fileName, String resultFileName) {
-        if (fileName == null || resultFileName == null || fileName.isEmpty() || resultFileName.isEmpty()) {
+    private boolean lineIsEmpty(String line){
+        emptyLineNumber ++;
+        if (line.trim().isEmpty()) {
+            System.out.println(emptyLineNumber+" tu");
+            collectEmptyLines.add(emptyLineNumber);
             return false;
+        }
+        return false;
+    }
+
+    private boolean isInputPathValid(String fileName) {
+        if (fileName == null) {
+            throw new IllegalArgumentException("Input file path cannot be null");
+        }
+        if (fileName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Input file path is empty");
         }
         return true;
     }
 
-    private String processLine(String[] arrayOfStrings) {
-        return Arrays.stream(arrayOfStrings)
-                .reduce((num1, num2) -> String.format("%s+%s", num1, num2))
-                .get();
+    private boolean isOutputPathValid(String resultFileName) {
+        if (resultFileName == null) {
+            throw new IllegalArgumentException("Output file path cannot be null");
+        }
+        if (resultFileName.trim().isEmpty()) {
+            throw new IllegalArgumentException("Output file path is empty");
+        }
+        return true;
     }
 
-    private long calculateSum(String[] arrayOfStrings) {
-        return Arrays.stream(arrayOfStrings)
-                .mapToLong(Long::parseLong)
-                .sum();
+    private void writeLinesToFile(List<String> lines, String filePath) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+        for (int i = 0; i < lines.size(); i++) {
+            writer.write(lines.get(i));
+            writer.newLine();
+        }
+        writer.close();
     }
 }

@@ -3,14 +3,12 @@ package pl.coderstrust.iostream;
 import static org.junit.Assert.*;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import pl.coderstrust.supporttestclasses.ReadFile;
-import java.io.File;
+import pl.coderstrust.utils.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -24,7 +22,7 @@ public class ProcessorTest {
 
     @Before
     public void removeOutputFile() {
-        File file = new File(outputFilePath);
+        java.io.File file = new java.io.File(outputFilePath);
         if (file.exists()) {
             file.delete();
         }
@@ -33,33 +31,17 @@ public class ProcessorTest {
     @Test
     public void testForCorrectBehaviour() throws IOException {
         //given
-        FileProcessor fileProcessor = new FileProcessor();
-        Processor processor = new Processor(fileProcessor);
-        ReadFile readFile = new ReadFile();
+        Processor processor = new Processor();
+        File readFile = new File();
         String inputFilePath = "src\\test\\resources\\test_io_stream_input.txt";
         String expectedOutputFilePath = "src\\test\\resources\\test_expected_stream_output.txt";
-        List<String> expectedOutput = readFile.readFile(expectedOutputFilePath);
+        List<String> expectedOutput = readFile.read(expectedOutputFilePath);
 
         //when
         processor.process(inputFilePath, outputFilePath);
-        List<String> resultOutput = readFile.readFile(outputFilePath);
+        List<String> resultOutput = readFile.read(outputFilePath);
 
         //then
         assertEquals(expectedOutput, resultOutput);
-    }
-
-    @Test
-    @Parameters({
-            ",src\\test\\resources\\test_expected_stream_output.txt",
-            "src\\test\\resources\\test_io_stream_input.txt,",
-            ","})
-    public void testForInvalidPathToFile(String inputPath, String resultPath) throws IOException {
-        //given
-        Processor processor = new Processor(new FileProcessor());
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Invalid file path");
-        processor.process(inputPath, resultPath);
     }
 }
