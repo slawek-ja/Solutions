@@ -21,28 +21,38 @@ public class Processor {
         List<String> resultToWrite = new ArrayList<>();
         Stream<String> linesFromFile = Files.lines(Paths.get(fileName));
         linesFromFile
-                .filter(w -> !lineIsEmpty(w) && w.matches("^[\\d\\s]+"))
+                .filter(w -> isLineValid(w))
                 .map(w -> w.trim().split("[\\s]+"))
                 .forEach(arrayNumbers -> {
                     String numbers = Arrays.stream(arrayNumbers)
-                            .reduce((num1, num2) -> String.format("%s+%s", num1, num2))
+                            .reduce((num1, num2) -> {
+                                if (num1.matches("-[\\d]+")){
+                                    return String.format("(%s)+%s", num1, num2);
+                                }
+                                if (num2.matches("-[\\d]+")){
+                                    return String.format("%s+(%s)", num1, num2);
+                                }
+                                if (num1.matches("-[\\d]+") && num2.matches("-[\\d]+")){
+                                    return String.format("(%s)+(%s)", num1, num2);
+                                }
+                                return String.format("%s+%s", num1, num2);})
                             .get();
                     long sum = Arrays.stream(arrayNumbers)
                             .mapToLong(Long::parseLong)
                             .sum();
                     resultToWrite.add(String.format("%s=%s", numbers, sum));
                 });
+        addEmptyLines(resultToWrite, collectEmptyLines);
         writeLinesToFile(resultToWrite, resultFileName);
     }
 
-    private boolean lineIsEmpty(String line){
+    private boolean isLineValid(String line){
         emptyLineNumber ++;
-        if (line.trim().isEmpty()) {
-            System.out.println(emptyLineNumber+" tu");
+        if (!line.matches("^(-[\\d]+|[\\d\\s]+)+") || line.trim().isEmpty()) {
             collectEmptyLines.add(emptyLineNumber);
             return false;
         }
-        return false;
+        return true;
     }
 
     private boolean isInputPathValid(String fileName) {
@@ -72,5 +82,9 @@ public class Processor {
             writer.newLine();
         }
         writer.close();
+    }
+
+    private void addEmptyLines(List<String> addTo, List<Integer> from) {
+        from.forEach(x-> addTo.add(x-1, ""));
     }
 }
