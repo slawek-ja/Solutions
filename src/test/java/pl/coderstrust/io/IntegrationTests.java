@@ -31,66 +31,20 @@ public class IntegrationTests {
     }
 
     @Test
-    public void testForIoProcessorCorrectBehaviour() throws IOException {
+    public void testForCorrectBehaviour() throws IOException {
         //given
-        File readFile = new File();
+        File file = new File();
         NumbersProcessor numbersProcessor = new NumbersProcessor();
         FileProcessor fileProcessor = new FileProcessor();
         Processor processor = new Processor(numbersProcessor, fileProcessor);
-        List<String> expected = readFile.read("src\\test\\resources\\test_expected_output.txt");
+        List<String> expected = file.read("src\\test\\resources\\test_expected_output.txt");
         String sampleInputFilePath = "src\\test\\resources\\test_input.txt";
         //when
         processor.process(sampleInputFilePath, outputFilePath);
-        List<String> processorOutputFile = readFile.read(outputFilePath);
+        List<String> processorOutputFile = file.read(outputFilePath);
 
         //then
         assertEquals(expected, processorOutputFile);
-    }
-
-    @Test
-    public void testForStreamProcessorCorrectBehaviour() throws IOException {
-        //given
-        File readFile = new File();
-        StreamProcessor streamProcessor = new StreamProcessor();
-        List<String> expected = readFile.read("src\\test\\resources\\test_expected_output.txt");
-        String sampleInputFilePath = "src\\test\\resources\\test_input.txt";
-        //when
-        streamProcessor.process(sampleInputFilePath, outputFilePath);
-        List<String> processorOutputFile = readFile.read(outputFilePath);
-
-        //then
-        assertEquals(expected, processorOutputFile);
-    }
-
-    @Test
-    @Parameters(method = "addValuesForIoProcessorWhenGivenFilePathIsEmptyOrNull")
-    public void testForIoProcessorWhenGivenFilePathIsEmpty(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
-        //given
-        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(exceptionMessage);
-        processor.process(inputFilePath, outputFilePath);
-    }
-
-    private Object[] addValuesForIoProcessorWhenGivenFilePathIsEmptyOrNull() {
-        return new Object[]{
-                new Object[]{"src\\test\\resources\\test_input.txt", "", "Output file path is empty"},
-                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "Input file path is empty"},
-                new Object[]{"", "", "Input file path is empty"}
-        };
-    }
-
-    @Test
-    public void testForIoProcessorWhenGivenFilePathIsNull() throws IOException {
-        //given
-        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Input file path cannot be null");
-        processor.process(null, null);
     }
 
     @Test

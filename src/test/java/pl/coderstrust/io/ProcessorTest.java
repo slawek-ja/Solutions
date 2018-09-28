@@ -2,7 +2,10 @@ package pl.coderstrust.io;
 
 import static org.mockito.Mockito.*;
 
+import junitparams.Parameters;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -14,6 +17,9 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProcessorTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Mock
     private NumbersProcessor numbersProcessor;
@@ -46,4 +52,36 @@ public class ProcessorTest {
         verify(numbersProcessor).processLine("5 6 7 8");
         verify(fileProcessor).writeLinesToFile(dummyOutputArray, outputFilePath);
     }
+
+    @Test
+    @Parameters(method = "addValuesForGivenFilePathIsEmptyOrNull")
+    public void testForGivenFilePathIsEmpty(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
+        //given
+        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
+
+        //when
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(exceptionMessage);
+        processor.process(inputFilePath, outputFilePath);
+    }
+
+    private Object[] addValuesForGivenFilePathIsEmptyOrNull() {
+        return new Object[]{
+                new Object[]{"src\\test\\resources\\test_input.txt", "", "Output file path is empty"},
+                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "Input file path is empty"},
+                new Object[]{"", "", "Input file path is empty"}
+        };
+    }
+
+    @Test
+    public void testForGivenFilePathIsNull() throws IOException {
+        //given
+        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
+
+        //when
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("Input file path cannot be null");
+        processor.process(null, null);
+    }
+
 }
