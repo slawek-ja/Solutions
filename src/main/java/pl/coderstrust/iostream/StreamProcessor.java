@@ -6,12 +6,10 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 public class StreamProcessor {
 
-    private List<Integer> collectEmptyLines = new ArrayList<>();
+    private List<Integer> lines = new ArrayList<>();
     private int emptyLineNumber = 0;
 
     public void process(String fileName, String resultFileName) throws IOException {
@@ -19,7 +17,14 @@ public class StreamProcessor {
         validateStringParameter(resultFileName, "Output");
         List<String> resultToWrite = new ArrayList<>();
         Files.lines(Paths.get(fileName))
-                .filter(line -> isLineValid(line))
+                .filter(line -> {
+                    emptyLineNumber++;
+                    if (!line.matches("^(-[\\d]+|[\\d\\s]+)+") || line.trim().isEmpty()) {
+                        lines.add(emptyLineNumber);
+                        return false;
+                    }
+                    return true;
+                })
                 .map(line -> line.trim().split("[\\s]+"))
                 .forEach(arrayOfNumber -> {
                     String numbers = Arrays.stream(arrayOfNumber)
@@ -41,17 +46,8 @@ public class StreamProcessor {
                             .sum();
                     resultToWrite.add(String.format("%s=%s", numbers, sumOfNumbers));
                 });
-        addEmptyLines(resultToWrite, collectEmptyLines);
+        lines.forEach(lineNumber -> resultToWrite.add(lineNumber - 1, ""));
         writeLinesToFile(resultToWrite, resultFileName);
-    }
-
-    private boolean isLineValid(String line) {
-        emptyLineNumber++;
-        if (!line.matches("^(-[\\d]+|[\\d\\s]+)+") || line.trim().isEmpty()) {
-            collectEmptyLines.add(emptyLineNumber);
-            return false;
-        }
-        return true;
     }
 
     private void validateStringParameter(String paramValue, String paramName) {
@@ -70,9 +66,5 @@ public class StreamProcessor {
             writer.newLine();
         }
         writer.close();
-    }
-
-    private void addEmptyLines(List<String> addTo, List<Integer> from) {
-        from.forEach(x -> addTo.add(x - 1, ""));
     }
 }
