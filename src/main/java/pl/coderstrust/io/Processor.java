@@ -14,8 +14,8 @@ public class Processor {
     }
 
     public void process(String fileName, String resultFileName) throws IOException {
-        isInputPathValid(fileName);
-        isOutputPathValid(resultFileName);
+        validateStringParameter(fileName, "Input");
+        validateStringParameter(resultFileName, "Output");
         List<String> linesFromFile = fileProcessor.readLinesFromFile(fileName);
         List<String> resultLines = new ArrayList<>();
         for (String line : linesFromFile) {
@@ -24,23 +24,12 @@ public class Processor {
         fileProcessor.writeLinesToFile(resultLines, resultFileName);
     }
 
-    private boolean isInputPathValid(String fileName) {
-        if (fileName == null) {
-            throw new IllegalArgumentException("Input file path cannot be null");
+    private void validateStringParameter(String paramValue, String paramName) {
+        if (paramValue == null) {
+            throw new IllegalArgumentException(String.format("%s file path cannot be null", paramName));
         }
-        if (fileName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Input file path is empty");
+        if (paramValue.trim().isEmpty()) {
+            throw new IllegalArgumentException(String.format("%s file path is empty", paramName));
         }
-        return true;
-    }
-
-    private boolean isOutputPathValid(String resultFileName) {
-        if (resultFileName == null) {
-            throw new IllegalArgumentException("Output file path cannot be null");
-        }
-        if (resultFileName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Output file path is empty");
-        }
-        return true;
     }
 }

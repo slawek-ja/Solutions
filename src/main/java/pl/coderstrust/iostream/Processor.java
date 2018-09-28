@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class StreamProcessor {
+public class Processor {
 
     private List<Integer> lines = new ArrayList<>();
     private int emptyLineNumber = 0;

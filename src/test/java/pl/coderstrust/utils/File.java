@@ -8,8 +8,11 @@ import java.util.List;
 
 public class File {
     public List<String> read(String filePath) throws IOException {
-        if (isFilePathInvalid(filePath)) {
-            throw new IllegalArgumentException();
+        if (filePath == null) {
+            throw new IllegalArgumentException("File path cannot be null");
+        }
+        if (filePath.trim().isEmpty()) {
+            throw new IllegalArgumentException("Empty file path");
         }
         BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
         String currentLine;
@@ -18,9 +21,5 @@ public class File {
             result.add(currentLine);
         }
         return result;
-    }
-
-    private boolean isFilePathInvalid(String filePath) {
-        return filePath.isEmpty() || filePath == null;
     }
 }

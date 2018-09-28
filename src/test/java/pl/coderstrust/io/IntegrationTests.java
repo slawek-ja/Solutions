@@ -3,13 +3,11 @@ package pl.coderstrust.io;
 import static org.junit.Assert.assertEquals;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import pl.coderstrust.iostream.StreamProcessor;
 import pl.coderstrust.utils.File;
 import java.io.IOException;
 import java.util.List;
@@ -45,36 +43,5 @@ public class IntegrationTests {
 
         //then
         assertEquals(expected, processorOutputFile);
-    }
-
-    @Test
-    @Parameters(method = "addValuesForIoProcessorWhenGivenFilePathIsEmptyOrNull")
-    public void testForStreamProcessorWhenGivenFilePathIsEmpty(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
-        //given
-        StreamProcessor streamProcessor = new StreamProcessor();
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage(exceptionMessage);
-        streamProcessor.process(inputFilePath, outputFilePath);
-    }
-
-    private Object[] addValuesForStreamProcessorWhenGivenFilePathIsEmptyOrNull() {
-        return new Object[]{
-                new Object[]{"src\\test\\resources\\test_input.txt", "", "Output file path is empty"},
-                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "Input file path is empty"},
-                new Object[]{"", "", "Input file path is empty"}
-        };
-    }
-
-    @Test
-    public void testForStreamProcessorWhenGivenFilePathIsNull() throws IOException {
-        //given
-        StreamProcessor streamProcessor = new StreamProcessor();
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Input file path cannot be null");
-        streamProcessor.process(null, null);
     }
 }
