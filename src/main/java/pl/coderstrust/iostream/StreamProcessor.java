@@ -1,13 +1,12 @@
 package pl.coderstrust.iostream;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class StreamProcessor {
@@ -16,15 +15,14 @@ public class StreamProcessor {
     private int emptyLineNumber = 0;
 
     public void process(String fileName, String resultFileName) throws IOException {
-        isInputPathValid(fileName);
-        isOutputPathValid(resultFileName);
+        validateStringParameter(fileName, "Input");
+        validateStringParameter(resultFileName, "Output");
         List<String> resultToWrite = new ArrayList<>();
-        Stream<String> linesFromFile = Files.lines(Paths.get(fileName));
-        linesFromFile
-                .filter(w -> isLineValid(w))
-                .map(w -> w.trim().split("[\\s]+"))
-                .forEach(arrayNumbers -> {
-                    String numbers = Arrays.stream(arrayNumbers)
+        Files.lines(Paths.get(fileName))
+                .filter(line -> isLineValid(line))
+                .map(line -> line.trim().split("[\\s]+"))
+                .forEach(arrayOfNumber -> {
+                    String numbers = Arrays.stream(arrayOfNumber)
                             .reduce((num1, num2) -> {
                                 if (num1.matches("-[\\d]+")) {
                                     return String.format("(%s)+%s", num1, num2);
@@ -38,10 +36,10 @@ public class StreamProcessor {
                                 return String.format("%s+%s", num1, num2);
                             })
                             .get();
-                    long sum = Arrays.stream(arrayNumbers)
+                    long sumOfNumbers = Arrays.stream(arrayOfNumber)
                             .mapToLong(Long::parseLong)
                             .sum();
-                    resultToWrite.add(String.format("%s=%s", numbers, sum));
+                    resultToWrite.add(String.format("%s=%s", numbers, sumOfNumbers));
                 });
         addEmptyLines(resultToWrite, collectEmptyLines);
         writeLinesToFile(resultToWrite, resultFileName);
@@ -56,24 +54,13 @@ public class StreamProcessor {
         return true;
     }
 
-    private boolean isInputPathValid(String fileName) {
-        if (fileName == null) {
-            throw new IllegalArgumentException("Input file path cannot be null");
+    private void validateStringParameter(String paramValue, String paramName) {
+        if (paramValue == null) {
+            throw new IllegalArgumentException(String.format("%s file path cannot be null", paramName));
         }
-        if (fileName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Input file path is empty");
+        if (paramValue.trim().isEmpty()) {
+            throw new IllegalArgumentException(String.format("%s file path is empty", paramName));
         }
-        return true;
-    }
-
-    private boolean isOutputPathValid(String resultFileName) {
-        if (resultFileName == null) {
-            throw new IllegalArgumentException("Output file path cannot be null");
-        }
-        if (resultFileName.trim().isEmpty()) {
-            throw new IllegalArgumentException("Output file path is empty");
-        }
-        return true;
     }
 
     private void writeLinesToFile(List<String> lines, String filePath) throws IOException {
