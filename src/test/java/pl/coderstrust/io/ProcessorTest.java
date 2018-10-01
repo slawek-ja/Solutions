@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
+import pl.coderstrust.utils.ParameterValidator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +32,9 @@ public class ProcessorTest {
 
     @Mock
     private FileProcessor fileProcessor;
+
+    @Mock
+    private ParameterValidator parameterValidator;
 
     @InjectMocks
     private Processor processor;
@@ -60,10 +63,10 @@ public class ProcessorTest {
     }
 
     @Test
-    @Parameters(method = "addValuesForGivenFilePathIsEmptyOrNull")
+    @Parameters(method = "valuesForGivenFileNameIsEmptyOrNull")
     public void testForGivenFilePathIsEmptyOrNull(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
         //given
-        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
+        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor(), new ParameterValidator());
 
         //when
         thrown.expect(IllegalArgumentException.class);
@@ -71,13 +74,54 @@ public class ProcessorTest {
         processor.process(inputFilePath, outputFilePath);
     }
 
-    private Object[] addValuesForGivenFilePathIsEmptyOrNull() {
+    private Object[] valuesForGivenFileNameIsEmptyOrNull() {
         return new Object[]{
-                new Object[]{"src\\test\\resources\\test_input.txt", "", "Result file name cannot be empty"},
-                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "File name cannot be empty"},
-                new Object[]{"", "", "File name cannot be empty"},
-                new Object[]{null, "src\\test\\resources\\test_expected_output.txt", "File name cannot be null"},
-                new Object[]{"src\\test\\resources\\test_input.txt", null, "Result file name cannot be null"}
+                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "fileName cannot be empty"},
+                new Object[]{"", "", "fileName cannot be empty"},
+                new Object[]{null, "src\\test\\resources\\test_expected_output.txt", "fileName cannot be null"}
         };
+    }
+
+    @Test
+    @Parameters(method = "valuesForGivenResultFileNameIsEmptyOrNull")
+    public void testForGivenResultPathIsEmptyOrNull(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
+        //given
+        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor(), new ParameterValidator());
+
+        //when
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage(exceptionMessage);
+        processor.process(inputFilePath, outputFilePath);
+    }
+
+    private Object[] valuesForGivenResultFileNameIsEmptyOrNull() {
+        return new Object[]{
+                new Object[]{"src\\test\\resources\\test_input.txt", "", "resultFileName cannot be empty"},
+                new Object[]{"src\\test\\resources\\test_input.txt", null, "resultFileName cannot be null"}
+        };
+    }
+
+    @Test
+    public void testForNumbersProcessorIsNull() {
+        //when
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("NumbersProcessor cannot be null");
+        Processor processor = new Processor(null, new FileProcessor(), new ParameterValidator());
+    }
+
+    @Test
+    public void testForFileProcessorIsNull() {
+        //when
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("FileProcessor cannot be null");
+        Processor processor = new Processor(new NumbersProcessor(), null, new ParameterValidator());
+    }
+
+    @Test
+    public void testForParameterValidatorIsNull() {
+        //when
+        thrown.expect(NullPointerException.class);
+        thrown.expectMessage("ParameterValidator cannot be null");
+        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor(), null);
     }
 }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+import pl.coderstrust.utils.ParameterValidator;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,7 +24,8 @@ public class IntegrationTest {
     @Test
     public void testForCorrectBehaviour() throws IOException {
         //given
-        Processor processor = new Processor();
+        ParameterValidator parameterValidator = new ParameterValidator();
+        Processor processor = new Processor(parameterValidator);
         File expectedFile = new File("src\\test\\resources\\test_stream_expected_output.txt");
         String inputFilePath = "src\\test\\resources\\test_input.txt";
 

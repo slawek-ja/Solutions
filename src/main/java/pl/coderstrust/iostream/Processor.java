@@ -10,10 +10,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Processor {
+
+    private ParameterValidator parameterValidator;
+
+    public Processor(ParameterValidator parameterValidator) {
+        if (parameterValidator == null) {
+            throw new NullPointerException("ParameterValidator cannot be null");
+        }
+        this.parameterValidator = parameterValidator;
+    }
     public void process(String fileName, String resultFileName) throws IOException {
-        ParameterValidator parameterValidator = new ParameterValidator();
-        parameterValidator.validateStringParameter(fileName, "File name");
-        parameterValidator.validateStringParameter(resultFileName, "Result file name");
+        parameterValidator.validateStringParameter(fileName, "fileName");
+        parameterValidator.validateStringParameter(resultFileName, "resultFileName");
         List<String> lines = new ArrayList<>();
         Files.lines(Paths.get(fileName))
                 .filter(line -> line.matches("^(-[\\d]+|[\\d\\s]+)+"))

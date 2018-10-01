@@ -7,6 +7,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import pl.coderstrust.utils.ParameterValidator;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,7 +29,8 @@ public class IntegrationTests {
         //given
         NumbersProcessor numbersProcessor = new NumbersProcessor();
         FileProcessor fileProcessor = new FileProcessor();
-        Processor processor = new Processor(numbersProcessor, fileProcessor);
+        ParameterValidator parameterValidator = new ParameterValidator();
+        Processor processor = new Processor(numbersProcessor, fileProcessor, parameterValidator);
         File expectedFile = new File("src\\test\\resources\\test_expected_output.txt");
         String inputFilePath = "src\\test\\resources\\test_input.txt";
         //when
