@@ -1,5 +1,7 @@
 package pl.coderstrust.io;
 
+import pl.coderstrust.utils.ParameterValidator;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,29 +9,22 @@ import java.util.List;
 public class Processor {
     private NumbersProcessor numbersProcessor;
     private FileProcessor fileProcessor;
+    private ParameterValidator parameterValidator;
 
     public Processor(NumbersProcessor numbersProcessor, FileProcessor fileProcessor) {
         this.numbersProcessor = numbersProcessor;
         this.fileProcessor = fileProcessor;
+        this.parameterValidator = new ParameterValidator();
     }
 
     public void process(String fileName, String resultFileName) throws IOException {
-        validateStringParameter(fileName, "Input");
-        validateStringParameter(resultFileName, "Output");
+        parameterValidator.validateStringParameter(fileName, "File name");
+        parameterValidator.validateStringParameter(resultFileName, "Result file name");
         List<String> linesFromFile = fileProcessor.readLinesFromFile(fileName);
         List<String> resultLines = new ArrayList<>();
         for (String line : linesFromFile) {
             resultLines.add(numbersProcessor.processLine(line));
         }
         fileProcessor.writeLinesToFile(resultLines, resultFileName);
-    }
-
-    private void validateStringParameter(String paramValue, String paramName) {
-        if (paramValue == null) {
-            throw new IllegalArgumentException(String.format("%s file path cannot be null", paramName));
-        }
-        if (paramValue.trim().isEmpty()) {
-            throw new IllegalArgumentException(String.format("%s file path is empty", paramName));
-        }
     }
 }

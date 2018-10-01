@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +61,7 @@ public class ProcessorTest {
 
     @Test
     @Parameters(method = "addValuesForGivenFilePathIsEmptyOrNull")
-    public void testForGivenFilePathIsEmpty(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
+    public void testForGivenFilePathIsEmptyOrNull(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
         //given
         Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
 
@@ -72,21 +73,11 @@ public class ProcessorTest {
 
     private Object[] addValuesForGivenFilePathIsEmptyOrNull() {
         return new Object[]{
-                new Object[]{"src\\test\\resources\\test_input.txt", "", "Output file path is empty"},
-                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "Input file path is empty"},
-                new Object[]{"", "", "Input file path is empty"}
+                new Object[]{"src\\test\\resources\\test_input.txt", "", "Result file name cannot be empty"},
+                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "File name cannot be empty"},
+                new Object[]{"", "", "File name cannot be empty"},
+                new Object[]{null, "src\\test\\resources\\test_expected_output.txt", "File name cannot be null"},
+                new Object[]{"src\\test\\resources\\test_input.txt", null, "Result file name cannot be null"}
         };
     }
-
-    @Test
-    public void testForGivenFilePathIsNull() throws IOException {
-        //given
-        Processor processor = new Processor(new NumbersProcessor(), new FileProcessor());
-
-        //when
-        thrown.expect(IllegalArgumentException.class);
-        thrown.expectMessage("Input file path cannot be null");
-        processor.process(null, null);
-    }
-
 }
