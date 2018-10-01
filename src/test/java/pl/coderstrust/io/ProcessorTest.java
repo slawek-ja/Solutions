@@ -63,41 +63,40 @@ public class ProcessorTest {
     }
 
     @Test
-    @Parameters(method = "valuesForGivenFileNameIsEmptyOrNull")
-    public void testForGivenFilePathIsEmptyOrNull(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
+    @Parameters(method = "valuesForValidationOfInputFilePath")
+    public void testForValidationOfInputFilePath(String inputFilePath, String exceptionMessage) throws IOException {
         //given
         Processor processor = new Processor(new NumbersProcessor(), new FileProcessor(), new ParameterValidator());
 
         //when
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(exceptionMessage);
-        processor.process(inputFilePath, outputFilePath);
+        processor.process(inputFilePath, "src\\test\\resources\\test_expected_output.txt");
     }
 
-    private Object[] valuesForGivenFileNameIsEmptyOrNull() {
+    private Object[] valuesForValidationOfInputFilePath() {
         return new Object[]{
-                new Object[]{"", "src\\test\\resources\\test_expected_output.txt", "fileName cannot be empty"},
-                new Object[]{"", "", "fileName cannot be empty"},
-                new Object[]{null, "src\\test\\resources\\test_expected_output.txt", "fileName cannot be null"}
+                new Object[]{"", "fileName cannot be empty"},
+                new Object[]{null, "fileName cannot be null"}
         };
     }
 
     @Test
-    @Parameters(method = "valuesForGivenResultFileNameIsEmptyOrNull")
-    public void testForGivenResultPathIsEmptyOrNull(String inputFilePath, String outputFilePath, String exceptionMessage) throws IOException {
+    @Parameters(method = "valuesForValidationOfOutputFilePath")
+    public void testForValidationOfOutputFilePath(String outputFilePath, String exceptionMessage) throws IOException {
         //given
         Processor processor = new Processor(new NumbersProcessor(), new FileProcessor(), new ParameterValidator());
 
         //when
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(exceptionMessage);
-        processor.process(inputFilePath, outputFilePath);
+        processor.process("src\\test\\resources\\test_input.txt", outputFilePath);
     }
 
-    private Object[] valuesForGivenResultFileNameIsEmptyOrNull() {
+    private Object[] valuesForValidationOfOutputFilePath() {
         return new Object[]{
-                new Object[]{"src\\test\\resources\\test_input.txt", "", "resultFileName cannot be empty"},
-                new Object[]{"src\\test\\resources\\test_input.txt", null, "resultFileName cannot be null"}
+                new Object[]{"", "resultFileName cannot be empty"},
+                new Object[]{null, "resultFileName cannot be null"}
         };
     }
 
